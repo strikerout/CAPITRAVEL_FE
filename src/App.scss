@@ -1,0 +1,104 @@
+$primary-orange: #EB5436;
+$segunadary-orange: #BD3013;
+
+$beige: #FFF0CB;
+$green: #4C7031;
+$blue: #A5DBD3;
+$brown: #562210;
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    font-family: "Inter", sans-serif;
+}
+
+body{
+   
+    background-color: $beige;
+    padding: 70px 20px 0 20px;
+
+    header{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 0 20px;
+        background-color: $beige;
+       
+        .header-container{
+            display: flex;
+            height: 70px;
+            align-items: center;
+            justify-content: space-between;
+
+            .mobileControl{
+                background-color: $primary-orange;
+                display: none;
+                justify-content: center;
+                gap: 10px;
+                width: 95px;
+                height: 46px;
+                border-radius: 50px;
+                padding-right: 10px;
+                svg{
+                    width: 34px;
+                    color: white;
+                }
+                @media(max-width: 768px){
+                    display: flex;
+                }
+            }
+            .mobileLogo{
+                display: none;
+                @media(max-width: 768px){
+                    display: inline;
+                }
+            }
+            .desktopLogo{
+                display: inline;
+                @media(max-width: 768px){
+                    display: none;
+                }
+            }
+            .desktopControl{
+                display: flex;
+                gap: 10px;
+                @media(max-width: 768px){
+                    display: none;
+                }
+            }
+        }
+    }
+
+    button{
+        font-family: "Inter", sans-serif;
+        font-size: 16px;
+        line-height: 22px;
+    }
+
+    .primary-button{
+        border: none;
+        border-radius: 50px;
+        width: 152px;
+        height: 38px;
+        color: white;
+        font-weight: 600;
+        letter-spacing: 0.2px;
+        background-color: $primary-orange
+    }
+    .secundonary-button{
+        border: 1px solid $brown;
+        color: $brown;
+        border-radius: 50px;
+        width: 152px;
+        height: 38px;
+        font-weight: 400;
+        background-color: rgba(255, 255, 255, 0);
+
+    }
+}
+
