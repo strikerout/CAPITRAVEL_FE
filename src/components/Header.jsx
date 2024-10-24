@@ -15,7 +15,7 @@ const Header = () => {
 
         <img src="/capitravel_desktop.svg" alt="" className='desktopLogo'/>
         <div className='desktopControl'>
-          <button className='secundonary-button'>Crear Cuenta</button>
+          <button className='secundary-button'>Crear Cuenta</button>
           <button className='primary-button'>Iniciar Sesión</button>
         </div>
 
