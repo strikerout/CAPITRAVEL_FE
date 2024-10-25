@@ -4,7 +4,9 @@ import styles from './ProductCard.module.scss'
 const ProductCard = () => {
   return (
     <div className={styles.productCard}>
-      <img src="https://www.dummyimage.com/160x188/a1a1a1/000000" alt="" />
+      <div className={styles.productImg}>
+        <img src="https://i.pinimg.com/originals/56/dd/e4/56dde41aee17e96425987f751a9269ce.jpg" alt="" />
+      </div>
       <div className={styles.cardTitles}>
         <h3>Experience Example: short description and details.</h3>
         <div className={styles.cardProperties}>

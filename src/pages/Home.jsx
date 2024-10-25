@@ -15,24 +15,6 @@ const Home = () => {
         <img src="/map.svg" alt="" className='banner-map-img'/>
         <img src="/dotted_lines.svg" className='right-lines' alt="" />
       </div>
-      
-      <div className='home-cards'>
-        <ProductCard/>
-        <ProductCard/>
-        <ProductCard/>
-        <ProductCard/>
-        <ProductCard/>
-        <ProductCard/>
-      </div>
-
-      <div className='home-carousel'>
-        <img src="/blue_wave_mobile.svg" className='wave_mobileA' alt="" />
-        <div className='blue_square'>
-      
-        </div>
-        <img src="/blue_wave_mobile.svg" className='wave_mobileB' alt="" />
-        
-      </div>
 
       <div className='desktopCars'>
         <div class="grid-container">
@@ -55,6 +37,26 @@ const Home = () => {
           <div class="item item-10"><ProductCard/></div>
         </div>
       </div>
+      
+      {/* <div className='home-cards'>
+        <ProductCard/>
+        <ProductCard/>
+        <ProductCard/>
+        <ProductCard/>
+        <ProductCard/>
+        <ProductCard/>
+      </div> */}
+
+      <div className='home-carousel'>
+        <img src="/blue_wave_mobile.svg" className='wave_mobileA' alt="" />
+        <div className='blue_square'>
+      
+        </div>
+        <img src="/blue_wave_mobile.svg" className='wave_mobileB' alt="" />
+        
+      </div>
+
+      
       
     </div>
   )
