@@ -1,0 +1,45 @@
+@use '../../variables' as *; 
+// Carousel mod
+
+.swiper {
+    width: 100%;
+    height: 100%;
+  }
+
+  .mySwiper{
+    height: 400px;
+}
+  
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+  }
+
+.swiper-slide a:first-child {
+    height: 340px;
+    flex-direction: column;
+    text-decoration: none;
+
+  }
+  .swiper-slide  .productImg{
+    width: 100% !important;
+    height: 50% !important;
+  }
+  .swiper-slide .cardTitles{
+    max-width: 300px;
+   
+  }
+
+  .swiper-slide .cardProperties{
+    height: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: 10px;
+    .property{
+        display: flex;
+        flex-direction: row;
+    }
+  }
