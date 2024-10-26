@@ -21,6 +21,10 @@
 }
 
 body{
+    h2{
+        font-family: "Unbounded", sans-serif;
+        color: $brown;
+    }
    
     background-color: $beige;
     padding: 70px 0 0 0;
@@ -190,12 +194,11 @@ body{
 
     .top10-header{
         text-align: center;
-        font-family: "Unbounded", sans-serif;
-        color: $brown;
         padding: 0 45x;
         height: 80px;
         margin: 40px 0;
         position: relative;
+        color: $brown;
         @media(min-width: $mobile){
             display: flex;
             justify-content: center;
@@ -224,15 +227,6 @@ body{
             }
         }
     }
-
-    // .home-cards{
-    //     display: flex;
-    //     width: 100%;
-    //     flex-wrap: wrap;
-    //     gap: 15px;
-    //     justify-content: center;
-    //     padding: 0 20px;
-    // }
 
     .desktopCars{
         width: 90%;
@@ -293,16 +287,79 @@ body{
         display: flex;
         flex-direction: column;
         margin-top: 50px;
+        overflow: hidden;
 
-        .wave_mobileB {
-            transform: rotate(180deg);
+        .waveMobile{
+            display: inline;
+            @media (min-width: $mobile){
+                display: none;
+            }
         }
-        .blue_square {
+        .waveDesktop{
+            display: none;
+            @media (min-width: $mobile){
+                display: inline;
+            }
+        }
+
+        .carouselHeader{
+            position: absolute;
+            top: 100px;
+            color: $brown;
+            text-align: center;
             width: 100%;
-            height: 450px;
-            background-color: $blue;
-           
+            h2{
+                padding: 10px;
+            }
+            p{
+                font-size: 20px;
+                font-weight: 200;
+            }
+        }
+
+
+        .swiper {
+            width: 100%;
+            height: 100%;
+            padding-left: 10px;
           }
+
+          .mySwiper{
+            position: absolute;
+            top: 170px;
+            height: 400px;
+        }
+          
+          .swiper-slide {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+          }
+          
+          .swiper-slide div:first-child {
+            height: 340px;
+            width: 100%;
+            
+            flex-direction: column;
+          }
+          .swiper-slide .cardTitles{
+            max-width: 300px;
+          }
+
+          .swiper-slide .cardProperties{
+            height: 30px;
+            display: flex;
+            flex-direction: column;
+            .property{
+                display: flex;
+                flex-direction: row;
+            }
+          }
+
+
+     
+
     }
 }
 

@@ -1,6 +1,7 @@
 import React from 'react'
 import Banner from '../components/Banner'
 import ProductCard from '../components/Cards/ProductCard'
+import Carousel from '../components/Carousel/Carousel'
 
 const Home = () => {
   return (
@@ -48,12 +49,14 @@ const Home = () => {
       </div> */}
 
       <div className='home-carousel'>
-        <img src="/blue_wave_mobile.svg" className='wave_mobileA' alt="" />
-        <div className='blue_square'>
-      
+        <img src="/blue_wave_mobile.svg" alt=""  className='waveMobile'/>
+        <img src="/blue_wave_desktop.svg" alt="" className='waveDesktop' />
+        <div className='carouselHeader'>
+          <h2>You can't miss it!</h2>
+          <p>meet experiences</p>
         </div>
-        <img src="/blue_wave_mobile.svg" className='wave_mobileB' alt="" />
-        
+      
+        <Carousel/>
       </div>
 
       
