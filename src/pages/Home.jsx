@@ -20,7 +20,7 @@ const Home = () => {
       <div className='desktopCars'>
         <div class="grid-container">
           {/* <!-- Fila 1 --> */}
-          <div class="item item-1"><ProductCard/></div>
+          <div class="item item-1"><ProductCard id={"1"}/></div>
           <div class="item item-2"><ProductCard/></div>
           <div class="item item-3"><ProductCard/></div>
           
@@ -39,14 +39,6 @@ const Home = () => {
         </div>
       </div>
       
-      {/* <div className='home-cards'>
-        <ProductCard/>
-        <ProductCard/>
-        <ProductCard/>
-        <ProductCard/>
-        <ProductCard/>
-        <ProductCard/>
-      </div> */}
 
       <div className='home-carousel'>
         <img src="/blue_wave_mobile.svg" alt=""  className='waveMobile'/>
