@@ -18,38 +18,41 @@ const Home = () => {
       </div>
 
       <div className='desktopCars'>
-        <div class="grid-container">
+        <div className="grid-container">
           {/* <!-- Fila 1 --> */}
-          <div class="item item-1"><ProductCard id={"1"}/></div>
-          <div class="item item-2"><ProductCard/></div>
-          <div class="item item-3"><ProductCard/></div>
+          <div className="item item-1"><ProductCard id={"1"}/></div>
+          <div className="item item-2"><ProductCard/></div>
+          <div className="item item-3"><ProductCard/></div>
           
           {/* <!-- Fila 2 --> */}
-          <div class="item item-4"><ProductCard/></div>
-          <div class="item item-5"><ProductCard/></div>
+          <div className="item item-4"><ProductCard/></div>
+          <div className="item item-5"><ProductCard/></div>
           
           {/* <!-- Fila 3 --> */}
-          <div class="item item-6"><ProductCard/></div>
-          <div class="item item-7"><ProductCard/></div>
-          <div class="item item-8"><ProductCard/></div>
-          <div class="item item-9"><ProductCard/></div>
+          <div className="item item-6"><ProductCard/></div>
+          <div className="item item-7"><ProductCard/></div>
+          <div className="item item-8"><ProductCard/></div>
+          <div className="item item-9"><ProductCard/></div>
           
           {/* <!-- Fila 4 --> */}
-          <div class="item item-10"><ProductCard/></div>
+          <div className="item item-10"><ProductCard/></div>
         </div>
       </div>
       
+      <section>
+        <div className='home-carousel'>
+          <img src="/blue_wave_mobile.svg" alt="" className='waveMobile' />
+          <img src="/blue_wave_desktop.svg" alt="" className='waveDesktop' />
+          <div className='carouselHeader'>
+            <h2>You can't miss it!</h2>
+            <p>meet experiences</p>
+          </div>
 
-      <div className='home-carousel'>
-        <img src="/blue_wave_mobile.svg" alt=""  className='waveMobile'/>
-        <img src="/blue_wave_desktop.svg" alt="" className='waveDesktop' />
-        <div className='carouselHeader'>
-          <h2>You can't miss it!</h2>
-          <p>meet experiences</p>
+          <Carousel />
         </div>
+
+      </section>
       
-        <Carousel/>
-      </div>
 
       
       
