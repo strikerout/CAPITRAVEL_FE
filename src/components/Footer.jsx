@@ -13,7 +13,7 @@ const Footer = () => {
       </div>
       <div className={styles.footerBar}>
         <img src="/github_logo.svg" alt="" />
-        <p> Proyecto Integrador - Digita House</p>
+        <p> Proyecto Integrador - Digital House</p>
       </div>
 
     </footer>
