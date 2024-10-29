@@ -21,20 +21,20 @@ html {
     margin: 0;
     overflow-x: hidden;
 }
-:root{
+#root{
     font-family: "Inter", sans-serif;
-    display: flex; 
-    flex-direction: column; 
-    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
 }
 
-main {
-    flex: 1; 
+#root > div{
+    
+    flex-grow: 1;
 }
 
-footer {
-    margin-top: auto; 
-}
+
 body{
 
     h2{
@@ -310,6 +310,10 @@ body{
         display: flex;
         flex-direction: column;
         margin-top: 20px;
+        @media (min-width: $mobile){
+            margin-bottom: 300px;
+        }
+        
         .waveMobile,
         .waveDesktop {
             max-height: 300vh; // Ajusta según tu necesidad
@@ -357,6 +361,49 @@ body{
     .product{
         .rateAndBookContainer{
             padding: 0 20px;
+        }
+    }
+
+    input{
+        border: 1px $brown solid;
+        height: 30px;
+        border-radius: 10px;
+        padding: 0 10px;
+    }
+
+    .adminForm{
+        width: 300px;
+        margin: 0 auto;
+        margin-bottom: 10px;
+        div{
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px;
+        }
+        .buttonsContainer{
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+        }
+    }
+
+    .headerList{
+        display: grid;
+        grid-template-columns: 1fr 2fr 4fr 1fr ;
+
+    }
+
+    .bodyList{
+        display: flex;
+        flex-direction: column;
+        li{
+            display: grid;
+            grid-template-columns: 1fr 2fr 4fr 1fr ;
+            div{
+                color: $brown;
+                display: flex;
+                gap: 10px;
+            }
         }
     }
 }
