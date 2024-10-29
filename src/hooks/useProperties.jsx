@@ -21,7 +21,7 @@ const useProperties = () => {
 
     const fetchPropertyByID = async (id) => {
         try {
-            const property = await getExperienceByID(id);
+            const property = await getPropertyByID(id);
             return property;
         } catch (err) {
             setError(err);
