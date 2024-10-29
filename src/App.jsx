@@ -4,8 +4,7 @@ import Header from './components/Header'
 import Home from './pages/Home'
 import {Routes, Route } from 'react-router-dom';
 import Product from './pages/Product';
-import { AddCaregory } from './components/Categories/AddCaregory';
-import ListCategories from './components/Categories/ListCategories';
+import AdminPanel from './pages/AdminPanel';
 
 function App() {
 
@@ -15,8 +14,7 @@ function App() {
     <Routes className="body">
       <Route path='/' element={<Home/>}/>
       <Route path='/product/:id' element={<Product/>}/>
-      <Route path='/addcategories' element={<AddCaregory/>}/>
-      <Route path='/listcategories' element={<ListCategories/>}/>
+      <Route path='/adminpanel' element={<AdminPanel/>}/>
     </Routes>
     <Footer />
     </>

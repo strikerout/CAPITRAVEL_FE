@@ -27,6 +27,10 @@ const useExperiences = () => {
         }
     };
 
+    useEffect(() => {
+        fetchExperiences();
+    }, []);
+
     const addExperience = async (newExperience) => {
         try {
             const createdExperience = await createExperience(newExperience);
@@ -56,9 +60,7 @@ const useExperiences = () => {
         }
     };
 
-    useEffect(() => {
-        fetchExperiences();
-    }, []);
+   
 
     return {
         fetchExperiences,

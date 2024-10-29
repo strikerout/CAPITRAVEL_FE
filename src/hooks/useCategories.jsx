@@ -31,6 +31,8 @@ const useCategories = () => {
     fetchCategories();
   }, []);
 
+
+
   // Agregar una nueva categoría
   const addCategory = async (category) => {
     try {

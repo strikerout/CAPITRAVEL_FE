@@ -363,5 +363,48 @@ body{
             padding: 0 20px;
         }
     }
+
+    input{
+        border: 1px $brown solid;
+        height: 30px;
+        border-radius: 10px;
+        padding: 0 10px;
+    }
+
+    .adminForm{
+        width: 300px;
+        margin: 0 auto;
+        margin-bottom: 10px;
+        div{
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px;
+        }
+        .buttonsContainer{
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+        }
+    }
+
+    .headerList{
+        display: grid;
+        grid-template-columns: 1fr 2fr 4fr 1fr ;
+
+    }
+
+    .bodyList{
+        display: flex;
+        flex-direction: column;
+        li{
+            display: grid;
+            grid-template-columns: 1fr 2fr 4fr 1fr ;
+            div{
+                color: $brown;
+                display: flex;
+                gap: 10px;
+            }
+        }
+    }
 }
 
