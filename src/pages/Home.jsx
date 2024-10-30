@@ -1,7 +1,7 @@
 import React from 'react'
 import Banner from '../components/Banner'
-import ProductCard from '../components/Cards/ProductCard'
 import Carousel from '../components/Carousel/Carousel'
+import ExperiencesList from '../components/Pagination/ExperiencesList'
 
 const Home = () => {
   return (
@@ -16,28 +16,8 @@ const Home = () => {
         <img src="/map.svg" alt="" className='banner-map-img'/>
          <img src="/dotted_lines.svg" className='right-lines' alt="" /> 
       </div>
-
-      <div className='desktopCars'>
-        <div className="grid-container">
-          {/* <!-- Fila 1 --> */}
-          <div className="item item-1"><ProductCard id={"1"}/></div>
-          <div className="item item-2"><ProductCard/></div>
-          <div className="item item-3"><ProductCard/></div>
-          
-          {/* <!-- Fila 2 --> */}
-          <div className="item item-4"><ProductCard/></div>
-          <div className="item item-5"><ProductCard/></div>
-          
-          {/* <!-- Fila 3 --> */}
-          <div className="item item-6"><ProductCard/></div>
-          <div className="item item-7"><ProductCard/></div>
-          <div className="item item-8"><ProductCard/></div>
-          <div className="item item-9"><ProductCard/></div>
-          
-          {/* <!-- Fila 4 --> */}
-          <div className="item item-10"><ProductCard/></div>
-        </div>
-      </div>
+      
+      <ExperiencesList/>
       
       <section>
         <div className='home-carousel'>
