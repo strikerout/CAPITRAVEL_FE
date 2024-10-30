@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import Banner from '../components/Banner'
-import ProductCard from '../components/Cards/ProductCard'
 import Carousel from '../components/Carousel/Carousel'
 import Search from '../components/Search'
 import CategoriesHome from '../components/CategoriesHome'
 import useExperiences from '../hooks/useExperience'
+import ExperiencesList from '../components/Pagination/ExperiencesList'
 
 
 const Home = () => {
@@ -28,6 +28,8 @@ const Home = () => {
          <img src="/dotted_lines.svg" className='right-lines' alt="" /> 
       </div>
 
+      
+      <ExperiencesList/>
 
       
       <section>
