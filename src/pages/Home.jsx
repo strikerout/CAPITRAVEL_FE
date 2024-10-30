@@ -1,23 +1,36 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Banner from '../components/Banner'
 import Carousel from '../components/Carousel/Carousel'
+import Search from '../components/Search'
+import CategoriesHome from '../components/CategoriesHome'
+import useExperiences from '../hooks/useExperience'
 import ExperiencesList from '../components/Pagination/ExperiencesList'
 
+
 const Home = () => {
+  const {experiences, loading} = useExperiences();
+  let index = 1;
+
   return (
     <div>
+      <Search/>
+      <CategoriesHome/>
       <Banner/>
+
+      
       <div className='top10-header'>
          <img src="/dotted_lines.svg" className='left-lines' alt="" /> 
         <div>
-          <h2>TOP 10 EXPERIENCES</h2>
+          <h2>TOP CAPI-EXPERIENCES</h2>
           <p>Favorite experiences based on our travelers</p>
         </div>
         <img src="/map.svg" alt="" className='banner-map-img'/>
          <img src="/dotted_lines.svg" className='right-lines' alt="" /> 
       </div>
+
       
       <ExperiencesList/>
+
       
       <section>
         <div className='home-carousel'>
@@ -28,7 +41,7 @@ const Home = () => {
             <p>meet experiences</p>
           </div>
 
-          <Carousel />
+          <Carousel data={experiences}/>
         </div>
 
       </section>

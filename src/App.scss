@@ -95,6 +95,7 @@ body{
             }
             .mobileLogo{
                 display: none;
+                flex-grow: 1;
                 @media(max-width: $mobile){
                     display: inline;
                 }
@@ -149,12 +150,58 @@ body{
 
     }
 
+    .search{
+        width: 60%;
+        margin: 0 auto;
+        form{
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+            input{
+                width: 100%;
+            }
+            button{
+                width: 250px;
+            }
+            @media(min-width: $mobile){
+                flex-direction: row;
+            }
+        }
+    }
+
+    .categoriesHome{
+        width: 60%;
+        margin: 0 auto;
+        margin-top: 10px;
+        ul{
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 10px;
+            li{ 
+                border-radius: 10px;
+                p{
+                    border-radius: 10px;
+                    color: $brown;
+                    padding: 5px;
+                    background-color: rgba(255, 255, 255, 0.5);
+                }
+            }
+        }
+    }
+
     .banner{
         height: 230px;
         position: relative;
         margin: 0 auto;
         width: 90%;
         max-width: 1250px;
+        @media(min-width: $mobile){
+            height: 210px;
+        }
 
         .banner-map-img{
             position: absolute;

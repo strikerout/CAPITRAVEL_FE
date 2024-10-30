@@ -69,8 +69,10 @@
                 }
             }
             @media(min-width: $mobile){
+                width: 100vw;
                 display: flex;
                 gap: 20px;
+ 
             }
             
         }

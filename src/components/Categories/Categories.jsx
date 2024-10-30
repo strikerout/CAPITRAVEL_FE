@@ -92,6 +92,7 @@ const Categories = () => {
             {errors.name && <p className="error">{errors.name}</p>}
           </div>
 
+
           <div>
             <label htmlFor="description">Description</label>
             <input
