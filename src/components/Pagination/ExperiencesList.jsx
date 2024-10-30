@@ -26,12 +26,12 @@ export const ExperiencesList = () => {
         <div className="grid-container">
           {/* <!-- Fila 1 --> */}
           {experiences
-            .map((experiences, index) => (
+            .map((experience, index) => (
               <div
                 className={`item item-${indexElements(index)}`}
-                key={experiences.id}
+                key={experience.id}
               >
-                <ProductCard {...experiences} />
+                <ProductCard data={experience}/>
               </div>
             ))
             .slice(firstIndex, lastIndex)}
