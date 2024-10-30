@@ -22,27 +22,22 @@ export const Pagination = ({
     setCurrentPage(n);
   };
   return (
-    <nav className="Pagination is-centered">
+    <nav className={styles.navbar}>
       <button
-        className="pagination-previous"
+        className={styles.navbutton}
         disabled={currentPage === 1 ? true : false}
         onClick={onPreviousPage}
       >
         Previous
       </button>
-      <button
-        className="pagination-next"
-        disabled={currentPage >= pageNumbers.length ? true : false}
-        onClick={onNextPage}
-      >
-        Next page
-      </button>
-      <ul className="PaginationList">
+      <ul className={styles.navlist}>
         {pageNumbers.map((noPage) => (
           <li key={noPage}>
             <button
-              className={`pagination-link ${
-                noPage === currentPage ? `${styles.colorbutton}` : ""
+              className={`${
+                noPage === currentPage
+                  ? `${styles.navlistbuttonSelected}`
+                  : `${styles.navlistbutton}`
               }`}
               onClick={() => onSpecificPage(noPage)}
             >
@@ -51,6 +46,13 @@ export const Pagination = ({
           </li>
         ))}
       </ul>
+      <button
+        className={styles.navbutton}
+        disabled={currentPage >= pageNumbers.length ? true : false}
+        onClick={onNextPage}
+      >
+        Next page
+      </button>
     </nav>
   );
 };

@@ -13,7 +13,6 @@ export const ExperiencesList = () => {
   const lastIndex = currentPage * experiencePerPage;
   const firstIndex = lastIndex - experiencePerPage;
 
-  
   const experiencesList = async () => {
     const experiences = await getExperiences();
 
@@ -25,8 +24,11 @@ export const ExperiencesList = () => {
   useEffect(() => {
     experiencesList();
   }, []);
+ 
 
-
+  function indexElements(index) {
+    return (index % 10) + 1;
+  }
 
   return (
     <>
@@ -34,8 +36,11 @@ export const ExperiencesList = () => {
         <div className="grid-container">
           {/* <!-- Fila 1 --> */}
           {experiences
-            .map((experiences) => (
-              <div className={"item item-"+`${experiences.id}`} key={experiences.id}>
+            .map((experiences, index) => (
+              <div
+                className={`item item-${indexElements(index)}`}
+                key={experiences.id}
+              >
                 <ProductCard {...experiences} />
               </div>
             ))
