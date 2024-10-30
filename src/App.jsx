@@ -14,7 +14,7 @@ function App() {
     <Routes className="body">
       <Route path='/' element={<Home/>}/>
       <Route path='/product/:id' element={<Product/>}/>
-      <Route path='/adminpanel' element={<AdminPanel/>}/>
+      <Route path='/adminpanel/*' element={<AdminPanel/>}/>
     </Routes>
     <Footer />
     </>
