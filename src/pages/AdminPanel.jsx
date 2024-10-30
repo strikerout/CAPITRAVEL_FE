@@ -1,5 +1,6 @@
 import React from "react";
 import { Routes, Route, NavLink } from "react-router-dom";
+import Experiences from "../components/Experiences/Experiences"
 import Categories from "../components/Categories/Categories";
 import Properties from "../components/Properties/Properties";
 import arrowIcon from "../../public/arrow.svg";
@@ -10,6 +11,14 @@ const AdminPanel = () => {
     <>
       <section className="adminPanel">
       <nav className="menuAdminPanel">
+      <NavLink
+          to="experiences"
+          className={({ isActive }) =>
+            isActive ? "navlink-active" : "navlink-default"
+          }
+        >
+          Experiences <img src={arrowIcon} alt="arrow" />
+        </NavLink>
         <NavLink
           to="categories"
           className={({ isActive }) =>
@@ -32,6 +41,7 @@ const AdminPanel = () => {
         <Routes>
           <Route path="categories" element={<Categories />} />
           <Route path="properties" element={<Properties />} />
+          <Route path="experiences" element={<Experiences />} />
         </Routes>
       </div>     
     </section>
