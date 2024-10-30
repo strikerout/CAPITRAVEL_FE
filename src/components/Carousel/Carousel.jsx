@@ -3,6 +3,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useSwiper } from 'swiper/react';
 import ProductCard from "../Cards/ProductCard";
+import useExperiences from '../../hooks/useExperience'
 
 
 
@@ -19,6 +20,10 @@ import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper/module
 
 export default function Carousel() {
   const swiper = useSwiper();
+  const {experiences, error, loading} = useExperiences();
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
 
 
   return (
@@ -49,15 +54,9 @@ export default function Carousel() {
         modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
         className="mySwiper"
       >
-        <SwiperSlide><ProductCard/></SwiperSlide>
-        <SwiperSlide><ProductCard/></SwiperSlide>
-        <SwiperSlide><ProductCard/></SwiperSlide>
-        <SwiperSlide><ProductCard/></SwiperSlide>
-        <SwiperSlide><ProductCard/></SwiperSlide>
-        <SwiperSlide><ProductCard/></SwiperSlide>
-        <SwiperSlide><ProductCard/></SwiperSlide>
-        <SwiperSlide><ProductCard/></SwiperSlide>
-        <SwiperSlide><ProductCard/></SwiperSlide>
+        {experiences.map((experience)=>(
+             <SwiperSlide key={experience.id}><ProductCard data={experience}/></SwiperSlide>
+          ))}
       </Swiper>
     </>
   );

@@ -1,16 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Banner from '../components/Banner'
 import ProductCard from '../components/Cards/ProductCard'
 import Carousel from '../components/Carousel/Carousel'
+import Search from '../components/Search'
+import CategoriesHome from '../components/CategoriesHome'
+import useExperiences from '../hooks/useExperience'
+
 
 const Home = () => {
+  const {experiences, loading} = useExperiences();
+  let index = 1;
+
   return (
     <div>
+      <Search/>
+      <CategoriesHome/>
       <Banner/>
+
+      
       <div className='top10-header'>
          <img src="/dotted_lines.svg" className='left-lines' alt="" /> 
         <div>
-          <h2>TOP 10 EXPERIENCES</h2>
+          <h2>TOP CAPI-EXPERIENCES</h2>
           <p>Favorite experiences based on our travelers</p>
         </div>
         <img src="/map.svg" alt="" className='banner-map-img'/>
@@ -18,25 +29,35 @@ const Home = () => {
       </div>
 
       <div className='desktopCars'>
-        <div className="grid-container">
+        {loading ? null :
+          <div className="grid-container">
+
           {/* <!-- Fila 1 --> */}
-          <div className="item item-1"><ProductCard id={"1"}/></div>
-          <div className="item item-2"><ProductCard/></div>
-          <div className="item item-3"><ProductCard/></div>
+          {experiences.slice(0, 3).map((experience)=>(
+              <div key={experience.id} className={'item' + ' ' + 'item-'+(index++)}><ProductCard data={experience}/></div>
+          ))}
+
+ 
           
           {/* <!-- Fila 2 --> */}
-          <div className="item item-4"><ProductCard/></div>
-          <div className="item item-5"><ProductCard/></div>
-          
+          {experiences.slice(3, 5).map((experience)=>(
+              <div key={experience.id}  className={'item' + ' ' + 'item-'+(index++)}><ProductCard data={experience}/></div>
+          ))}
+
+
           {/* <!-- Fila 3 --> */}
-          <div className="item item-6"><ProductCard/></div>
-          <div className="item item-7"><ProductCard/></div>
-          <div className="item item-8"><ProductCard/></div>
-          <div className="item item-9"><ProductCard/></div>
+          {experiences.slice(5, 8).map((experience)=>(
+              <div key={experience.id}   className={'item' + ' ' + 'item-'+(index++)}><ProductCard data={experience}/></div>
+          ))}
+
           
           {/* <!-- Fila 4 --> */}
-          <div className="item item-10"><ProductCard/></div>
+          {experiences.slice(8, 10).map((experience)=>(
+              <div key={experience.id}  className={'item' + ' ' + 'item-'+(index++)}><ProductCard data={experience}/></div>
+          ))}
         </div>
+        }
+        
       </div>
       
       <section>
@@ -48,7 +69,7 @@ const Home = () => {
             <p>meet experiences</p>
           </div>
 
-          <Carousel />
+          <Carousel data={experiences}/>
         </div>
 
       </section>
