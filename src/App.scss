@@ -419,33 +419,53 @@ body{
         }
     }
 
-    .adminPanel{
+    .adminPanel {
         display: grid;
-        grid-template-columns: 15% 85% ;
+        grid-template-columns: 15% 85%;
         height: 100vh;
-
-        .menuAdminPanel{
-        background-color: $white;
+    
+        @media (max-width: 800px) {
+            display: none;
+        }
+    
+        .menuAdminPanel {
+            background-color: $white;
+            display: flex;
+            flex-direction: column;
+    
+            .navlink-default {
+                color: $brown;
+                padding: 16px;
+                margin-bottom: 5px;
+                display: flex;
+                align-items: baseline;
+                justify-content: space-between;
+            }
+    
+            .navlink-active, 
+            .navlink-default:hover {
+                background-color: $beige;
+                color: $brown;
+                padding: 16px;
+                margin-bottom: 5px;
+                display: flex;
+                align-items: baseline;
+                justify-content: space-between;
+            }
+        }
+    }
+    
+    .mobileView{
         display: flex;
         flex-direction: column;
-            .navlink-default{
-            color: $brown;
-            padding: 16px;
-            margin-bottom: 5px;
-            display: flex;
-            align-items:baseline;
-            justify-content: space-between;
-            }
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 16px;
+        gap: 16px;
 
-            .navlink-active, .navlink-default:hover{
-            background-color: $beige;
-            color: $brown;
-            padding: 16px;
-            margin-bottom: 5px;
-            display: flex;
-            align-items:baseline;
-            justify-content: space-between;
-            }
+        @media (min-width: 780px) {
+            display: none;
         }
     }
 

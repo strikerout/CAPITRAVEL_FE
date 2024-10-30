@@ -3,10 +3,12 @@ import { Routes, Route, NavLink } from "react-router-dom";
 import Categories from "../components/Categories/Categories";
 import Properties from "../components/Properties/Properties";
 import arrowIcon from "../../public/arrow.svg";
+import capiCamp from "../../public/capi_camp.svg";
 
 const AdminPanel = () => {
   return (
-    <section className="adminPanel">
+    <>
+      <section className="adminPanel">
       <nav className="menuAdminPanel">
         <NavLink
           to="categories"
@@ -31,8 +33,14 @@ const AdminPanel = () => {
           <Route path="categories" element={<Categories />} />
           <Route path="properties" element={<Properties />} />
         </Routes>
-      </div>
+      </div>     
     </section>
+    <div className="mobileView">
+        <img src={capiCamp} alt="Icon of capibara" />
+        <h2>Oops! This panel isn't available on small devices</h2>
+        <p>We recommend opening it on your computer for the best experience. 😊</p>
+    </div>
+    </>
   );
 };
 
