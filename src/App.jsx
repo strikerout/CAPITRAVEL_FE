@@ -19,7 +19,7 @@ function App() {
       <Route path='/adminpanel/*' element={<AdminPanel/>}/>
 
     </Routes>
-    <Footer />
+    {/* <Footer /> */}
     </>
 
   )

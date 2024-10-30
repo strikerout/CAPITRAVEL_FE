@@ -5,7 +5,7 @@ import PrimaryButton from '../components/Buttons/PrimaryButton'
 
 const ImageUploader = () => {
 
-  const { base64Image, convertToBase64 } = useBase64(); 
+  const { base64Images, convertToBase64 } = useBase64(); 
   const {fetchExperiences,
     fetchExperienceByID,
     experiences,
@@ -28,10 +28,12 @@ const ImageUploader = () => {
     const [idToEdit, setIdToEdit] = useState('');
 
   const handleChange = async (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      await convertToBase64(file);
-    }
+    // const file = e.target.files[0];
+    // if (file) {
+    //   await convertToBase64(file);
+    const files = Array.from(e.target.files);
+    await convertToBase64(files);
+    //}
   };
 
   const handleAddExperience = () => {
@@ -138,7 +140,7 @@ const ImageUploader = () => {
     <>
     <form className='adminForm' onSubmit={handleSubmit}>
 
-      <div>
+      {/* <div>
           <label for='title'>Title</label>
           <input
             type="text"
@@ -260,7 +262,7 @@ const ImageUploader = () => {
             }}
             required
           />
-        </div>
+        </div> */}
 
 
         <div>
@@ -270,16 +272,19 @@ const ImageUploader = () => {
             id='image1'
             accept="image/*"
             onChange={handleChange}
+            multiple
             required
           />
-          {base64Image && <img src={base64Image} alt="Preview" style={{ width: '100px' }} />}
+            {base64Images.map((image, index) => (
+          <img key={index} src={image} alt={`Preview ${index + 1}`} style={{ width: '100px', margin: '5px' }} />
+        ))}
         </div>
 
         {/* falta imput para imagen 2 */}
 
 
 
-      {base64Image ? console.log(base64Image) : null}
+      {base64Images ? console.log(base64Images) : null}
 
       {idToEdit ? 
           <div className='buttonsContainer'>
