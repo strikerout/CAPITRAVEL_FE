@@ -249,7 +249,7 @@ body{
             z-index: -1;
         }
         .left-lines{
-             left: 3px;
+            left: 3px;
             transform: rotate(180deg);
         }
         .right-lines{
@@ -306,10 +306,9 @@ body{
             
             /* Todos los elementos ocupan toda la fila (1 columna) */
             .item {
-              grid-column: span 1;
+                grid-column: span 1;
             }
-          }
-          
+        }
     }
 
     .home-carousel{
@@ -356,7 +355,7 @@ body{
             @media (min-width: $mobile){
                 margin-top: 300px;
             }
-          
+
             h2{
                 padding: 10px;
             }
@@ -373,22 +372,79 @@ body{
         }
     }
 
+    .adminPanel{
+        display: grid;
+        grid-template-columns: 15% 85% ;
+        height: 100vh;
+
+        .menuAdminPanel{
+        background-color: $white;
+        display: flex;
+        flex-direction: column;
+            .navlink-default{
+            color: $brown;
+            padding: 16px;
+            margin-bottom: 5px;
+            display: flex;
+            align-items:baseline;
+            justify-content: space-between;
+            }
+
+            .navlink-active, .navlink-default:hover{
+            background-color: $beige;
+            color: $brown;
+            padding: 16px;
+            margin-bottom: 5px;
+            display: flex;
+            align-items:baseline;
+            justify-content: space-between;
+            }
+        }
+    }
+
+    label{
+        color: $brown;
+        font-size: 15px;
+        font-weight: 500;
+        margin-bottom: 5px;
+    }
+
     input{
-        border: 1px $brown solid;
-        height: 30px;
-        border-radius: 10px;
+        border: 1px $lightBrown solid;
+        height: 44px;
+        border-radius: 8px;
         padding: 0 10px;
+        margin-bottom: 5px;
+    }
+
+    .margin-temporary{
+        margin:  10px 30px;
     }
 
     .adminForm{
-        width: 300px;
+        background-color: $white;
+        border-radius: 10px;
+        height: 500px;
+        width:500px;
         margin: 0 auto;
-        margin-bottom: 10px;
+        margin-bottom: 20px;
+        padding: 20px;
+
+        h4{
+            margin-bottom: 10px;
+        }
+
         div{
             display: flex;
             flex-direction: column;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
         }
+
+        p{  
+            color: $brown;
+            font-size: 14px;
+        }
+
         .buttonsContainer{
             display: flex;
             flex-direction: row;
@@ -399,21 +455,31 @@ body{
     .headerList{
         display: grid;
         grid-template-columns: 1fr 2fr 4fr 1fr ;
+        margin: 40px;
 
     }
 
     .bodyList{
+        margin: 25px;
         display: flex;
         flex-direction: column;
         li{
             display: grid;
             grid-template-columns: 1fr 2fr 4fr 1fr ;
+            border-bottom: 1px $lightBrown solid;
+            padding: 15px;
             div{
                 color: $brown;
                 display: flex;
                 gap: 10px;
             }
         }
+    }
+
+    .content-general{
+        padding: 20px;
+        display: grid;
+        grid-template-columns: 1fr 2fr  ;
     }
 }
 
