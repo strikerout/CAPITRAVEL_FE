@@ -28,37 +28,7 @@ const Home = () => {
          <img src="/dotted_lines.svg" className='right-lines' alt="" /> 
       </div>
 
-      <div className='desktopCars'>
-        {loading ? null :
-          <div className="grid-container">
 
-          {/* <!-- Fila 1 --> */}
-          {experiences.slice(0, 3).map((experience)=>(
-              <div key={experience.id} className={'item' + ' ' + 'item-'+(index++)}><ProductCard data={experience}/></div>
-          ))}
-
- 
-          
-          {/* <!-- Fila 2 --> */}
-          {experiences.slice(3, 5).map((experience)=>(
-              <div key={experience.id}  className={'item' + ' ' + 'item-'+(index++)}><ProductCard data={experience}/></div>
-          ))}
-
-
-          {/* <!-- Fila 3 --> */}
-          {experiences.slice(5, 8).map((experience)=>(
-              <div key={experience.id}   className={'item' + ' ' + 'item-'+(index++)}><ProductCard data={experience}/></div>
-          ))}
-
-          
-          {/* <!-- Fila 4 --> */}
-          {experiences.slice(8, 10).map((experience)=>(
-              <div key={experience.id}  className={'item' + ' ' + 'item-'+(index++)}><ProductCard data={experience}/></div>
-          ))}
-        </div>
-        }
-        
-      </div>
       
       <section>
         <div className='home-carousel'>
