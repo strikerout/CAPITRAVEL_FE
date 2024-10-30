@@ -8,13 +8,13 @@ const Home = () => {
     <div>
       <Banner/>
       <div className='top10-header'>
-        <img src="/dotted_lines.svg" className='left-lines' alt="" />
+         <img src="/dotted_lines.svg" className='left-lines' alt="" /> 
         <div>
           <h2>TOP 10 EXPERIENCES</h2>
           <p>Favorite experiences based on our travelers</p>
         </div>
         <img src="/map.svg" alt="" className='banner-map-img'/>
-        <img src="/dotted_lines.svg" className='right-lines' alt="" />
+         <img src="/dotted_lines.svg" className='right-lines' alt="" /> 
       </div>
 
       <div className='desktopCars'>
