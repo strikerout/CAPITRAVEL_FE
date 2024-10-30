@@ -4,6 +4,7 @@ import useProperties from "../../hooks/useProperties";
 import useExperiences from "../../hooks/useExperience";
 import ImageUploader from "../ImageUploader";
 import PrimaryButton from "../Buttons/PrimaryButton";
+import style from "./experiences.module.scss"
 
 const Experiences = () => {
   const { addExperience, experiences } = useExperiences();
@@ -39,6 +40,12 @@ const Experiences = () => {
     setSelectedCategory(event.target.value);
   };
 
+  const handleSelectChangeProperty = (event) => {
+    setSelectedProperty(event.target.value);
+  };
+
+
+
   const handleAddCategory = (e) => {
     e.preventDefault();
     const categoryToAdd = categories.find(
@@ -69,10 +76,7 @@ const Experiences = () => {
     });
   };
 
-  const handleSelectChangeProperty = (event) => {
-    setSelectedProperty(event.target.value);
-  };
-
+  
    const handleAddProperty = (e) => {
      e.preventDefault();
      const propertyToAdd = properties.find(
@@ -168,14 +172,14 @@ const handleSubmit =(e)=>{
   //   };
 
      return (
-       <>
+       <div className={style.experiencesAdmin}>
          <h3 className='margin-temporary'>Experiences</h3>
          <section>
            <form className="adminForm" onSubmit={handleSubmit}>
              <div>
                <h5>About the Experience</h5>
                <div>
-                 <label for="title">Title</label>
+                 <label htmlFor="title">Title</label>
                  <input
                    type="text"
                    placeholder="Enter a title"
@@ -189,7 +193,7 @@ const handleSubmit =(e)=>{
                </div>
 
                <div>
-                 <label for="description"> Description</label>
+                 <label htmlFor="description"> Description</label>
                  <p>0/500</p>
                  <textarea
                    name="description"
@@ -210,7 +214,7 @@ const handleSubmit =(e)=>{
              <div>
                <h5>Where is it?</h5>
                <div>
-                 <label for="country">Country</label>
+                 <label htmlFor="country">Country</label>
                  <input
                    type="text"
                    placeholder="Enter country name"
@@ -226,7 +230,7 @@ const handleSubmit =(e)=>{
                  />
                </div>
                <div>
-                 <label for="ubication">ubication</label>
+                 <label htmlFor="ubication">ubication</label>
                  <input
                    type="text"
                    placeholder="City, state/region"
@@ -243,10 +247,12 @@ const handleSubmit =(e)=>{
                </div>
              </div>
 
+            
+                   
              <div>
                <h5>Specifications</h5>
                <div>
-                 <label for="categorySelect">Category</label>
+                 <label htmlFor="categorySelect">Category</label>
                  <select
                    id="categorySelect"
                    value={selectedCategory}
@@ -282,7 +288,7 @@ const handleSubmit =(e)=>{
                </div>
 
                <div>
-                 <label for="propertySelect">Property</label>
+                 <label htmlFor="propertySelect">Property</label>
                  <select
                    id="propertySelect"
                    value={selectedProperty}
@@ -320,7 +326,7 @@ const handleSubmit =(e)=>{
 
              <div>
                <h5>Duration</h5>
-               <label for="duration">Time</label>
+               <label htmlFor="duration">Time</label>
                <input
                  type="number"
                  placeholder="Enter a Duration"
@@ -359,6 +365,8 @@ const handleSubmit =(e)=>{
              </PrimaryButton>
            </form>
 
+           </section>
+          <section>
            <div className="adminList">
           <div className="headerList">
             <h4>ID</h4>
@@ -382,17 +390,17 @@ const handleSubmit =(e)=>{
                     <g fill="none">
                       <path
                         stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
                         d="m5 16l-1 4l4-1L19.586 7.414a2 2 0 0 0 0-2.828l-.172-.172a2 2 0 0 0-2.828 0z"
                       />
                       <path fill="currentColor" d="m5 16l-1 4l4-1L18 9l-3-3z" />
                       <path
                         stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
                         d="m15 6l3 3m-5 11h8"
                       />
                     </g>
@@ -414,11 +422,11 @@ const handleSubmit =(e)=>{
               </li>
             ))}
           </ul>
-        </div>
+            </div>
          </section>
 
          
-       </>
+       </div>
      );
    };
    export default Experiences;
