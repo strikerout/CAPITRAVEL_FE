@@ -1,71 +1,71 @@
-import React, { useState } from "react";
-import useCategories from "../../hooks/useCategories";
-import PrimaryButton from "../Buttons/PrimaryButton";
+import React, { useState, useEffect } from 'react';
+import useCategories from '../../hooks/useCategories';
+import PrimaryButton from '../Buttons/PrimaryButton';
 
 const Categories = () => {
-  const {
-    fetchCategories,
-    fetchCategoryByID,
-    categories,
-    loading,
-    error,
-    addCategory,
-    editCategory,
-    removeCategory,
-  } = useCategories();
-  const [newCategory, setNewCategory] = useState({
-    name: "",
-    description: "",
-    image: "",
-  });
-  const [idToEdit, setIdToEdit] = useState("");
+  const { fetchCategories, fetchCategoryByID, categories, loading, error, addCategory, editCategory, removeCategory } = useCategories();
+  const [newCategory, setNewCategory] = useState({ name: '', description: '', image: '' });
+  const [idToEdit, setIdToEdit] = useState('');
+  const [errors, setErrors] = useState({ name: '', description: '', image: '' });
+
+  const validateFields = () => {
+    const newErrors = { name: '', description: '', image: '' };
+    if (!newCategory.name || newCategory.name.length < 3 || newCategory.name.length > 32) {
+      newErrors.name = 'Name must be between 3 and 32 characters.';
+    }
+    if (!newCategory.description || newCategory.description.length < 15 || newCategory.description.length > 256) {
+      newErrors.description = 'Description must be between 15 and 256 characters.';
+    }
+    if (!newCategory.image) {
+      newErrors.image = 'Image is required.';
+    }
+    setErrors(newErrors);
+    return Object.values(newErrors).every((error) => error === '');
+  };
 
   const handleAddCategory = () => {
     addCategory(newCategory);
-    setNewCategory({ name: "", description: "", image: "" }); // Limpiar el formulario
+    setNewCategory({ name: '', description: '', image: '' });
   };
 
   const handleRemoveCategory = (id) => {
-    const confirm = window.confirm("Sure to delete this category?");
+    const confirm = window.confirm('Sure to delete this category?');
     if (confirm) {
       removeCategory(id);
-      console.log("Elemento eliminado");
+      console.log('Elemento eliminado');
     } else {
-      console.log("Cancelado");
+      console.log('Cancelado');
     }
   };
 
   const enableEditMode = async (id) => {
     const toEdit = await fetchCategoryByID(id);
-    setNewCategory({
-      name: toEdit.name,
-      description: toEdit.description,
-      image: toEdit.image,
-    });
+    setNewCategory({name: toEdit.name, description: toEdit.description, image: toEdit.image});
     setIdToEdit(id);
   };
 
   const handleEditCategory = () => {
-    const confirm = window.confirm("Sure to edit this category?");
+    const confirm = window.confirm('Sure to edit this category?');
     if (confirm) {
       editCategory(idToEdit, newCategory);
-      setNewCategory({ name: "", description: "", image: "" }); // Limpiar el formulario
-      setIdToEdit("");
-      console.log("Elemento editado");
+      setNewCategory({ name: '', description: '', image: '' });
+      setIdToEdit('');
+      console.log('Elemento editado');
     } else {
-      console.log("Cancelado");
+      console.log('Cancelado');
     }
   };
 
   const cancelEdit = () => {
-    setIdToEdit("");
-    setNewCategory({ name: "", description: "", image: "" }); // Limpiar el formulario
+    setIdToEdit('');
+    setNewCategory({ name: '', description: '', image: '' });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    idToEdit ? handleEditCategory() : handleAddCategory();
+    if (validateFields()) {
+      idToEdit ? handleEditCategory() : handleAddCategory();
+    }
   };
 
   if (loading) return <div>Loading...</div>;
@@ -78,7 +78,7 @@ const Categories = () => {
         <form className="adminForm" onSubmit={handleSubmit}>
           <h4>Add Category</h4>
           <div>
-            <label for="name">Name</label>
+            <label htmlFor="name">Name</label>
             <input
               type="text"
               placeholder="Enter a name"
@@ -89,10 +89,11 @@ const Categories = () => {
               }
               required
             />
+            {errors.name && <p className="error">{errors.name}</p>}
           </div>
 
           <div>
-            <label for="description">Description</label>
+            <label htmlFor="description">Description</label>
             <input
               type="text"
               placeholder="Enter a description"
@@ -103,10 +104,11 @@ const Categories = () => {
               }
               required
             />
+            {errors.description && <p className="error">{errors.description}</p>}
           </div>
 
           <div>
-            <label for="image">Add a icon</label>
+            <label htmlFor="image">Add a icon</label>
             <input
               type="text"
               placeholder="Image"
@@ -117,6 +119,7 @@ const Categories = () => {
               }
               required
             />
+            {errors.image && <p className="error">{errors.image}</p>}
             <p>Supported files .PNG .SVG</p>
           </div>
 

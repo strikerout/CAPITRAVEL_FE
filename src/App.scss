@@ -481,5 +481,11 @@ body{
         display: grid;
         grid-template-columns: 1fr 2fr  ;
     }
+    .error {
+      color: $secundary-orange;
+      font-size: 0.7rem;
+      margin-top: 4px;
+    }
+
 }
 
