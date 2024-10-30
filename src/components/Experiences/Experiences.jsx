@@ -6,7 +6,7 @@ import ImageUploader from "../ImageUploader";
 import PrimaryButton from "../Buttons/PrimaryButton";
 
 const Experiences = () => {
-  const { addExperience } = useExperiences();
+  const { addExperience, experiences } = useExperiences();
 
   const { properties } = useProperties();
   const { categories } = useCategories();
@@ -169,7 +169,7 @@ const handleSubmit =(e)=>{
 
      return (
        <>
-         <h3>Experiences</h3>
+         <h3 className='margin-temporary'>Experiences</h3>
          <section>
            <form className="adminForm" onSubmit={handleSubmit}>
              <div>
@@ -333,8 +333,7 @@ const handleSubmit =(e)=>{
                />
              </div>
 
-             <div>
-               <h5>Add Images</h5>
+            
                <div>
                  <h5>Add Images</h5>
                  <ImageUploader onImagesAdded={handleImagesAdded} />{" "}
@@ -354,16 +353,71 @@ const handleSubmit =(e)=>{
                    </ul>
                  </div>
                </div>
-             </div>
+            
              <PrimaryButton type="submit" func={handleAddExperience}>
                Add Experience
              </PrimaryButton>
            </form>
-           <div>
-             <div>Titulo de la tabla</div>
-             <ul></ul>
-           </div>
+
+           <div className="adminList">
+          <div className="headerList">
+            <h4>ID</h4>
+            <h4>Name</h4>
+            <h4>Description</h4>
+          </div>
+          <ul className="bodyList">
+            {experiences.map((experience) => (
+              <li key={experience.id}>
+                <p>{experience.id}</p>
+                <p>{experience.title}</p>
+                <img src={experience.images[0]} alt="" className="imgExperience-table"/>
+                <div>
+                  <svg
+                    // onClick={() => enableEditMode(category.id)}
+                    width="1em"
+                    height="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                  >
+                    <g fill="none">
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="m5 16l-1 4l4-1L19.586 7.414a2 2 0 0 0 0-2.828l-.172-.172a2 2 0 0 0-2.828 0z"
+                      />
+                      <path fill="currentColor" d="m5 16l-1 4l4-1L18 9l-3-3z" />
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="m15 6l3 3m-5 11h8"
+                      />
+                    </g>
+                  </svg>
+
+                  <svg
+                    // onClick={() => handleRemoveCategory(category.id)}
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="1em"
+                    height="1em"
+                    viewBox="0 0 12 12"
+                  >
+                    <path
+                      fill="#EB5436"
+                      d="M5 3h2a1 1 0 0 0-2 0M4 3a2 2 0 1 1 4 0h2.5a.5.5 0 0 1 0 1h-.441l-.443 5.17A2 2 0 0 1 7.623 11H4.377a2 2 0 0 1-1.993-1.83L1.941 4H1.5a.5.5 0 0 1 0-1zm3.5 3a.5.5 0 0 0-1 0v2a.5.5 0 0 0 1 0zM5 5.5a.5.5 0 0 0-.5.5v2a.5.5 0 0 0 1 0V6a.5.5 0 0 0-.5-.5"
+                    />
+                  </svg>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
          </section>
+
+         
        </>
      );
    };
