@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import ProductCard from "../Cards/ProductCard";
-import Pagination from "./pagination";
-import { getExperiences } from "../../api/experiences";
+import Pagination from './Pagination';
+import useExperiences from '../../hooks/useExperience'
 
 export const ExperiencesList = () => {
-  const [experiences, setExperiences] = useState([]);
+
+  const {experiences, loading, error } = useExperiences();
+  // const [experiences, setExperiences] = useState([]);
 
   const totalExperiences = experiences.length;
   const [experiencePerPage, setExperiencePerPage] = useState(10);
@@ -12,18 +14,6 @@ export const ExperiencesList = () => {
 
   const lastIndex = currentPage * experiencePerPage;
   const firstIndex = lastIndex - experiencePerPage;
-
-  const experiencesList = async () => {
-    const experiences = await getExperiences();
-
-    console.log(experiences);
-
-    setExperiences(experiences);
-  };
-
-  useEffect(() => {
-    experiencesList();
-  }, []);
  
 
   function indexElements(index) {
