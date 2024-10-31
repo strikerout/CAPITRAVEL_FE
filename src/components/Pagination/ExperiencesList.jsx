@@ -12,18 +12,12 @@ export const ExperiencesList = () => {
   const [experiencePerPage, setExperiencePerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
 
-
   const lastIndex = currentPage * experiencePerPage;
   const firstIndex = lastIndex - experiencePerPage;
-
-  console.log(shufflingExperiences)
- 
 
   function indexElements(index) {
     return (index % 10) + 1;
   }
-
-  // setShufflingExperiences(experiences.slice().sort(() => Math.random() - 0.5))
 
   return (
     <>
