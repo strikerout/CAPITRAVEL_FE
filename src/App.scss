@@ -518,7 +518,94 @@ body{
             gap: 10px;
         }
     }
+    .content-general-experience{
+       h5{
+        color: $primary-orange;
+        margin-bottom: 8px;
+       }
 
+       label{
+        font-size: 15px;
+       }
+
+        .adminForm-experience{
+            @extend .adminForm;
+            width: 80%;
+            height: auto;
+            display: grid;
+            grid-template-columns: 35% 35% 28%;
+            gap: 10px;
+
+            .labelCharacter{
+                display: flex;
+                flex-direction: row;
+                align-items: baseline;
+                justify-content: space-between;
+            }
+           
+            textarea{
+                font-family: "Inter", sans-serif;
+                height: 100px;
+                border-radius: 8px;
+                padding: 10px;
+            }
+            
+            .container-select{
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            select{
+                @extend input;
+                width: 80%;
+            }
+
+            li{
+                list-style: none;
+            }
+
+            .containerTag{
+                display: flex;
+                flex-flow: row wrap;
+                gap: 5px;
+                height: auto;
+            }
+
+            .tag{
+                list-style: none;
+                font-size: 13px;
+                font-weight: bold;
+                background-color: $lightBlue;
+                padding: 5px 8px;
+                width: auto;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-around;
+                border-radius: 50px;
+            }
+
+            .button-detele-tag{
+                margin-left: 3px;
+                background-color: transparent;
+                border: none;
+            }
+
+            .buttonAdd{
+                background-color: $blue;
+                padding: 10px;
+                color: $white;
+                border: none;
+                border-radius: 50px;
+            }
+        }
+
+    }
+   
+
+    
     .headerList{
         display: grid;
         grid-template-columns: 1fr 2fr 4fr 1fr ;
