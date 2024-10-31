@@ -12,8 +12,8 @@ const Categories = () => {
     const newErrors = { name: '', description: '', image: '' };
 
     if (!newCategory.name) newErrors.name = "Name is required";
-    else if ( newCategory.name.length < 3 || newCategory.name.length > 32) {
-      newErrors.name = 'Name must be between 3 and 32 characters.';
+    else if ( newCategory.name.length < 3 || newCategory.name.length > 16) {
+      newErrors.name = 'Name must be between 3 and 16 characters.';
     }
 
     if (!newCategory.description) newErrors.description = "Description is required";

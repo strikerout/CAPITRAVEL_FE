@@ -177,8 +177,13 @@ body{
         width: 60%;
         margin: 0 auto;
         margin-top: 10px;
+
+         @media(max-width: $mobile){
+           width: 100%;
+        }
         ul{
             display: flex;
+            flex-flow: row wrap;
             justify-content: center;
             list-style: none;
             gap: 10px;
