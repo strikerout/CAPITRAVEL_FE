@@ -77,9 +77,9 @@ const Experiences = () => {
   };
 
 
-  const handleSelectChangeProperty = (event) => {
-    setSelectedProperty(event.target.value);
-  };
+  // const handleSelectChangeProperty = (event) => {
+  //   setSelectedProperty(event.target.value);
+  // };
 
   const handleAddProperty = (e) => {
     e.preventDefault();

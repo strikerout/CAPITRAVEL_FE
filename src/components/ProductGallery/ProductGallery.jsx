@@ -14,7 +14,7 @@ import './ProductoGallery.module.scss'
 // import required modules
 import { FreeMode, Navigation, Thumbs, Autoplay } from 'swiper/modules';
 
-const ProductGallery = () => {
+const ProductGallery = ({data}) => {
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
   return (
     <div className={style.productGallery}>
@@ -26,22 +26,25 @@ const ProductGallery = () => {
         loop={true}
         spaceBetween={10}
         navigation={true}
-        autoplay={{ delay: 3000 }}  
+        autoplay={{ delay: 3000, disableOnInteraction: true }}  
         thumbs={{ swiper: thumbsSwiper }}
         modules={[FreeMode, Navigation, Thumbs, Autoplay]}
         className={style.mySwiper2}
       >
         <SwiperSlide className={style.swiperSlide}>
-          <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
+          <img src={data.images[0]} />
         </SwiperSlide>
         <SwiperSlide className={style.swiperSlide}>
-          <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
+          <img src={"https://swiperjs.com/demos/images/nature-2.jpg"}  />
         </SwiperSlide>
         <SwiperSlide className={style.swiperSlide}>
           <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
         </SwiperSlide>
         <SwiperSlide className={style.swiperSlide}>
           <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
+        </SwiperSlide>
+        <SwiperSlide className={style.swiperSlide}>
+          <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
         </SwiperSlide>
       </Swiper>
       <Swiper
@@ -70,6 +73,9 @@ const ProductGallery = () => {
         </SwiperSlide>
         <SwiperSlide className={style.swiperSlide}>
           <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
+        </SwiperSlide>
+        <SwiperSlide className={style.swiperSlide}>
+          <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
         </SwiperSlide>
 
       </Swiper>
