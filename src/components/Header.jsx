@@ -21,7 +21,7 @@ const Header = ({id}) => {
           <img src="/capitravel_desktop.svg" alt=""/>
         </Link>
         <Link to='/' className='desktopLogo'>
-          <p>Find a new adventure</p>
+          <p>Capi is your guide</p>
         </Link>
         </div>
       
