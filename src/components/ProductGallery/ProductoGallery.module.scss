@@ -18,6 +18,22 @@
         flex-direction: row;
         flex-wrap: nowrap;
     }
+    a{
+      background-color: $lightBeige;
+      color: $brown;
+      padding: 5px 5px;
+      width: 130px;
+      height: 50px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      svg{
+        width: 30px;
+      }
+      
+
+    }
 }
 .swiper {
     width: 100%;

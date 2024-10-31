@@ -19,8 +19,8 @@ const ProductHeader = ({data}) => {
         </div>
 
         <div className={style.productcategories}>
-          {data.categories.map((category)=>(
-            <p className={style.mainCategory}>{category.name}</p>
+          {data.categories.map((category, index)=>(
+            <p key={index} className={style.mainCategory}>{category.name}</p>
           ))}
         </div>
       </div>

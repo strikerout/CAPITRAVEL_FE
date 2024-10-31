@@ -26,6 +26,8 @@ const useExperiences = () => {
             return experience;
         } catch (err) {
             setError(err);
+        } finally {
+            setLoading(false);
         }
     };
 
