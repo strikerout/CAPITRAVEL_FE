@@ -416,6 +416,17 @@ body{
     .product{
         .rateAndBookContainer{
             padding: 0 20px;
+            
+            @media(min-width: $mobile){
+                width: 400px;
+            }
+        }
+        .productDescRate{
+            
+            @media(min-width: $mobile){
+                display: flex;
+                justify-content: space-between;
+            }
         }
     }
 
@@ -570,7 +581,19 @@ body{
                 flex-flow: row wrap;
                 gap: 5px;
                 height: auto;
+                .imgExperienceForm{
+                    position: relative;
+                    svg{
+                        position: absolute;
+                        left: 5px;
+                        top: 5px;
+                        width: 25px;
+                        fill: $brown;
+                    }
+                }
             }
+
+            
 
             .tag{
                 list-style: none;
@@ -609,7 +632,13 @@ body{
         display: grid;
         grid-template-columns: 1fr 2fr 4fr 1fr ;
         margin: 40px;
+        .mainImgHeader{
+            margin: 0 auto;
+        }
+    }
 
+    .experienceList{
+        grid-template-columns: 0.5fr 1fr 1fr 2fr 1fr 1fr 0.5fr; 
     }
 
     .bodyList{
@@ -626,7 +655,23 @@ body{
                 display: flex;
                 gap: 10px;
             }
+            .imgExperience-table{
+                width: 50px;
+                margin: 0 auto;
+            }
+            
         }
+    }
+
+    .experienceBody{
+        li{
+            grid-template-columns: 0.5fr 1fr 1fr 2fr 1fr 1fr 0.5fr;
+            .miniList{
+                display: flex !important;
+                flex-direction: column !important;
+            }
+        }
+        
     }
 
     .content-general{
@@ -640,9 +685,7 @@ body{
       margin-top: 4px;
     }
 
-    .imgExperience-table{
-        width: 60px;
-    }
+    
 
 }
 

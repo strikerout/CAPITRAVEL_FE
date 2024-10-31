@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef  } from "react";
 import useCategories from "../../hooks/useCategories";
 import useProperties from "../../hooks/useProperties";
 import useExperiences from "../../hooks/useExperience";
@@ -7,7 +7,8 @@ import PrimaryButton from "../Buttons/PrimaryButton";
 import style from "./experiences.module.scss"
 
 const Experiences = () => {
-  const { addExperience, experiences } = useExperiences();
+  const divRef = useRef(null);
+  const { addExperience, editExperience, removeExperience, fetchExperienceByID, experiences } = useExperiences();
 
   const { properties } = useProperties();
   const { categories } = useCategories();
@@ -17,6 +18,8 @@ const Experiences = () => {
 
   const [selectedProperty, setSelectedProperty] = useState("");
   const [selectedProperties, setSelectedProperties] = useState([]);
+
+  const [idToEdit, setIdToEdit] = useState('');
 
   const [newExperience, setNewExperience] = useState({
     title: "",
@@ -29,12 +32,31 @@ const Experiences = () => {
     propertyIds: [],
   });
 
+  const scrollToDiv = () => {
+    if (divRef.current) {
+        divRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+};
+
   const handleImagesAdded = (base64Images) => {
     setNewExperience((prevExperience) => ({
       ...prevExperience,
       images: [...prevExperience.images, ...base64Images], // Añadir nuevas imágenes a la experiencia
     }));
   };
+
+  const handleRemoveImg = (index) => {
+    console.log(index)
+    const updatedImages = newExperience.images.filter((_, i) => i !== index);
+    console.log(updatedImages);
+    setNewExperience({
+      ...newExperience,
+      images: updatedImages
+    })
+
+  }
+
+
 
   const handleSelectChange = (event) => {
     setSelectedCategory(event.target.value);
@@ -43,8 +65,6 @@ const Experiences = () => {
   const handleSelectChangeProperty = (event) => {
     setSelectedProperty(event.target.value);
   };
-
-
 
   const handleAddCategory = (e) => {
     e.preventDefault();
@@ -66,20 +86,21 @@ const Experiences = () => {
   };
 
   const handleRemoveCategory = (id) => {
+    console.log(selectedCategories)
     const updatedCategories = selectedCategories.filter(
       (category) => category.id !== id
     );
     setSelectedCategories(updatedCategories);
+
+    let idUpdatedCategories = [];
+    updatedCategories.map((category) => (idUpdatedCategories=[...idUpdatedCategories, category.id]))
+    
     setNewExperience({
       ...newExperience,
-      categoryIds: updatedCategories,
+      categoryIds: idUpdatedCategories,
     });
+
   };
-
-
-  // const handleSelectChangeProperty = (event) => {
-  //   setSelectedProperty(event.target.value);
-  // };
 
   const handleAddProperty = (e) => {
     e.preventDefault();
@@ -107,26 +128,50 @@ const Experiences = () => {
 
     setSelectedProperties(updatedProperties);
 
+    let idUpdatedProperties = [];
+    updatedProperties.map((property) => (idUpdatedProperties=[...idUpdatedProperties, property.id]))
+
     setNewExperience({
       ...newExperience,
-      propertyIds: updatedProperties,
+      propertyIds: idUpdatedProperties,
     });
   };
 
+  const handleRemoveExperience = (id) => {
+    const confirm = window.confirm('Sure to delete this experience?');
+    if (confirm) {
+      removeExperience(id);
+      console.log('Elemento eliminado');
+    } else {
+      console.log('Cancelado');
+    }
+
+  };
 
   const handleAddExperience = (e) => {
     e.preventDefault();
-    addExperience({
-      ...newExperience,
-      categoryIds: newExperience.categoryIds, //Mantiene solo los IDs
-      propertyIds: newExperience.propertyIds, //Mantiene solo los IDs
-    });
+    const confirm = window.confirm('Sure to add this experience?');
+    if (confirm) {
+    addExperience(newExperience);
+    cancelEdit();
+    }else{
+      console.log('Cancelado');
+    }
+  };
 
-    console.log(newExperience);
+  const handleEditExperience = () =>{
+    const confirm = window.confirm('Sure to edit this experience?');
+    if (confirm) {
+      editExperience(idToEdit, newExperience);
+      cancelEdit()
+      console.log('Elemento editado');
+    }else{
+      console.log('Cancelado');
+    }
+  }
 
-    setSelectedCategories([]);
-    setSelectedProperties([]);
-
+  const cancelEdit = () => {
+    setIdToEdit('');
     setNewExperience({
       title: "",
       country: "",
@@ -136,50 +181,56 @@ const Experiences = () => {
       images: [],
       categoryIds: [],
       propertyIds: [],
-    });
+    }); // Limpiar form
+    setSelectedCategories([])
+    setSelectedProperties([])
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleAddExperience(e);
+    {idToEdit ? handleEditExperience() : handleAddExperience(e)};
+    cancelEdit();
   };
 
-  // const handleRemoveExperience = (id) => {
-  //   const confirm = window.confirm("Sure to delete this experience?");
-  //   if (confirm) {
-  //     removeExperience(id);
-  //     console.log("Elemento eliminado");
-  //   } else {
-  //     console.log("Cancelado");
-  //   }
-  // };
+  const enableEditMode = async (id) => {
+    scrollToDiv(); //scrool hacia el form
 
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setExperienceData({
-  //     ...experienceData,
-  //     [name]: value,
-  //   });
-  // };
+    const toEdit = await fetchExperienceByID(id);
 
-  //   const handleCategoryChange = (selectedCategory) => {
-  //     setExperienceData({
-  //       ...experienceData,
-  //       category: selectedCategory,
-  //     });
-  //   };
+    //Rellenarlos tags de categories y suministra categories al estado newExperience
+    let categoriesToEdit = [];      
+    let idCategoriesToEdit = [];
+    {toEdit.categories.map((category)=>{
+      categoriesToEdit=[...categoriesToEdit, category];
+      idCategoriesToEdit=[...idCategoriesToEdit, category.id];
+    })}
+    setSelectedCategories(categoriesToEdit)
 
-  //   const handlePropertyChange = (selectedProperty) => {
-  //     setExperienceData({
-  //       ...experienceData,
-  //       properties: selectedProperty,
-  //     });
-  //   };
+    //Rellenarlos tags de properties y suministra properties al estado newExperience
+    let propertiesToEdit = [];
+    let idPropertiesToEdit = [];
+    {toEdit.properties.map((property)=>{
+      propertiesToEdit=[...propertiesToEdit, property]
+      idPropertiesToEdit=[...idPropertiesToEdit, property.id]
+    })}
+    setSelectedProperties(propertiesToEdit)
 
+    setNewExperience({
+      title: toEdit.title,
+      country: toEdit.country,
+      ubication: toEdit.ubication,
+      description: toEdit.description,
+      duration: toEdit.duration,
+      images: toEdit.images,
+      categoryIds: idCategoriesToEdit,
+      propertyIds: idPropertiesToEdit,
+    });
+    setIdToEdit(id);
+  };
 
   return (
     <>
-      <h3 className="margin-temporary">Experiences</h3>
+      <h3 ref={divRef} className="margin-temporary">Experiences</h3>
       <section className="content-general-experience">
         <form className="adminForm-experience" onSubmit={handleSubmit}>
           <section>
@@ -368,33 +419,44 @@ const Experiences = () => {
               <div>
                 <h6>Imágenes Cargadas:</h6>
                 <ul className="containerTag">
-                  {newExperience.images.map((image, index) => (
-                    <li key={index}>
+                  {newExperience.images ? newExperience.images.map((image, index) => (
+                    <li key={index} className="imgExperienceForm">
                       <img
                         src={image}
                         alt={`Imagen ${index + 1}`}
                         style={{ width: "100px", height: "auto" }}
                       />
+                      <svg onClick={()=>(handleRemoveImg(index))} xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24"><path d="m8.4 17l3.6-3.6l3.6 3.6l1.4-1.4l-3.6-3.6L17 8.4L15.6 7L12 10.6L8.4 7L7 8.4l3.6 3.6L7 15.6zm3.6 5q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22"/></svg>
+
                     </li>
-                  ))}
+                  )):null}
                 </ul>
               </div>
             </div>
 
-            <PrimaryButton type="submit" func={handleAddExperience}>
-              Add Experience
-            </PrimaryButton>
+
+            {idToEdit ? (
+            <div className="buttonsContainer">
+              <PrimaryButton type="submit">Save</PrimaryButton>
+              <PrimaryButton func={cancelEdit}>Cancel</PrimaryButton>
+            </div>
+          ) : (
+            <PrimaryButton type="submit">Add Experience</PrimaryButton>
+          )}
           </section>
         </form>
 
         <div className="adminList">
 
-          <div className="headerList">
+          <div className="headerList experienceList">
             <h4>ID</h4>
             <h4>Name</h4>
+            <h4 className="mainImgHeader">Main Image</h4>
             <h4>Description</h4>
+            <h4>Categories</h4>
+            <h4>Properties</h4>
           </div>
-          <ul className="bodyList">
+          <ul className="bodyList experienceBody">
             {experiences.map((experience) => (
               <li key={experience.id}>
                 <p>{experience.id}</p>
@@ -404,9 +466,21 @@ const Experiences = () => {
                   alt=""
                   className="imgExperience-table"
                 />
+                <p>{experience.description}</p>
+                <div className="miniList">
+                  {experience.categories.map((category)=>(
+                    <p key={category.id}>{category.name}</p>
+                ))}
+                </div>
+                <div className="miniList">
+                  {experience.properties.map((property)=>(
+                    <p key={property.id}>{property.name}</p>
+                ))}
+                </div>
+                
                 <div>
                   <svg
-                    // onClick={() => enableEditMode(category.id)}
+                    onClick={() => enableEditMode(experience.id)}
                     width="1em"
                     height="1em"
                     xmlns="http://www.w3.org/2000/svg"
@@ -432,7 +506,7 @@ const Experiences = () => {
                   </svg>
 
                   <svg
-                    // onClick={() => handleRemoveCategory(category.id)}
+                    onClick={() => handleRemoveExperience(experience.id)}
                     xmlns="http://www.w3.org/2000/svg"
                     width="1em"
                     height="1em"

@@ -40,7 +40,7 @@ const useExperiences = () => {
         }
     };
 
-    const updateExistingExperience = async (id, updatedExperience) => {
+    const editExperience = async (id, updatedExperience) => {
         try {
             const updated = await updateExperience(id, updatedExperience);
             setExperiences((prev) =>
@@ -70,7 +70,7 @@ const useExperiences = () => {
         loading,
         error,
         addExperience,
-        updateExistingExperience,
+        editExperience,
         removeExperience,
     };
 };

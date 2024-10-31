@@ -35,12 +35,15 @@ const Product = () => {
 
       <ProductGallery data={experience}/>
 
-      <ProductDescription data={experience}/>
-
-      <div className='rateAndBookContainer'>
-        <ProductRate rating={experience.reputation}/>
-        <PrimaryButton>Book Now</PrimaryButton>
+      <div className='productDescRate'>
+        <ProductDescription data={experience}/>
+        <div className='rateAndBookContainer'>
+          <ProductRate rating={experience.reputation}/>
+          <PrimaryButton>Book Now</PrimaryButton>
+        </div>
       </div>
+
+     
     </div>
   )
 }
