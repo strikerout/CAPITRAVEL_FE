@@ -5,6 +5,7 @@ import Categories from "../components/Categories/Categories";
 import Properties from "../components/Properties/Properties";
 import arrowIcon from "../../public/arrow.svg";
 import capiCamp from "../../public/capi_camp.svg";
+import BannerDashboard from "../components/BannerDashboard"
 
 const AdminPanel = () => {
   return (
@@ -36,9 +37,10 @@ const AdminPanel = () => {
           Properties <img src={arrowIcon} alt="arrow" />
         </NavLink>
       </nav>
-
+    
       <div>
         <Routes>
+          <Route path="/" element={<BannerDashboard />} />
           <Route path="categories" element={<Categories />} />
           <Route path="properties" element={<Properties />} />
           <Route path="experiences" element={<Experiences />} />
