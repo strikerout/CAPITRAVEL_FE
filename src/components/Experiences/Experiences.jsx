@@ -4,6 +4,7 @@ import useProperties from "../../hooks/useProperties";
 import useExperiences from "../../hooks/useExperience";
 import ImageUploader from "../ImageUploader";
 import PrimaryButton from "../Buttons/PrimaryButton";
+import style from "./experiences.module.scss"
 
 const Experiences = () => {
   const { addExperience, experiences } = useExperiences();
@@ -39,6 +40,12 @@ const Experiences = () => {
     setSelectedCategory(event.target.value);
   };
 
+  const handleSelectChangeProperty = (event) => {
+    setSelectedProperty(event.target.value);
+  };
+
+
+
   const handleAddCategory = (e) => {
     e.preventDefault();
     const categoryToAdd = categories.find(
@@ -68,6 +75,7 @@ const Experiences = () => {
       categoryIds: updatedCategories,
     });
   };
+
 
   const handleSelectChangeProperty = (event) => {
     setSelectedProperty(event.target.value);
@@ -104,6 +112,7 @@ const Experiences = () => {
       propertyIds: updatedProperties,
     });
   };
+
 
   const handleAddExperience = (e) => {
     e.preventDefault();
@@ -166,6 +175,7 @@ const Experiences = () => {
   //       properties: selectedProperty,
   //     });
   //   };
+
 
   return (
     <>
@@ -378,6 +388,7 @@ const Experiences = () => {
         </form>
 
         <div className="adminList">
+
           <div className="headerList">
             <h4>ID</h4>
             <h4>Name</h4>
@@ -404,17 +415,17 @@ const Experiences = () => {
                     <g fill="none">
                       <path
                         stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
                         d="m5 16l-1 4l4-1L19.586 7.414a2 2 0 0 0 0-2.828l-.172-.172a2 2 0 0 0-2.828 0z"
                       />
                       <path fill="currentColor" d="m5 16l-1 4l4-1L18 9l-3-3z" />
                       <path
                         stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
                         d="m15 6l3 3m-5 11h8"
                       />
                     </g>
@@ -442,3 +453,4 @@ const Experiences = () => {
   );
 };
 export default Experiences;
+
