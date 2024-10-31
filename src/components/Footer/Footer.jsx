@@ -6,7 +6,7 @@ const Footer = () => {
     <footer className={styles.productFooter} >
       <div className={styles.footerTop}>
         <div className={styles.logoLem}>
-          <img src="public\capitravel_mobile.svg" alt="" className={styles.footerLogo} />
+          <img src="/capitravel_mobile.svg" alt="" className={styles.footerLogo} />
           <p> Capi is your guide</p>
         </div>
         <div className={styles.textCopy}>
