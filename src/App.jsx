@@ -12,6 +12,7 @@ function App() {
   return (
     <>
     <Header/>
+    <div className='mainContent'>
     <Routes className="body">
       <Route path='/' element={<Home/>}/>
       <Route path='/product/:id' element={<Product/>}/>
@@ -19,6 +20,8 @@ function App() {
       <Route path='/administrator/*' element={<AdminPanel/>}/>
 
     </Routes>
+    </div>
+    
      <Footer /> 
     </>
 

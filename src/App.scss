@@ -362,12 +362,16 @@ body{
     .home-carousel{
         position: relative;
         width: 100%;
-        min-height: 800px;
-        display: flex;
-        flex-direction: column;
+        height: 800px;
+        display: grid;
+        
+        grid-template-rows: 25% 74% 1%;
         margin-top: 20px;
+        overflow-y: hidden;
         @media (min-width: $mobile){
-            margin-bottom: 300px;
+            grid-template-rows: 35% 64% 1%;
+            height: 1000px;
+            width: 100%;
         }
         
         .waveMobile,
@@ -380,18 +384,23 @@ body{
             z-index: -1;
             top: 0;
             width: 100%;
+
             display: inline;
+            object-fit: fill;
             @media (min-width: $mobile){
                 display: none;
+                
             }
         }
         .waveDesktop{
             position: absolute;
             z-index: -2;
             display: none;
-            width: 100%;
             @media (min-width: $mobile){
+                width: 100%;
                 display: inline;
+                height: 1000px;
+                object-fit: fill;
             }
         }
 
@@ -399,9 +408,11 @@ body{
             color: $brown;
             text-align: center;
             width: 100%;
-            margin-top: 100px;
+            margin-bottom: 40px;
+            display: flex;
+            flex-direction: column-reverse;
             @media (min-width: $mobile){
-                margin-top: 300px;
+                // margin-top: 20%;
             }
 
             h2{
@@ -434,7 +445,7 @@ body{
     .adminPanel {
         display: grid;
         grid-template-columns: 15% 85%;
-        height: 100vh;
+        height: 100%;
     
         @media (max-width: 800px) {
             display: none;
@@ -538,6 +549,14 @@ body{
        label{
         font-size: 15px;
        }
+       
+       .hiddenForm{
+        display: none;
+       }
+
+       .displayForm{
+        display: flex;
+       }
 
         .adminForm-experience{
             @extend .adminForm;
@@ -546,6 +565,7 @@ body{
             display: grid;
             grid-template-columns: 35% 35% 28%;
             gap: 10px;
+         
 
             .labelCharacter{
                 display: flex;

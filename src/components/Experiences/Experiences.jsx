@@ -10,6 +10,8 @@ const Experiences = () => {
   const divRef = useRef(null);
   const { addExperience, editExperience, removeExperience, fetchExperienceByID, experiences } = useExperiences();
 
+  const [isActive, setIsActive] = useState(false);
+
   const { properties } = useProperties();
   const { categories } = useCategories();
 
@@ -175,6 +177,7 @@ const Experiences = () => {
   }
 
   const cancelEdit = () => {
+    setIsActive(!isActive); 
     setIdToEdit('');
     setNewExperience({
       title: "",
@@ -221,11 +224,17 @@ const Experiences = () => {
     e.preventDefault();
     if (validate()) {
       idToEdit ? handleEditExperience() : handleAddExperience(e);
+    // setIsActive(!isActive); 
       cancelEdit();
    }
   };
 
   const enableEditMode = async (id) => {
+
+    if(isActive == false){
+      setIsActive(!isActive);
+    }
+   
     scrollToDiv(); //scrool hacia el form
 
     const toEdit = await fetchExperienceByID(id);
@@ -261,11 +270,22 @@ const Experiences = () => {
     setIdToEdit(id);
   };
 
+  function ToggleButton() {
+    setIsActive(!isActive); 
+}
+
   return (
     <>
-      <h3 ref={divRef} className="margin-temporary">Experiences</h3>
+
+      <h3 ref={divRef} className="margin-temporary">List Experiences</h3>
+      <button
+      className="margin-temporary primary-button"
+      onClick={ToggleButton}
+      >
+      Create Experience
+     </button>
       <section className="content-general-experience">
-        <form className="adminForm-experience" onSubmit={handleSubmit}>
+        <form className={isActive ? "displayForm adminForm-experience" : "hiddenForm"}  onSubmit={handleSubmit}>
           <section>
             <div>
               <h5>About the Experience</h5>

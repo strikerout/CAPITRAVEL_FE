@@ -34,14 +34,14 @@ const Home = () => {
       
       <section>
         <div className='home-carousel'>
-          <img src="/blue_wave_mobile.svg" alt="" className='waveMobile' />
-          <img src="/blue_wave_desktop.svg" alt="" className='waveDesktop' />
-          <div className='carouselHeader'>
-            <h2>You can't miss it!</h2>
+        <div className='carouselHeader'>
             <p>meet experiences</p>
+            <h2>You can't miss it!</h2>
           </div>
-
-          <Carousel data={experiences}/>
+        <Carousel data={experiences}/>
+        <img src="/blue_wave_mobile.svg" alt="" className='waveMobile' />
+        <img src="/blue_wave_desktop2.png" alt="" className='waveDesktop' />
+        
         </div>
 
       </section>
