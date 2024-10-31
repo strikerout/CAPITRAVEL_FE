@@ -26,7 +26,7 @@ const ImageUploader = ({ onImagesAdded }) => {
   return (
     <div {...getRootProps({ className: 'dropzone' })} style={{ border: '2px dashed #EB5436', padding: '20px', borderRadius: '5px' }}>
       <input {...getInputProps()} />
-      <p>Arrastra algunas imágenes aquí, o haz clic para seleccionar imágenes.</p>
+      <p>Drag some images here, or click to select images.</p>
     </div>
   );
 };
