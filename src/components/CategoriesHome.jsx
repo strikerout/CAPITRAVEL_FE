@@ -14,7 +14,7 @@ const CategoriesHome = () => {
   }
 
   return (
-    <div className='categoriesHome '>
+    <div className='categoriesHome'>
       <ul>
           {categories.slice(0, 4).map((category) => (
             <li key={category.id} style={{backgroundColor:getRandomColor()}}>
