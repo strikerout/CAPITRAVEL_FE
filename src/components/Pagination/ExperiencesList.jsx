@@ -5,7 +5,7 @@ import useExperiences from '../../hooks/useExperience'
 
 export const ExperiencesList = () => {
 
-  const {experiences, loading, error } = useExperiences();
+  const {experiences, loading, error, shufflingExperiences} = useExperiences();
   // const [experiences, setExperiences] = useState([]);
 
   const totalExperiences = experiences.length;
@@ -14,7 +14,6 @@ export const ExperiencesList = () => {
 
   const lastIndex = currentPage * experiencePerPage;
   const firstIndex = lastIndex - experiencePerPage;
- 
 
   function indexElements(index) {
     return (index % 10) + 1;
@@ -25,7 +24,7 @@ export const ExperiencesList = () => {
       <div className="desktopCars">
         <div className="grid-container">
           {/* <!-- Fila 1 --> */}
-          {experiences
+          {shufflingExperiences
             .map((experience, index) => (
               <div
                 className={`item item-${indexElements(index)}`}

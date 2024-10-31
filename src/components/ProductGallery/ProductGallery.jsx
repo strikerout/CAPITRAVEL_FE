@@ -75,7 +75,7 @@ const ProductGallery = ({data}) => {
           <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
         </SwiperSlide>
         <SwiperSlide className={style.swiperSlide}>
-          <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
+          <img src={data.images[0]} />
         </SwiperSlide>
 
       </Swiper>
