@@ -10,12 +10,17 @@ const Categories = () => {
 
   const validateFields = () => {
     const newErrors = { name: '', description: '', image: '' };
-    if (!newCategory.name || newCategory.name.length < 3 || newCategory.name.length > 32) {
+
+    if (!newCategory.name) newErrors.name = "Name is required";
+    else if ( newCategory.name.length < 3 || newCategory.name.length > 32) {
       newErrors.name = 'Name must be between 3 and 32 characters.';
     }
-    if (!newCategory.description || newCategory.description.length < 15 || newCategory.description.length > 256) {
+
+    if (!newCategory.description) newErrors.description = "Description is required";
+    else if ( newCategory.description.length < 15 || newCategory.description.length > 256) {
       newErrors.description = 'Description must be between 15 and 256 characters.';
     }
+    
     if (!newCategory.image) {
       newErrors.image = 'Image is required.';
     }
@@ -87,7 +92,6 @@ const Categories = () => {
               onChange={(e) =>
                 setNewCategory({ ...newCategory, name: e.target.value })
               }
-              required
             />
             {errors.name && <p className="error">{errors.name}</p>}
           </div>
@@ -103,7 +107,6 @@ const Categories = () => {
               onChange={(e) =>
                 setNewCategory({ ...newCategory, description: e.target.value })
               }
-              required
             />
             {errors.description && <p className="error">{errors.description}</p>}
           </div>
@@ -118,7 +121,6 @@ const Categories = () => {
               onChange={(e) =>
                 setNewCategory({ ...newCategory, image: e.target.value })
               }
-              required
             />
             {errors.image && <p className="error">{errors.image}</p>}
             <p>Supported files .PNG .SVG</p>

@@ -19,6 +19,8 @@ const Experiences = () => {
   const [selectedProperty, setSelectedProperty] = useState("");
   const [selectedProperties, setSelectedProperties] = useState([]);
 
+  const [selectedImages, setSelectedImages] = useState([]);
+
   const [idToEdit, setIdToEdit] = useState('');
 
   const [newExperience, setNewExperience] = useState({
@@ -31,6 +33,8 @@ const Experiences = () => {
     categoryIds: [],
     propertyIds: [],
   });
+
+  const [errors, setErrors] = useState({});
 
   const scrollToDiv = () => {
     if (divRef.current) {
@@ -181,15 +185,44 @@ const Experiences = () => {
       images: [],
       categoryIds: [],
       propertyIds: [],
-    }); // Limpiar form
+    }); 
     setSelectedCategories([])
     setSelectedProperties([])
   };
 
+  const validate = () => {
+    const newErrors = {};
+    if (!newExperience.title) newErrors.title = "Title is required";
+    else if (newExperience.title.length < 3 || newExperience.title.length > 32)
+       newErrors.title = "Title must be between 3 and 32 characters";
+ 
+    if (!newExperience.description) newErrors.description = "Description is required";
+    else if (newExperience.description.length < 15 || newExperience.description.length > 256)
+       newErrors.description = "Description must be between 15 and 256 characters";
+ 
+    if (!newExperience.country) newErrors.country = "Country is required";
+    else if (newExperience.country.length < 2 || newExperience.country.length > 32)
+      newErrors.country = "Country must be between 2 and 32 characters";
+
+    if (!newExperience.ubication) newErrors.ubication = "Ubication is required";
+    else if (newExperience.ubication.length < 2 || newExperience.ubication.length > 128)
+      newErrors.ubication = "Ubication must be between 2 and 128 characters";
+
+    if (!newExperience.duration) newErrors.duration = "Duration is required";
+  
+    if (selectedCategories.length === 0) newErrors.category = "Category is required";
+    if (newExperience.images.length === 0) newErrors.images = "At least one image is required"; 
+ 
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+ };
+ 
   const handleSubmit = (e) => {
     e.preventDefault();
-    {idToEdit ? handleEditExperience() : handleAddExperience(e)};
-    cancelEdit();
+    if (validate()) {
+      idToEdit ? handleEditExperience() : handleAddExperience(e);
+      cancelEdit();
+   }
   };
 
   const enableEditMode = async (id) => {
@@ -249,8 +282,7 @@ const Experiences = () => {
                       title: e.target.value,
                     })
                   }
-                  required
-                />
+                /> {errors.title && <p className="error">{errors.title}</p>}
               </div>
 
               <div>
@@ -269,8 +301,7 @@ const Experiences = () => {
                       description: e.target.value,
                     })
                   }
-                  required
-                />
+                />{errors.description && <p className="error">{errors.description}</p>}
               </div>
             </div>
 
@@ -289,11 +320,10 @@ const Experiences = () => {
                       country: e.target.value,
                     })
                   }
-                  required
-                />
+                />{errors.country && <p className="error">{errors.country}</p>}
               </div>
               <div>
-                <label for="ubication">ubication</label>
+                <label for="ubication">Ubication</label>
                 <input
                   type="text"
                   placeholder="City, state/region"
@@ -305,8 +335,7 @@ const Experiences = () => {
                       ubication: e.target.value,
                     })
                   }
-                  required
-                />
+                />{errors.ubication && <p className="error">{errors.ubication}</p>}
               </div>
             </div>
           </section>
@@ -336,6 +365,7 @@ const Experiences = () => {
                 </button>
                 </div>
                 <ul className="containerTag">
+                {errors.category && <p className="error">{errors.category}</p>}
                   {selectedCategories.map((category) => (
                     <li key={category.id} className="tag">
                       {category.name}
@@ -394,10 +424,11 @@ const Experiences = () => {
 
             <div>
               <h5>Duration</h5>
-              <label for="duration">Time</label>
+              <label for="duration">Time (minutes)</label>
               <input
                 type="number"
-                placeholder="Enter a Duration"
+                min="1"
+                placeholder="Enter a duration"
                 id="duration"
                 value={newExperience.duration}
                 onChange={(e) =>
@@ -406,8 +437,7 @@ const Experiences = () => {
                     duration: e.target.value,
                   })
                 }
-                required
-              />
+              />{errors.duration && <p className="error">{errors.duration}</p>}
             </div>
           </section>
 
@@ -417,7 +447,7 @@ const Experiences = () => {
               <ImageUploader onImagesAdded={handleImagesAdded} />{" "}
               {/* Integrar ImageUploader */}
               <div>
-                <h6>Imágenes Cargadas:</h6>
+                <h6>Uploaded images:</h6>
                 <ul className="containerTag">
                   {newExperience.images ? newExperience.images.map((image, index) => (
                     <li key={index} className="imgExperienceForm">
@@ -430,8 +460,8 @@ const Experiences = () => {
 
                     </li>
                   )):null}
-                </ul>
-              </div>
+                </ul> 
+              </div>  {errors.images && <p className="error">{errors.images}</p>}
             </div>
 
 
