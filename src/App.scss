@@ -538,6 +538,14 @@ body{
        label{
         font-size: 15px;
        }
+       
+       .hiddenForm{
+        display: none;
+       }
+
+       .displayForm{
+        display: flex;
+       }
 
         .adminForm-experience{
             @extend .adminForm;
@@ -546,6 +554,7 @@ body{
             display: grid;
             grid-template-columns: 35% 35% 28%;
             gap: 10px;
+         
 
             .labelCharacter{
                 display: flex;
