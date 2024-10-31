@@ -1,0 +1,10 @@
+#root{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .mainContent{
+        flex-grow: 1;
+        position: relative;
+    }
+}
