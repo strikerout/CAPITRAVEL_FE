@@ -5,7 +5,7 @@ import Home from './pages/Home'
 import {Routes, Route } from 'react-router-dom';
 import Product from './pages/Product';
 import AdminPanel from './pages/AdminPanel';
-import ImageUploader from '../src/components/testBase64'
+import CompleteGallery from './pages/CompleteGallery';
 
 function App() {
 
@@ -16,7 +16,7 @@ function App() {
     <Routes className="body">
       <Route path='/' element={<Home/>}/>
       <Route path='/product/:id' element={<Product/>}/>
-      <Route path='/test64' element={<ImageUploader/>}/>
+      <Route path='/gallery/:id' element={<CompleteGallery/>}/>
       <Route path='/administrator/*' element={<AdminPanel/>}/>
 
     </Routes>

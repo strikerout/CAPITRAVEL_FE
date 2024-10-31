@@ -447,6 +447,32 @@ body{
         }
     }
 
+    .largeGallery{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+
+        .galleryTitle{
+            display: flex;
+            width: 100%;
+            margin-left: 5%;
+            align-items: center;
+            svg{
+                color: $brown;
+                width: 40px;
+            }
+        }
+
+        img{
+            width: 90%;
+            
+        }
+        
+    }
+
     .adminPanel {
         display: grid;
         grid-template-columns: 15% 85%;
