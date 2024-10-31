@@ -19,9 +19,9 @@ const ProductHeader = ({data}) => {
         </div>
 
         <div className={style.productcategories}>
-            <p className={style.mainCategory}>{data.categories[0].name}</p>
-            {(data.categories[1].name) ? <p className={style.secondCategory}>{data.categories[1].name}</p> : null}
-      
+          {data.categories.map((category)=>(
+            <p className={style.mainCategory}>{category.name}</p>
+          ))}
         </div>
       </div>
 
