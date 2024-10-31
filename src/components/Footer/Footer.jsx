@@ -10,13 +10,13 @@ const Footer = () => {
           <p> Capi is your guide</p>
         </div>
         <div className={styles.textCopy}>
-          <p>Hecho con Amor por el grupo 5</p>
+          <p>Made with love ♡ by group 5</p>
           
         </div>
       </div>
       <div className={styles.footerBar}>
         <p>&copy; 2024 CapiTravel</p>
-        <p> Proyecto Integrador - Digital House</p>
+        <p> Final Project - Digital House</p>
 
       </div>
 
