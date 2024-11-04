@@ -25,7 +25,9 @@ const useExperiences = () => {
             const experience = await getExperienceByID(id);
             return experience;
         } catch (err) {
-            setError(err);
+            const error = err.response || "Unknown error";
+            setError(error); 
+            return error;
         } finally {
             setLoading(false);
         }
@@ -39,8 +41,11 @@ const useExperiences = () => {
         try {
             const createdExperience = await createExperience(newExperience);
             setExperiences((prev) => [...prev, createdExperience]);
+            return null;
         } catch (err) {
-            setError(err);
+            const error = err.response || "Unknown error";
+            setError(error); 
+            return error;
         }
     };
 
@@ -50,8 +55,11 @@ const useExperiences = () => {
             setExperiences((prev) =>
                 prev.map((exp) => (exp.id === id ? updated : exp))
             );
+            return null;
         } catch (err) {
-            setError(err);
+            const error = err.response || "Unknown error";
+            setError(error); 
+            return error;
         }
     };
 
@@ -59,8 +67,11 @@ const useExperiences = () => {
         try {
             await deleteExperience(id);
             setExperiences((prev) => prev.filter((exp) => exp.id !== id));
+            return null;
         } catch (err) {
-            setError(err);
+            const error = err.response || "Unknown error";
+            setError(error); 
+            return error;
         }
     };
 

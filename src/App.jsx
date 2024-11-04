@@ -6,6 +6,8 @@ import {Routes, Route } from 'react-router-dom';
 import Product from './pages/Product';
 import AdminPanel from './pages/AdminPanel';
 import CompleteGallery from './pages/CompleteGallery';
+import Loading from './components/Loading';
+
 
 function App() {
 

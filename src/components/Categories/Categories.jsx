@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import useCategories from '../../hooks/useCategories';
 import PrimaryButton from '../Buttons/PrimaryButton';
+import Swal from 'sweetalert2'
+import Loading from '../Loading';
+
 
 const Categories = () => {
   const { fetchCategories, fetchCategoryByID, categories, loading, error, addCategory, editCategory, removeCategory } = useCategories();
@@ -28,19 +31,69 @@ const Categories = () => {
     return Object.values(newErrors).every((error) => error === '');
   };
 
-  const handleAddCategory = () => {
-    addCategory(newCategory);
-    setNewCategory({ name: '', description: '', image: '' });
+  const handleAddCategory = async() => {
+    const error = await addCategory(newCategory);
+    if (error) {
+      Swal.fire({
+        imageUrl: '/errorCapi.svg',
+        imageWidth: 200,
+        title: error.data.error,
+        text: "Error: " + error.status,
+        customClass: {
+          confirmButton: 'swalConfirmButton',
+          title: 'swalTitle',
+          htmlContainer: 'swalHtmlContainer',
+        }
+      });
+    }
+    cancelEdit();
   };
 
   const handleRemoveCategory = (id) => {
-    const confirm = window.confirm('Sure to delete this category?');
-    if (confirm) {
-      removeCategory(id);
-      console.log('Elemento eliminado');
-    } else {
-      console.log('Cancelado');
-    }
+    Swal.fire({
+      imageUrl: '/warningCapi.svg',
+      imageWidth: 200,
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      showCancelButton: true,
+      confirmButtonText: "Yes, delete it!",
+      customClass: {
+        confirmButton: 'swalConfirmButton',
+        cancelButton: 'swalCancelButton',
+        title: 'swalTitle',
+        htmlContainer: 'swalHtmlContainer',
+      }
+    }).then( async (result) => {
+      if (result.isConfirmed) {
+        const error = await removeCategory(id);
+        if(error){
+          Swal.fire({
+            imageUrl: '/errorCapi.svg',
+            imageWidth: 200,
+            title: error.data.error,
+            text: "Error: " + error.status,
+            customClass: {
+              confirmButton: 'swalConfirmButton',
+              title: 'swalTitle',
+              htmlContainer: 'swalHtmlContainer',
+            }
+          });
+        }else{
+          Swal.fire({
+            imageUrl: '/checkCapi.svg',
+            imageWidth: 200,
+            title: "Deleted!",
+            text: "The category has been deleted.",
+            customClass: {
+              confirmButton: 'swalConfirmButton',
+              title: 'swalTitle',
+              htmlContainer: 'swalHtmlContainer',
+            }
+          });
+        }
+        
+      }
+    });
   };
 
   const enableEditMode = async (id) => {
@@ -50,15 +103,51 @@ const Categories = () => {
   };
 
   const handleEditCategory = () => {
-    const confirm = window.confirm('Sure to edit this category?');
-    if (confirm) {
-      editCategory(idToEdit, newCategory);
-      setNewCategory({ name: '', description: '', image: '' });
-      setIdToEdit('');
-      console.log('Elemento editado');
-    } else {
-      console.log('Cancelado');
-    }
+    Swal.fire({
+      imageUrl: '/warningCapi.svg',
+      imageWidth: 200,
+      title: "Are you sure?",
+      text: "Changes will be saved",
+      showCancelButton: true,
+      confirmButtonText: "Yes, save it!",
+      customClass: {
+        confirmButton: 'swalConfirmButton',
+        cancelButton: 'swalCancelButton',
+        title: 'swalTitle',
+        htmlContainer: 'swalHtmlContainer',
+      }
+    }).then( async (result) => {
+      if (result.isConfirmed) {
+        const error = await editCategory(idToEdit, newCategory);;
+        if(error){
+          Swal.fire({
+            imageUrl: '/errorCapi.svg',
+            imageWidth: 200,
+            title: error.data.error,
+            text: "Error: " + error.status,
+            customClass: {
+              confirmButton: 'swalConfirmButton',
+              title: 'swalTitle',
+              htmlContainer: 'swalHtmlContainer',
+            }
+          });
+        }else{
+          cancelEdit()
+          Swal.fire({
+            imageUrl: '/checkCapi.svg',
+            imageWidth: 200,
+            title: "Saved!",
+            text: "The category has been saved.",
+            customClass: {
+              confirmButton: 'swalConfirmButton',
+              title: 'swalTitle',
+              htmlContainer: 'swalHtmlContainer',
+            }
+          });
+        }
+        
+      }
+    });
   };
 
   const cancelEdit = () => {
@@ -73,11 +162,10 @@ const Categories = () => {
     }
   };
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
 
-  return (
+  return ( 
     <>
+      {loading ? <Loading/> : null}
       <h3 className='margin-temporary'> List Categories</h3>
       <section className="content-general">
         <form className="adminForm" onSubmit={handleSubmit}>
@@ -152,8 +240,6 @@ const Categories = () => {
                 <div>
                   <svg
                     onClick={() => enableEditMode(category.id)}
-                    width="1em"
-                    height="1em"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
                   >
@@ -179,8 +265,6 @@ const Categories = () => {
                   <svg
                     onClick={() => handleRemoveCategory(category.id)}
                     xmlns="http://www.w3.org/2000/svg"
-                    width="1em"
-                    height="1em"
                     viewBox="0 0 12 12"
                   >
                     <path

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import useProperties from '../../hooks/useProperties';
 import PrimaryButton from '../Buttons/PrimaryButton';
+import Swal from 'sweetalert2'
+import Loading from '../Loading';
 
 const Properties = () => {
   const { fetchProperties, fetchPropertyByID, properties, loading, error, addProperty, updateExistingProperty, removeProperty } = useProperties();
@@ -9,20 +11,69 @@ const Properties = () => {
   const [idToEdit, setIdToEdit] = useState('');
   const [errors, setErrors] = useState({ name: '', description: '' });
 
-  const handleAddProperty = () => {
-    addProperty(newProperty);
-    console.log(newProperty, 'NEW PROPERTY');
-    setNewProperty({ name: '', description: '', image: '' });
+  const handleAddProperty = async() => {
+    const error = await addProperty(newProperty);
+    if (error) {
+      Swal.fire({
+        imageUrl: '/errorCapi.svg',
+        imageWidth: 200,
+        title: error.data.error,
+        text: "Error: " + error.status,
+        customClass: {
+          confirmButton: 'swalConfirmButton',
+          title: 'swalTitle',
+          htmlContainer: 'swalHtmlContainer',
+        }
+      });
+    }
+    cancelEdit();
   };
 
   const handleRemoveProperty = (id) => {
-    const confirm = window.confirm("Sure to delete this property?");
-    if (confirm) {
-      removeProperty(id);
-      console.log("Elemento eliminado");
-    } else {
-      console.log("Cancelado");
-    }
+    Swal.fire({
+      imageUrl: '/warningCapi.svg',
+      imageWidth: 200,
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      showCancelButton: true,
+      confirmButtonText: "Yes, delete it!",
+      customClass: {
+        confirmButton: 'swalConfirmButton',
+        cancelButton: 'swalCancelButton',
+        title: 'swalTitle',
+        htmlContainer: 'swalHtmlContainer',
+      }
+    }).then( async (result) => {
+      if (result.isConfirmed) {
+        const error = await removeProperty(id);
+        if(error){
+          Swal.fire({
+            imageUrl: '/errorCapi.svg',
+            imageWidth: 200,
+            title: error.data.error,
+            text: "Error: " + error.status,
+            customClass: {
+              confirmButton: 'swalConfirmButton',
+              title: 'swalTitle',
+              htmlContainer: 'swalHtmlContainer',
+            }
+          });
+        }else{
+          Swal.fire({
+            imageUrl: '/checkCapi.svg',
+            imageWidth: 200,
+            title: "Deleted!",
+            text: "The property has been deleted.",
+            customClass: {
+              confirmButton: 'swalConfirmButton',
+              title: 'swalTitle',
+              htmlContainer: 'swalHtmlContainer',
+            }
+          });
+        }
+        
+      }
+    });
   };
 
   const enableEditMode = async (id) => {
@@ -32,15 +83,52 @@ const Properties = () => {
   };
 
   const handleEditProperty = () => {
-    const confirm = window.confirm("Sure to edit this property?");
-    if (confirm) {
-      updateExistingProperty(idToEdit, newProperty);
-      setNewProperty({ name: '', description: '', image: '' });
-      setIdToEdit('');
-      console.log("Elemento editado");
-    } else {
-      console.log("Cancelado");
-    }
+    Swal.fire({
+      imageUrl: '/warningCapi.svg',
+      imageWidth: 200,
+      title: "Are you sure?",
+      text: "Changes will be saved",
+      showCancelButton: true,
+      confirmButtonText: "Yes, save it!",
+      customClass: {
+        confirmButton: 'swalConfirmButton',
+        cancelButton: 'swalCancelButton',
+        title: 'swalTitle',
+        htmlContainer: 'swalHtmlContainer',
+      }
+    }).then( async (result) => {
+      if (result.isConfirmed) {
+        const error = await updateExistingProperty(idToEdit, newProperty);
+        if(error){
+          Swal.fire({
+            imageUrl: '/errorCapi.svg',
+            imageWidth: 200,
+            title: error.data.error,
+            text: "Error: " + error.status,
+            icon: "error",
+            customClass: {
+              confirmButton: 'swalConfirmButton',
+              title: 'swalTitle',
+              htmlContainer: 'swalHtmlContainer',
+            }
+          });
+        }else{
+          cancelEdit()
+          Swal.fire({
+            imageUrl: '/checkCapi.svg',
+            imageWidth: 200,
+            title: "Saved!",
+            text: "The property has been saved.",
+            customClass: {
+              confirmButton: 'swalConfirmButton',
+              title: 'swalTitle',
+              htmlContainer: 'swalHtmlContainer',
+            }
+          });
+        }
+        
+      }
+    });
   };
 
   const cancelEdit = () => {
@@ -67,11 +155,10 @@ const Properties = () => {
     }
   };
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
 
   return (
     <>
+      {loading ? <Loading/> : null}
       <h3 className='margin-temporary'>List Properties</h3>
       <section className="content-general">
       <form className='adminForm' onSubmit={handleSubmit}>
@@ -139,9 +226,9 @@ const Properties = () => {
 
               <div>
 
-                <svg onClick={() => enableEditMode(property.id)} width="1em" height="1em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none"><path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m5 16l-1 4l4-1L19.586 7.414a2 2 0 0 0 0-2.828l-.172-.172a2 2 0 0 0-2.828 0z"/><path fill="currentColor" d="m5 16l-1 4l4-1L18 9l-3-3z"/><path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m15 6l3 3m-5 11h8"/></g></svg>
+                <svg onClick={() => enableEditMode(property.id)} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none"><path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m5 16l-1 4l4-1L19.586 7.414a2 2 0 0 0 0-2.828l-.172-.172a2 2 0 0 0-2.828 0z"/><path fill="currentColor" d="m5 16l-1 4l4-1L18 9l-3-3z"/><path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m15 6l3 3m-5 11h8"/></g></svg>
 
-                <svg onClick={() => handleRemoveProperty(property.id)} xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 12 12"><path fill="#EB5436" d="M5 3h2a1 1 0 0 0-2 0M4 3a2 2 0 1 1 4 0h2.5a.5.5 0 0 1 0 1h-.441l-.443 5.17A2 2 0 0 1 7.623 11H4.377a2 2 0 0 1-1.993-1.83L1.941 4H1.5a.5.5 0 0 1 0-1zm3.5 3a.5.5 0 0 0-1 0v2a.5.5 0 0 0 1 0zM5 5.5a.5.5 0 0 0-.5.5v2a.5.5 0 0 0 1 0V6a.5.5 0 0 0-.5-.5"/></svg>
+                <svg onClick={() => handleRemoveProperty(property.id)} xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 12 12"><path fill="#EB5436" d="M5 3h2a1 1 0 0 0-2 0M4 3a2 2 0 1 1 4 0h2.5a.5.5 0 0 1 0 1h-.441l-.443 5.17A2 2 0 0 1 7.623 11H4.377a2 2 0 0 1-1.993-1.83L1.941 4H1.5a.5.5 0 0 1 0-1zm3.5 3a.5.5 0 0 0-1 0v2a.5.5 0 0 0 1 0zM5 5.5a.5.5 0 0 0-.5.5v2a.5.5 0 0 0 1 0V6a.5.5 0 0 0-.5-.5"/></svg>
 
               </div>
             </li>

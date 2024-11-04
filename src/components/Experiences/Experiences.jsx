@@ -5,10 +5,12 @@ import useExperiences from "../../hooks/useExperience";
 import ImageUploader from "../ImageUploader";
 import PrimaryButton from "../Buttons/PrimaryButton";
 import style from "./experiences.module.scss"
+import Swal from 'sweetalert2'
+import Loading from '../Loading';
 
 const Experiences = () => {
   const divRef = useRef(null);
-  const { addExperience, editExperience, removeExperience, fetchExperienceByID, experiences } = useExperiences();
+  const { addExperience, editExperience, removeExperience, fetchExperienceByID, experiences, loading } = useExperiences();
 
   const [isActive, setIsActive] = useState(false);
 
@@ -61,8 +63,6 @@ const Experiences = () => {
     })
 
   }
-
-
 
   const handleSelectChange = (event) => {
     setSelectedCategory(event.target.value);
@@ -144,37 +144,120 @@ const Experiences = () => {
   };
 
   const handleRemoveExperience = (id) => {
-    const confirm = window.confirm('Sure to delete this experience?');
-    if (confirm) {
-      removeExperience(id);
-      console.log('Elemento eliminado');
-    } else {
-      console.log('Cancelado');
-    }
-
+      Swal.fire({
+        imageUrl: '/warningCapi.svg',
+        imageWidth: 200,
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        customClass: {
+          confirmButton: 'swalConfirmButton',
+          cancelButton: 'swalCancelButton',
+          title: 'swalTitle',
+          htmlContainer: 'swalHtmlContainer',
+        }
+      }).then( async (result) => {
+        if (result.isConfirmed) {
+          const error = await removeExperience(id);
+          if(error){
+            Swal.fire({
+              imageUrl: '/errorCapi.svg',
+              imageWidth: 200,
+              title: error.data.error,
+              text: "Error: " + error.status,
+              customClass: {
+                confirmButton: 'swalConfirmButton',
+                title: 'swalTitle',
+                htmlContainer: 'swalHtmlContainer',
+              }
+            });
+          }else{
+            Swal.fire({
+              imageUrl: '/checkCapi.svg',
+              imageWidth: 200,
+              title: "Deleted!",
+              text: "The experience has been deleted.",
+              customClass: {
+                confirmButton: 'swalConfirmButton',
+                title: 'swalTitle',
+                htmlContainer: 'swalHtmlContainer',
+              }
+            });
+          }
+          
+        }
+      });
   };
 
-  const handleAddExperience = (e) => {
+  const handleAddExperience = async (e) => {
     e.preventDefault();
-    const confirm = window.confirm('Sure to add this experience?');
-    if (confirm) {
-    addExperience(newExperience);
-    cancelEdit();
-    }else{
-      console.log('Cancelado');
+    const error = await addExperience(newExperience);
+    if (error) {
+      Swal.fire({
+        imageUrl: '/errorCapi.svg',
+        imageWidth: 200,
+        title: error.data.error,
+        text: "Error: " + error.status,
+        customClass: {
+          confirmButton: 'swalConfirmButton',
+          title: 'swalTitle',
+          htmlContainer: 'swalHtmlContainer',
+        }
+      });
     }
+    cancelEdit();
+  
   };
 
   const handleEditExperience = () =>{
-    const confirm = window.confirm('Sure to edit this experience?');
-    if (confirm) {
-      editExperience(idToEdit, newExperience);
-      cancelEdit()
-      console.log('Elemento editado');
-    }else{
-      console.log('Cancelado');
-    }
-  }
+      Swal.fire({
+        imageUrl: '/warningCapi.svg',
+        imageWidth: 200,
+        title: "Are you sure?",
+        text: "Changes will be saved",
+        showCancelButton: true,
+        confirmButtonText: "Yes, save it!",
+        customClass: {
+          confirmButton: 'swalConfirmButton',
+          cancelButton: 'swalCancelButton',
+          title: 'swalTitle',
+          htmlContainer: 'swalHtmlContainer',
+        }
+      }).then( async (result) => {
+        if (result.isConfirmed) {
+          const error = await editExperience(idToEdit, newExperience);
+          if(error){
+            Swal.fire({
+              imageUrl: '/errorCapi.svg',
+              imageWidth: 200,
+              title: error.data.error,
+              text: "Error: " + error.status,
+              icon: "error",
+              customClass: {
+                confirmButton: 'swalConfirmButton',
+                title: 'swalTitle',
+                htmlContainer: 'swalHtmlContainer',
+              }
+            });
+          }else{
+            cancelEdit()
+            Swal.fire({
+              imageUrl: '/checkCapi.svg',
+              imageWidth: 200,
+              title: "Saved!",
+              text: "The experience has been saved.",
+              customClass: {
+                confirmButton: 'swalConfirmButton',
+                title: 'swalTitle',
+                htmlContainer: 'swalHtmlContainer',
+              }
+            });
+          }
+          
+        }
+      });
+  };
 
   const cancelEdit = () => {
     setIsActive(!isActive); 
@@ -224,7 +307,6 @@ const Experiences = () => {
     e.preventDefault();
     if (validate()) {
       idToEdit ? handleEditExperience() : handleAddExperience(e);
-    // setIsActive(!isActive); 
       cancelEdit();
    }
   };
@@ -276,7 +358,7 @@ const Experiences = () => {
 
   return (
     <>
-
+      {loading ? <Loading/> : null}
       <h3 ref={divRef} className="margin-temporary">List Experiences</h3>
       <button
       className="margin-temporary primary-button"
@@ -531,8 +613,6 @@ const Experiences = () => {
                 <div>
                   <svg
                     onClick={() => enableEditMode(experience.id)}
-                    width="1em"
-                    height="1em"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
                   >
@@ -558,8 +638,6 @@ const Experiences = () => {
                   <svg
                     onClick={() => handleRemoveExperience(experience.id)}
                     xmlns="http://www.w3.org/2000/svg"
-                    width="1em"
-                    height="1em"
                     viewBox="0 0 12 12"
                   >
                     <path
