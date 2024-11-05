@@ -105,7 +105,6 @@ const Properties = () => {
             imageWidth: 200,
             title: error.data.error,
             text: "Error: " + error.status,
-            icon: "error",
             customClass: {
               confirmButton: 'swalConfirmButton',
               title: 'swalTitle',
