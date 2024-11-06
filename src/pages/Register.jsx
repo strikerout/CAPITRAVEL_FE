@@ -71,10 +71,16 @@ export const Register = () => {
                   htmlContainer: 'swalHtmlContainer',
                 }
               });
+            cleanForm();
         }
       };
+
+      const cleanForm = () =>{
+        setNewUser({ name: '', lastname: '', email: '', passwordA: '', passwordB: ''})
+      }
   return (
     <div>
+        <img src="/orange_wave_desktop.png" className='topWave' alt="" />
         <div className='formNavigate'>
                 <svg onClick={()=>navigate('/')} xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="m14 7l-5 5l5 5"/></svg>
                 <h4>Back to home</h4>
@@ -92,6 +98,7 @@ export const Register = () => {
                     placeholder="Whats's your name?"
                     name='name'
                     id='name' 
+                    value={newUser.name}
                     onChange={(e) =>
                         setNewUser({...newUser, name: e.target.value})
                     }/>
@@ -104,6 +111,7 @@ export const Register = () => {
                     placeholder="And your last name?"
                     name='lastname'
                     id='lastname' 
+                    value={newUser.lastname}
                     onChange={(e) =>
                         setNewUser({...newUser, lastname: e.target.value})
                     }/>
@@ -115,7 +123,8 @@ export const Register = () => {
                     type="email"
                     placeholder="Enter you email"
                     name='email'
-                    id='email' 
+                    id='email'
+                    value={newUser.email}
                     onChange={(e) =>
                         setNewUser({...newUser, email: e.target.value})
                     }/>
@@ -127,7 +136,8 @@ export const Register = () => {
                     type="password"
                     placeholder="Set your password"
                     name='password'
-                    id='password' 
+                    id='password'
+                    value={newUser.passwordA}
                     onChange={(e) =>
                         setNewUser({...newUser, passwordA: e.target.value})
                     }/>
@@ -140,6 +150,7 @@ export const Register = () => {
                     placeholder="Repeat your password"
                     name='repassword'
                     id='rePassword' 
+                    value={newUser.passwordB}
                     onChange={(e) =>
                         setNewUser({...newUser, passwordB: e.target.value})
                     }/>
@@ -149,6 +160,7 @@ export const Register = () => {
             <PrimaryButton type="submit">Register</PrimaryButton>
             <Link>Log in</Link>
         </form>
+        <img src="/capi_photo.svg"  className='buttonImg' alt="" />
    
     </div>
   )

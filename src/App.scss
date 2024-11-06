@@ -58,7 +58,6 @@ body{
     }
    
     background-color: $beige;
-    padding: 70px 0 0 0;
     position: relative;
     overflow-x: hidden;
 
@@ -781,17 +780,49 @@ body{
         font-family: "Inter", sans-serif;
     }
 
+    .topWave{
+        display: none;
+        position: absolute;
+        z-index: -100;
+        width: 100%;
+        @media (min-width: $mobile){
+          display: inline;
+        }
+    }
+
+    .buttonImg{
+        display: none;
+        position: absolute;
+        bottom: 0;
+        right: 80px;
+        @media (min-width: $mobile){
+            display: inline;
+          }
+    }
+
+
     .formNavigate{
         display: flex;
         flex-direction: row;
         align-items: center;
         gap: 10px;
+        padding: 30px 10px;
+        @media (min-width: $mobile){
+            padding: 30px 50px;
+        }
+        
         h4{
            margin-bottom: 0;
+           @media (min-width: $mobile){
+            color: $beige;
+        }
         }
         svg{
             color: $brown;
             width: 40px;
+            @media (min-width: $mobile){
+                color: $beige;
+            }
         }
 
     }
@@ -810,7 +841,7 @@ body{
             width: 500px;
             padding: 50px 70px;
         }
-
+       
         .formHeader{
             display: flex;
             justify-content: center;
