@@ -781,6 +781,77 @@ body{
         font-family: "Inter", sans-serif;
     }
 
+    .formNavigate{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+        h4{
+           margin-bottom: 0;
+        }
+        svg{
+            color: $brown;
+            width: 40px;
+        }
+
+    }
+
+    .registerLoginForm{
+
+        border-radius: 23px;
+        margin: 0 auto;
+        margin-bottom: 20px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        @media (min-width: $mobile){
+            background: white;
+            width: 500px;
+            padding: 50px 70px;
+        }
+
+        .formHeader{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            gap: 20px;
+            @media (min-width: $mobile){
+                align-items: flex-start;
+          
+            }
+            img{
+                width: 120px;
+                @media (min-width: $mobile){
+                    display: none;
+                }
+            }
+        }
+
+        h4{
+            margin-bottom: 10px;
+        }
+
+        div{
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+        p{  
+            color: $brown;
+            font-size: 14px;
+        }
+        a{
+            margin: 0 auto;
+            margin-top: 20px;
+            color: $brown;
+            text-decoration: underline;
+            font-weight: 600;
+        }
+    }
+
 
 
 }

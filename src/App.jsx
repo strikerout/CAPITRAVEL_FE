@@ -7,6 +7,7 @@ import Product from './pages/Product';
 import AdminPanel from './pages/AdminPanel';
 import CompleteGallery from './pages/CompleteGallery';
 import Loading from './components/Loading';
+import { Register } from './pages/Register';
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
       <Route path='/product/:id' element={<Product/>}/>
       <Route path='/gallery/:id' element={<CompleteGallery/>}/>
       <Route path='/administrator/*' element={<AdminPanel/>}/>
+      <Route path='/register' element={<Register/>}/>
 
     </Routes>
     </div>
