@@ -1,6 +1,6 @@
 import React from 'react'
 import style from './ProductDescription.module.scss'
-import icon from '../../../public/github_logo.svg'
+import icon from '/github_logo.svg'
 
 const ProductDescription = ({data}) => {
   return (
