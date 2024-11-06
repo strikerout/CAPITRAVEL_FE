@@ -1,5 +1,6 @@
 import React from 'react'
 import style from './ProductDescription.module.scss'
+import icon from '../../../public/github_logo.svg'
 
 const ProductDescription = ({data}) => {
   return (
@@ -17,7 +18,18 @@ const ProductDescription = ({data}) => {
         </div>
       </div>
 
-      
+      <div className={style.productProperties}>
+        <h3>Characteristics</h3>
+        <div className={style.propertyContainer}>
+            {data.properties.map(property => (
+              <div key={property.id} className={style.property}>
+                <img src={icon} alt="" />
+                <h5> {property.name} </h5>
+                <p>{property.description}</p>
+              </div>
+            ))}
+        </div>
+      </div>
     </div>
   )
 }
