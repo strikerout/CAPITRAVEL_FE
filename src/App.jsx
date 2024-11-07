@@ -25,7 +25,6 @@ function App() {
       <Route path='/gallery/:id' element={<CompleteGallery/>}/>
       <Route path='/administrator/*' element={<AdminPanel/>}/>
       <Route path='/register' element={<Register/>}/>
-
     </Routes>
     </div>
     

@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import HeaderUserLogin from './HeaderUserLogin/HeaderUserLogin';
 
 
 
@@ -27,6 +28,7 @@ const Header = ({id}) => {
       
         
         <div className='desktopControl'>
+          <HeaderUserLogin/>
           <button className='secundary-button'>Create Account </button>
           <button className='primary-button'>Log In</button>
         </div>

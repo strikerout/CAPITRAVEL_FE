@@ -40,7 +40,7 @@ const AdminPanel = () => {
     
       <div>
         <Routes>
-          <Route path="/" element={<BannerDashboard />} />
+          <Route path="/" element={<BannerDashboard/>} />
           <Route path="categories" element={<Categories />} />
           <Route path="properties" element={<Properties />} />
           <Route path="experiences" element={<Experiences />} />
