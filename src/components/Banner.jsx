@@ -9,7 +9,7 @@ const Banner = () => {
           <p className='banner-text'>Live unforgettable experiences,
           <br/>without complications.</p>
           <p className='banner-button'><b>+10.000 </b>  Happy Travelers!</p>
-          <p className='banner-subtitle-desktop'>¡Hey! Soy tu Capibara de confianza. ¿Listo para la aventura?</p>
+          <p className='banner-subtitle-desktop'>Hey! I'm your trusted Capybara. Ready for adventure?</p>
         </div>
         <img src="/capi_sun.svg" alt="" className='banner-capi-img'/>
       </div>  

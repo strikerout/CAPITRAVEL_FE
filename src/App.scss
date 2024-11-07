@@ -1,13 +1,3 @@
-// $primary-orange: #EB5436;
-// $secundary-orange: #BD3013;
-
-// $beige: #FFF0CB;
-// $green: #4C7031;
-// $blue: #A5DBD3;
-// $brown: #562210;
-
-// $mobile: 768px;
-
 @use 'variables' as *; 
 
 *{
@@ -29,13 +19,11 @@ html {
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
-    
- }
-#root > div{
-    
-    flex-grow: 1;
 }
 
+#root > div{
+    flex-grow: 1;
+}
 
 body{
 
@@ -56,7 +44,6 @@ body{
     a{
         text-decoration: none;
     }
-   
     background-color: $beige;
     position: relative;
     overflow-x: hidden;
@@ -66,7 +53,7 @@ body{
         z-index: 1000;
         top: 0;
         left: 0;
-         width: 100%;
+        width: 100%;
         padding: 0 20px;
         background-color: $beige;
        
@@ -176,6 +163,7 @@ body{
         width: 60%;
         margin: 0 auto;
         margin-top: 10px;
+        margin-bottom: 20px;
 
          @media(max-width: $mobile){
            width: 100%;
@@ -380,7 +368,7 @@ body{
         
         .waveMobile,
         .waveDesktop {
-            max-height: 300vh; // Ajusta según tu necesidad
+            max-height: 300vh;
     }
 
         .waveMobile{
@@ -393,7 +381,6 @@ body{
             object-fit: fill;
             @media (min-width: $mobile){
                 display: none;
-                
             }
         }
         .waveDesktop{

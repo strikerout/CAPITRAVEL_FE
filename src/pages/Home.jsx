@@ -13,11 +13,7 @@ const Home = () => {
 
   return (
     <div>
-      <Search/>
-      <CategoriesHome/>
       <Banner/>
-
-      
       <div className='top10-header'>
          <img src="/dotted_lines.svg" className='left-lines' alt="" /> 
         <div>
@@ -27,28 +23,22 @@ const Home = () => {
         <img src="/map.svg" alt="" className='banner-map-img'/>
          <img src="/dotted_lines.svg" className='right-lines' alt="" /> 
       </div>
-
-      
+      <Search/>
+      <CategoriesHome/>
       <ExperiencesList/>
 
-      
       <section>
         <div className='home-carousel'>
         <div className='carouselHeader'>
             <p>meet experiences</p>
             <h2>You can't miss it!</h2>
-          </div>
-        <Carousel data={experiences}/>
-        <img src="/blue_wave_mobile.svg" alt="" className='waveMobile' />
-        <img src="/blue_wave_desktop2.png" alt="" className='waveDesktop' />
-        
         </div>
-
+        
+        <Carousel data={experiences}/>
+        <img src="/blue_wave_mobile.svg" alt="" className='waveMobile' /> 
+        <img src="/blue_wave_desktop2.png" alt="" className='waveDesktop' />
+        </div>
       </section>
-      
-
-      
-      
     </div>
   )
 }
