@@ -81,8 +81,8 @@ export const Register = () => {
   return (
     <div>
         <img src="/orange_wave_desktop.png" className='topWave' alt="" />
-        <div className='formNavigate'>
-                <svg onClick={()=>navigate('/')} xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="m14 7l-5 5l5 5" className='beige'/></svg>
+        <div className='formNavigate' onClick={()=>navigate('/')}>
+                <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="m14 7l-5 5l5 5" className='beige'/></svg>
                 <h4 className='beige'>Back to home</h4>
             </div>
         <form className='registerLoginForm' onSubmit={handleSubmit}>
@@ -95,7 +95,7 @@ export const Register = () => {
                 <label htmlFor='name'>Name</label>
                 <input 
                     type="text"
-                    placeholder="Capi"
+                    placeholder="Whats's your name?"
                     name='name'
                     id='name' 
                     value={newUser.name}
@@ -108,7 +108,7 @@ export const Register = () => {
                 <label htmlFor='lastname'>Last name</label>
                 <input 
                     type="text"
-                    placeholder="Bara"
+                    placeholder="And your last name?"
                     name='lastname'
                     id='lastname' 
                     value={newUser.lastname}
@@ -121,7 +121,7 @@ export const Register = () => {
                 <label htmlFor='email'>Email</label>
                 <input 
                     type="email"
-                    placeholder="capi@mail.com"
+                    placeholder="Enter your email"
                     name='email'
                     id='email'
                     value={newUser.email}
@@ -134,7 +134,7 @@ export const Register = () => {
                 <label htmlFor='password'>Password</label>
                 <input 
                     type="password"
-                    placeholder="********"
+                    placeholder="Set your password"
                     name='password'
                     id='password'
                     value={newUser.passwordA}
@@ -147,7 +147,7 @@ export const Register = () => {
                 <label htmlFor='rePassword'>Repeat password</label>
                 <input 
                     type="password"
-                    placeholder="********"
+                    placeholder="Repeat your password"
                     name='repassword'
                     id='rePassword' 
                     value={newUser.passwordB}
@@ -158,7 +158,7 @@ export const Register = () => {
             </div>
 
             <PrimaryButton type="submit">Register</PrimaryButton>
-            <Link>Log in</Link>
+            <Link to={"/login"}>Log in</Link>
         </form>
         <img src="/capi_photo.svg"  className='buttonImg' alt="" />
    

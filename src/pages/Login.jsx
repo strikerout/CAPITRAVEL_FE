@@ -39,8 +39,8 @@ const Login = () => {
   return (
     <div>
     <img src="/orange_wave_desktop_top.png" className='topWave' alt="" />
-    <div className='formNavigate orange'>
-            <svg onClick={()=>navigate('/')} xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="m14 7l-5 5l5 5"/></svg>
+    <div className='formNavigate orange'onClick={()=>navigate('/')}>
+            <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="m14 7l-5 5l5 5"/></svg>
             <h4>Back to home</h4>
         </div>
     <form className='registerLoginForm' onSubmit={handleSubmit}>
@@ -53,7 +53,7 @@ const Login = () => {
             <label htmlFor='email'>Email</label>
             <input 
                 type="email"
-                placeholder="capi@mail.com"
+                placeholder="Enter your email"
                 name='email'
                 id='email'
                 value={user.email}
@@ -77,7 +77,7 @@ const Login = () => {
         </div>
         
         <PrimaryButton type="submit">Log in</PrimaryButton>
-        <Link>Register</Link>
+        <Link to={'/register'}>Register</Link>
     </form>
     <img src="/capi_sunglasses_top.svg"  className='topImg' alt="" />
 
