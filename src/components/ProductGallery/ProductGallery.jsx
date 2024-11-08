@@ -32,21 +32,11 @@ const ProductGallery = ({data}) => {
         modules={[FreeMode, Navigation, Thumbs, Autoplay]}
         className={style.mySwiper2}
       >
-        <SwiperSlide className={style.swiperSlide}>
-          <img src={data.images[0]} />
+        {data.images.map((image, index) => (
+          <SwiperSlide key={index} className={style.swiperSlide}>
+          <img src={image} />
         </SwiperSlide>
-        <SwiperSlide className={style.swiperSlide}>
-          <img src={"https://swiperjs.com/demos/images/nature-2.jpg"}  />
-        </SwiperSlide>
-        <SwiperSlide className={style.swiperSlide}>
-          <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-        </SwiperSlide>
-        <SwiperSlide className={style.swiperSlide}>
-          <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-        </SwiperSlide>
-        <SwiperSlide className={style.swiperSlide}>
-          <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
-        </SwiperSlide>
+        ))}
       </Swiper>
       <Swiper
         onSwiper={setThumbsSwiper}
@@ -63,21 +53,11 @@ const ProductGallery = ({data}) => {
         modules={[FreeMode, Navigation, Thumbs]}
         className={style.mySwiper + ' ' + style.selector}
       >
-        <SwiperSlide className={style.swiperSlide}>
-          <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
+        {data.images.map((image, index) => (
+          <SwiperSlide key={index} className={style.swiperSlide}>
+          <img src={image} />
         </SwiperSlide>
-        <SwiperSlide className={style.swiperSlide}>
-          <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-        </SwiperSlide>
-        <SwiperSlide className={style.swiperSlide}>
-          <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-        </SwiperSlide>
-        <SwiperSlide className={style.swiperSlide}>
-          <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-        </SwiperSlide>
-        <SwiperSlide className={style.swiperSlide}>
-          <img src={data.images[0]} />
-        </SwiperSlide>
+        ))}
 
       </Swiper>
 
