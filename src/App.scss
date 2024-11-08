@@ -800,8 +800,19 @@ body{
           }
     }
 
+    .topImg{
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 80px;
+        @media (min-width: $mobile){
+            display: inline;
+          }
+    }
+
 
     .formNavigate{
+        cursor: pointer;
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -814,21 +825,29 @@ body{
         h4{
            margin-bottom: 0;
            @media (min-width: $mobile){
-            color: $beige;
+            
         }
         }
         svg{
             color: $brown;
             width: 40px;
             @media (min-width: $mobile){
-                color: $beige;
+                
             }
         }
 
     }
 
-    .registerLoginForm{
+    .orange{
+        color: $primary-orange !important;
+    }
 
+    .beige{
+        color: $beige !important;
+    }
+
+    .registerLoginForm{
+        height: 100%;
         border-radius: 23px;
         margin: 0 auto;
         margin-bottom: 20px;

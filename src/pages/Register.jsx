@@ -81,9 +81,9 @@ export const Register = () => {
   return (
     <div>
         <img src="/orange_wave_desktop.png" className='topWave' alt="" />
-        <div className='formNavigate'>
-                <svg onClick={()=>navigate('/')} xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="m14 7l-5 5l5 5"/></svg>
-                <h4>Back to home</h4>
+        <div className='formNavigate' onClick={()=>navigate('/')}>
+                <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="m14 7l-5 5l5 5" className='beige'/></svg>
+                <h4 className='beige'>Back to home</h4>
             </div>
         <form className='registerLoginForm' onSubmit={handleSubmit}>
             <div className='formHeader'>
@@ -121,7 +121,7 @@ export const Register = () => {
                 <label htmlFor='email'>Email</label>
                 <input 
                     type="email"
-                    placeholder="Enter you email"
+                    placeholder="Enter your email"
                     name='email'
                     id='email'
                     value={newUser.email}
@@ -158,7 +158,7 @@ export const Register = () => {
             </div>
 
             <PrimaryButton type="submit">Register</PrimaryButton>
-            <Link>Log in</Link>
+            <Link to={"/login"}>Log in</Link>
         </form>
         <img src="/capi_photo.svg"  className='buttonImg' alt="" />
    
