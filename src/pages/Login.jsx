@@ -1,13 +1,17 @@
 import React from 'react'
+import useUsers from '../hooks/useUsers'
 import PrimaryButton from '../components/Buttons/PrimaryButton'
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import Swal from 'sweetalert2'
 
 const Login = () => {
+    const {loading} = useUsers();
+
     const navigate = useNavigate();
     const [user, setUser] = useState({email: '', password: ''});
     const [errors, setErrors] = useState({email: '', password: ''});
+
 
     const validateFields = () =>{
         const newErrors = {email: '', password: ''};
