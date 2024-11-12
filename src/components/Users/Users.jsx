@@ -1,72 +1,108 @@
 import React from 'react'
+import useUsers from '../../hooks/useUsers'
 
 const Users = () => {
+    // const {users} = useUsers();
     const users = [
         {
             id: 1,
             name: 'Carlos',
-            lastname: 'Colmenares',
-            email: 'carlos@gmail.com'
+            lastName: 'Colmenares',
+            email: 'carlos@gmail.com',
+            role: {
+                id: 2,
+                name: "ROLE_ADMIN"
+            }
         },
         {
             id: 2,
             name: 'Daniel',
-            lastname: 'Chacon',
-            email: 'danielElTravieso@gmail.com'
+            lastName: 'Chacon',
+            email: 'danielElTravieso@gmail.com',
+            role: {
+                id: 2,
+                name: "ROLE_ADMIN"
+            }
         },
         {
             id: 3,
             name: 'Yessy',
-            lastname: 'Silvera',
-            email: 'acaparaPipe@gmail.com'
+            lastName: 'Silvera',
+            email: 'acaparaPipe@gmail.com',
+            role: {
+                id: 1,
+                name: "ROLE_USER"
+            }
         },
         {
             id: 4,
             name: 'Chiara',
-            lastname: 'Pozzi',
-            email: 'reparteTabla@gmail.com'
+            lastName: 'Pozzi',
+            email: 'reparteTabla@gmail.com',
+            role: {
+                id: 2,
+                name: "ROLE_ADMIN"
+            }
         },
         {
             id: 5,
             name: 'Fabio',
-            lastname: 'Gadea',
-            email: 'rompeTodo@gmail.com'
+            lastName: 'Gadea',
+            email: 'rompeTodo@gmail.com',
+            role: {
+                id: 1,
+                name: "ROLE_USER"
+            }
         },
         {
             id: 6,
             name: 'Luis',
-            lastname: 'Soto',
-            email: 'esteSegunHaceLoDeInfra@gmail.com'
+            lastName: 'Soto',
+            email: 'esteSegunHaceLoDeInfra@gmail.com',
+            role: {
+                id: 1,
+                name: "ROLE_USER"
+            }
         },
         {
             id: 7,
             name: 'Romina',
-            lastname: '',
-            email: 'laMejorBackend@gmail.com'
+            lastName: '',
+            email: 'laMejorBackend@gmail.com',
+            role: {
+                id: 1,
+                name: "ROLE_USER"
+            }
         },
         {
             id: 8,
             name: 'Lina',
-            lastname: '',
-            email: 'creoQueDibujaBonito@gmail.com'
+            lastName: '',
+            email: 'creoQueDibujaBonito@gmail.com',
+            role: {
+                id: 1,
+                name: "ROLE_USER"
+            }
         },
     ]
   return (
     <div>
         <div className='adminList'>
-        <div className='headerList'>
+        <div className='headerList usersList'>
           <h4>ID</h4>
           <h4>Name</h4>
           <h4>Lastname</h4>
           <h4>Email</h4>
+          <h4>Role</h4>
         </div>
-        <ul className='bodyList'>
+        <ul className='bodyList usersBody'>
           {users.map((user) => (
             <li key={user.id}>
               <p>{user.id}</p>
               <p>{user.name}</p>
-              <p>{user.lastname}</p>
+              <p>{user.lastName}</p>
               <p>{user.email}</p>
+              <p>{user.role.name == "ROLE_ADMIN" ? 'ADMIN' : 'USER' }</p>
 
               <div>
 
