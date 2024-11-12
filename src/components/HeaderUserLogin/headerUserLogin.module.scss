@@ -62,3 +62,13 @@
 .inactive{
     display: none;
 }
+
+.p_button{
+    border: none;
+    background-color: transparent;
+    color: $brown;
+
+    &:hover{
+        font-weight: bold;
+    }
+}

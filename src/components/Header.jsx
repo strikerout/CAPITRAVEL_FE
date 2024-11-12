@@ -1,6 +1,4 @@
-import React from 'react';
 import {Link, useNavigate} from 'react-router-dom';
-import { Navigate } from 'react-router-dom';
 import useAuthLogin from '../hooks/useAuthLogin';
 import { useEffect } from 'react';
 import HeaderUserLogin from '../components/HeaderUserLogin/HeaderUserLogin'
@@ -8,20 +6,14 @@ import HeaderUserLogin from '../components/HeaderUserLogin/HeaderUserLogin'
 
 const Header = ({id}) => {
   const navigate = useNavigate();
-  const {checkToken, role, username, logout} = useAuthLogin();
+  const {checkToken, role, username, isTokenExpired} = useAuthLogin();
 
   console.log(checkToken)
 
-  
   useEffect(() => {
     checkToken();
   }, []);
 
-  const handleLogOut = () =>{
-    logout();
-    navigate('/');
-    window.location.reload();
-  }
 
   return (
     <header className=''>
@@ -45,9 +37,9 @@ const Header = ({id}) => {
       
         {username ? 
         <div className='loggedUser'>
-          <HeaderUserLogin email={username} />
-          <button className='primary-button'>{username}</button>
-          <button className='secundary-button' onClick={()=>handleLogOut()}>Log out</button>
+          <HeaderUserLogin email={username}/>
+          {/* <button className='primary-button'>{username}</button>
+          <button className='secundary-button'>Log out</button> */}
         </div>
         :
         <div className='desktopControl'>

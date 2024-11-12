@@ -2,42 +2,56 @@ import style from "./headerUserLogin.module.scss";
 import arrow from "../../../public/arrow.svg";
 import heart from "../../../public/heart_filled.svg";
 import reservation from "../../../public/reservation_icon.svg";
-import logout from "../../../public/logout_icon.svg";
+import logoutIcon from "../../../public/logout_icon.svg";
 import { useEffect, useState } from "react";
-import api from "../../api/api";
+import { useNavigate } from "react-router-dom";
+import { getUserByEmail } from "../../api/users";
+import useAuthLogin from "../../hooks/useAuthLogin";
 
 const HeaderUserLogin = ({ email }) => {
+  const navigate = useNavigate();
+
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState({});
 
-  const emailUser = email;
-  console.log(emailUser);
-  const token = localStorage.getItem("token");
-  console.log(token);
+  const { logout } = useAuthLogin();
 
-useEffect(() => {
-  const getUserByEmail = async () => {
-    try {
-      const response = await api.get(`/users/${emailUser}`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setUser(response.data); 
-    } catch (error) {
-      console.error("Error al obtener el usuario:", error);
+  useEffect(() => {
+    const userByEmail = async () => {
+      try {
+        const response = await getUserByEmail(email);
+        setUser(response.data);
+      } catch (error) {
+        console.error("Error al obtener el usuario:", error);
+      }
+    };
+
+    if (email) {
+      userByEmail();
     }
+  }, [email]);
+
+  const getAvatarLetters = (name = "", lastname = "") => {
+    const firstLetterName = name ? name.charAt(0).toUpperCase() : "";
+    const firstLetterLastName = lastname
+      ? lastname.charAt(0).toUpperCase()
+      : "";
+    return `${firstLetterName}${firstLetterLastName}`;
   };
 
-  if (email && token) {
-    getUserByEmail();
-  
-  }
-  console.log(user)
-}, []);
+  const avatar = getAvatarLetters(user.name, user.lastName);
 
-console.log(user)
+  const greeting = () => {
+    return `${user.name.charAt(0).toUpperCase()}${user.name.slice(1)}`;
+  };
+
+  const name = user.name ? greeting() : "";
+
+  const handleLogOut = () => {
+    logout();
+    navigate("/");
+    window.location.reload();
+  };
 
   return (
     <>
@@ -49,9 +63,9 @@ console.log(user)
       >
         <div className={style.user}>
           <div className={style.userAvatar}>
-            <p> {email} </p>
+            <p>{avatar}</p>
           </div>
-          <p></p>
+          <p>Hi,{name}!</p>
         </div>
         <img src={arrow} alt="" />
       </div>
@@ -67,8 +81,10 @@ console.log(user)
         </div>
 
         <div className={style.menuItem}>
-          <img src={logout} alt="" />
-          <p>Logout</p>
+          <img src={logoutIcon} alt="" />
+          <button className={style.p_button} onClick={() => handleLogOut()}>
+            Logout
+          </button>
         </div>
       </div>
     </>
