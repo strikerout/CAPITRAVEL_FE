@@ -1,29 +1,19 @@
 @use '../../variables' as *; 
-// Carousel mod
 
 .swiper {
     width: 100%;
     height: 100%;
-    background-color: aquamarine;
   }
 
 .mySwiper{
     height: 500px;
-    background-color: $blue;
-    @media (min-width: $mobile){
-      background-color: transparent;
-      width:90%;
-  }
-  @media (min-width: 1000px){
-    width:60%;
-}
 }
   
 .swiper-slide{
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 200px !important;
+     width: 200px !important;
   }
 
 .swiper-slide a:first-child {

@@ -1,10 +1,11 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
-import HeaderUserLogin from './HeaderUserLogin/HeaderUserLogin';
+import {Link, useNavigate} from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 
 
 const Header = ({id}) => {
+  const navigate = useNavigate();
 
   return (
     <header className=''>
@@ -28,9 +29,8 @@ const Header = ({id}) => {
       
         
         <div className='desktopControl'>
-          <HeaderUserLogin/>
-          <button className='secundary-button'>Create Account </button>
-          <button className='primary-button'>Log In</button>
+          <button className='secundary-button' onClick={()=>navigate('/register')}>Create Account </button>
+          <button className='primary-button' onClick={()=>navigate('/login')}>Log In</button>
         </div>
 
       </div>
