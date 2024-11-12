@@ -6,6 +6,7 @@ import Properties from "../components/Properties/Properties";
 import arrowIcon from "../../public/arrow.svg";
 import capiCamp from "../../public/capi_camp.svg";
 import BannerDashboard from "../components/BannerDashboard"
+import Users from "../components/Users/Users";
 
 const AdminPanel = () => {
   return (
@@ -36,6 +37,14 @@ const AdminPanel = () => {
         >
           Properties <img src={arrowIcon} alt="arrow" />
         </NavLink>
+        <NavLink
+          to="users"
+          className={({ isActive }) =>
+            isActive ? "navlink-active" : "navlink-default"
+          }
+        >
+          Users <img src={arrowIcon} alt="arrow" />
+        </NavLink>
       </nav>
     
       <div>
@@ -44,6 +53,7 @@ const AdminPanel = () => {
           <Route path="categories" element={<Categories />} />
           <Route path="properties" element={<Properties />} />
           <Route path="experiences" element={<Experiences />} />
+          <Route path="users" element={<Users/>} />
         </Routes>
       </div>     
     </section>

@@ -752,10 +752,13 @@ body{
         height: 100%;
         position: absolute;
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
-        background-color: rgba(128, 128, 128, 0.245);
-
+        background-color: rgba(0, 0, 0, 0.5);
+        h3{
+            color: $beige;
+        }
     }
 
     .swalConfirmButton{
@@ -778,6 +781,15 @@ body{
     .swalHtmlContainer{
         color: $brown;
         font-family: "Inter", sans-serif;
+        display: flex;
+        flex-direction: column;
+        div{
+            margin-top: 10px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            gap: 20px;
+        }
     }
 
     .topWave{

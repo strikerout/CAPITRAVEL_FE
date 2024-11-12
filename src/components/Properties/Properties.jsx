@@ -215,6 +215,7 @@ const Properties = () => {
           <h4>ID</h4>
           <h4>Name</h4>
           <h4>Description</h4>
+          <h4>-</h4>
         </div>
         <ul className='bodyList'>
           {properties.map((property) => (
