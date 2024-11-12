@@ -1,5 +1,7 @@
 import api from './api';
 
+const token = localStorage.getItem("token");
+
 // Obtener todas las categorías
 export const getCategories = async () => {
   const response = await api.get('/categories');
@@ -14,7 +16,13 @@ export const getCategoryByID = async (id) => {
 
 // Crear una nueva categoría
 export const createCategory = async (category) => {
-  const response = await api.post('/categories', category);
+  const response = await api.post('/categories', category,  
+    {headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+        }
+    },);
+    
   return response.data;
 };
 

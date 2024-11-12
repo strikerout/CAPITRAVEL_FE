@@ -516,6 +516,18 @@ body{
         justify-content: center;
         gap: 20px;
     }
+    .messageAdminOnly{
+        display: none;
+        @media (min-width: $mobile){
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 16px;
+            gap: 16px;
+        }
+    }
     .mobileView{
         display: flex;
         flex-direction: column;
@@ -700,6 +712,10 @@ body{
         grid-template-columns: 0.5fr 1fr 1fr 2fr 1fr 1fr 0.5fr; 
     }
 
+    .usersList{
+        grid-template-columns: 0.5fr 1fr 1fr 2fr 0.5fr 0.5fr; 
+    }
+
     .bodyList{
         margin: 25px;
         display: flex;
@@ -736,6 +752,16 @@ body{
         
     }
 
+    .usersBody{
+        li{
+            grid-template-columns: 0.5fr 1fr 1fr 2fr 0.5fr 0.5fr; 
+            .miniList{
+                display: flex !important;
+                flex-direction: column !important;
+            }
+        }
+    }
+
     .content-general{
         padding: 20px;
         display: grid;
@@ -752,10 +778,13 @@ body{
         height: 100%;
         position: absolute;
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
-        background-color: rgba(128, 128, 128, 0.245);
-
+        background-color: rgba(0, 0, 0, 0.5);
+        h3{
+            color: $beige;
+        }
     }
 
     .swalConfirmButton{
@@ -778,6 +807,15 @@ body{
     .swalHtmlContainer{
         color: $brown;
         font-family: "Inter", sans-serif;
+        display: flex;
+        flex-direction: column;
+        div{
+            margin-top: 10px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            gap: 20px;
+        }
     }
 
     .topWave{
@@ -800,8 +838,19 @@ body{
           }
     }
 
+    .topImg{
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 80px;
+        @media (min-width: $mobile){
+            display: inline;
+          }
+    }
+
 
     .formNavigate{
+        cursor: pointer;
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -814,21 +863,29 @@ body{
         h4{
            margin-bottom: 0;
            @media (min-width: $mobile){
-            color: $beige;
+            
         }
         }
         svg{
             color: $brown;
             width: 40px;
             @media (min-width: $mobile){
-                color: $beige;
+                
             }
         }
 
     }
 
-    .registerLoginForm{
+    .orange{
+        color: $primary-orange !important;
+    }
 
+    .beige{
+        color: $beige !important;
+    }
+
+    .registerLoginForm{
+        height: 100%;
         border-radius: 23px;
         margin: 0 auto;
         margin-bottom: 20px;

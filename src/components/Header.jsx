@@ -1,10 +1,27 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
-import HeaderUserLogin from './HeaderUserLogin/HeaderUserLogin';
-
+import {Link, useNavigate} from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
+import useAuthLogin from '../hooks/useAuthLogin';
+import { useEffect } from 'react';
+import HeaderUserLogin from '../components/HeaderUserLogin/HeaderUserLogin'
 
 
 const Header = ({id}) => {
+  const navigate = useNavigate();
+  const {checkToken, role, username, logout} = useAuthLogin();
+
+  console.log(checkToken)
+
+  
+  useEffect(() => {
+    checkToken();
+  }, []);
+
+  const handleLogOut = () =>{
+    logout();
+    navigate('/');
+    window.location.reload();
+  }
 
   return (
     <header className=''>
@@ -26,12 +43,21 @@ const Header = ({id}) => {
         </Link>
         </div>
       
-        
-        <div className='desktopControl'>
-          <HeaderUserLogin/>
-          <button className='secundary-button'>Create Account </button>
-          <button className='primary-button'>Log In</button>
+        {username ? 
+        <div className='loggedUser'>
+          <HeaderUserLogin email={username} />
+          <button className='primary-button'>{username}</button>
+          <button className='secundary-button' onClick={()=>handleLogOut()}>Log out</button>
         </div>
+        :
+        <div className='desktopControl'>
+          <button className='secundary-button' onClick={()=>navigate('/register')}>Create Account </button>
+          <button className='primary-button' onClick={()=>navigate('/login')}>Log In</button>
+        </div>
+        }
+        
+
+        
 
       </div>
       

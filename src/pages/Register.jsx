@@ -3,8 +3,12 @@ import PrimaryButton from '../components/Buttons/PrimaryButton'
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import Swal from 'sweetalert2'
+import useUsers from '../hooks/useUsers'
+import Loading from '../components/Loading'
 
 export const Register = () => {
+    const { addUser, loading} = useUsers();
+
     const navigate = useNavigate();
     const [newUser, setNewUser] = useState({ name: '', lastname: '', email: '', passwordA: '', passwordB: ''})
     const [errors, setErrors] = useState({ name: '', lastname: '', email: '', passwordA: '', passwordB: ''});
@@ -54,24 +58,58 @@ export const Register = () => {
 
 
         setErrors(newErrors);
+        
         return Object.values(newErrors).every((error) => error === '');
     }
+
+    const handleAddUser = async() => {
+        const verifiedNewUser = {
+            "name": newUser.name,
+            "lastName": newUser.lastname,
+            "email": newUser.email,
+            "password": newUser.passwordA
+        }
+        const error = await addUser(verifiedNewUser);
+
+        if (error) {
+            Swal.fire({
+              imageUrl: '/errorCapi.svg',
+              imageWidth: 200,
+              title: error.data?.error || "Error",
+              text: "Error: " + (error.status || "Connection error, please try later"),
+              customClass: {
+                confirmButton: 'swalConfirmButton',
+                title: 'swalTitle',
+                htmlContainer: 'swalHtmlContainer',
+              }
+            });
+          }else{
+            Swal.fire({
+              imageUrl: '/checkCapi.svg',
+              imageWidth: 200,
+              title: "Registered!",
+              text: "We have sent you a confirmation email",
+              html: `
+                    We have sent you a confirmation email
+                    <div>
+                        <a href="/login" autofocus>Login</a>
+                        <a href="#" autofocus>Resend mail</a>
+                    </div>
+                `,
+              customClass: {
+                confirmButton: 'swalConfirmButton',
+                title: 'swalTitle',
+                htmlContainer: 'swalHtmlContainer',
+              }
+            });
+        }
+          cleanForm();
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if (validateFields()) {
-            Swal.fire({
-                imageUrl: '/checkCapi.svg',
-                imageWidth: 200,
-                title: "Valid User",
-                text: "The user is valid.",
-                customClass: {
-                  confirmButton: 'swalConfirmButton',
-                  title: 'swalTitle',
-                  htmlContainer: 'swalHtmlContainer',
-                }
-              });
-            cleanForm();
+            handleAddUser();
         }
       };
 
@@ -79,11 +117,13 @@ export const Register = () => {
         setNewUser({ name: '', lastname: '', email: '', passwordA: '', passwordB: ''})
       }
   return (
+    <>
+    {loading ? <Loading/> : null}
     <div>
         <img src="/orange_wave_desktop.png" className='topWave' alt="" />
-        <div className='formNavigate'>
-                <svg onClick={()=>navigate('/')} xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="m14 7l-5 5l5 5"/></svg>
-                <h4>Back to home</h4>
+        <div className='formNavigate' onClick={()=>navigate('/')}>
+                <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="m14 7l-5 5l5 5" className='beige'/></svg>
+                <h4 className='beige'>Back to home</h4>
             </div>
         <form className='registerLoginForm' onSubmit={handleSubmit}>
             <div className='formHeader'>
@@ -121,7 +161,7 @@ export const Register = () => {
                 <label htmlFor='email'>Email</label>
                 <input 
                     type="email"
-                    placeholder="Enter you email"
+                    placeholder="Enter your email"
                     name='email'
                     id='email'
                     value={newUser.email}
@@ -158,10 +198,12 @@ export const Register = () => {
             </div>
 
             <PrimaryButton type="submit">Register</PrimaryButton>
-            <Link>Log in</Link>
+            <Link to={"/login"}>Log in</Link>
         </form>
         <img src="/capi_photo.svg"  className='buttonImg' alt="" />
    
     </div>
+    </>
+    
   )
 }

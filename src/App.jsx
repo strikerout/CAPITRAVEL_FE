@@ -8,6 +8,7 @@ import AdminPanel from './pages/AdminPanel';
 import CompleteGallery from './pages/CompleteGallery';
 import Loading from './components/Loading';
 import { Register } from './pages/Register';
+import Login from './pages/Login';
 
 
 function App() {
@@ -25,6 +26,8 @@ function App() {
       <Route path='/gallery/:id' element={<CompleteGallery/>}/>
       <Route path='/administrator/*' element={<AdminPanel/>}/>
       <Route path='/register' element={<Register/>}/>
+      <Route path='/login' element={<Login/>}/>
+
     </Routes>
     </div>
     
