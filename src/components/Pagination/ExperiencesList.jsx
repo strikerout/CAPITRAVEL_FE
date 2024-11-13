@@ -3,7 +3,7 @@ import ProductCard from "../Cards/ProductCard";
 import Pagination from './Pagination';
 import useExperiences from '../../hooks/useExperience'
 
-export const ExperiencesList = () => {
+export const ExperiencesList = ({categoryIds}) => {
 
   const {experiences, loading, error, shufflingExperiences} = useExperiences();
   // const [experiences, setExperiences] = useState([]);

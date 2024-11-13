@@ -12,6 +12,14 @@ export const getExperienceByID = async (id) => {
     return response.data;
 };
 
+// Obtener una lista de experiencia por id de categorias
+export const getExperienceByCategories = async (ids) => {
+    const queryParam = ids.join(',');
+    const response = await api.get(`/experiences?categoryIds=${queryParam}`);
+    return response.data;
+};
+
+
 // Crear una nueva experiencia
 export const createExperience = async (experience) => {
     const response = await api.post('/experiences', experience);

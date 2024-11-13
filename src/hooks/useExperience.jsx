@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import {getExperiences, getExperienceByID, createExperience, updateExperience, deleteExperience} from '../api/experiences';
+import {getExperiences, getExperienceByID, getExperienceByCategories, createExperience, updateExperience, deleteExperience} from '../api/experiences';
 
 const useExperiences = () => {
     const [experiences, setExperiences] = useState([]);
@@ -33,8 +33,21 @@ const useExperiences = () => {
         }
     };
 
+    const fetchExperiencesByCategories = async (categoryIds) => {
+        try {
+            const data = await getExperienceByCategories(categoryIds);
+            setShufflingExperiences(data.slice().sort(() => Math.random() - 0.5))
+            setExperiences(data);
+        } catch (err) {
+            setError(err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     useEffect(() => {
         fetchExperiences();
+        fetchExperiencesByCategories();
     }, []);
 
     const addExperience = async (newExperience) => {
