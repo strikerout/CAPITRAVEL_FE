@@ -3,12 +3,13 @@ import arrow from "../../../public/arrow.svg";
 import heart from "../../../public/heart_filled.svg";
 import reservation from "../../../public/reservation_icon.svg";
 import logoutIcon from "../../../public/logout_icon.svg";
+import adminIcon from "../../../public/icon_admin.svg"
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getUserByEmail } from "../../api/users";
 import useAuthLogin from "../../hooks/useAuthLogin";
 
-const HeaderUserLogin = ({ email }) => {
+const HeaderUserLogin = ({ email, role }) => {
   const navigate = useNavigate();
 
   const [open, setOpen] = useState(false);
@@ -70,15 +71,26 @@ const HeaderUserLogin = ({ email }) => {
         <img src={arrow} alt="" />
       </div>
       <div className={`${style.dropdownMenu} ${open || style.inactive}`}>
-        <div className={style.menuItem}>
-          <img src={heart} alt="" />
-          <p>My favorites</p>
-        </div>
+        {
+         role === "ROLE_ADMIN" ? (
+          <Link to="/administrator" className={style.menuItem}>
+          <img src={adminIcon} alt="admin icon" />
+          <p>Admin Panel</p>
+          </Link>
+         ) : (
+          <>
+          <div className={style.menuItem}>
+              <img src={heart} alt="" />
+              <p>My favorites</p>
+            </div>
 
-        <div className={style.menuItem}>
-          <img src={reservation} alt="" />
-          <p>My reservations</p>
-        </div>
+            <div className={style.menuItem}>
+              <img src={reservation} alt="" />
+              <p>My reservations</p>
+            </div>
+          </>
+         )
+        }
 
         <div className={style.menuItem}>
           <img src={logoutIcon} alt="" />

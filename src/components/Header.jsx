@@ -37,9 +37,7 @@ const Header = ({id}) => {
       
         {username ? 
         <div className='loggedUser'>
-          <HeaderUserLogin email={username}/>
-          {/* <button className='primary-button'>{username}</button>
-          <button className='secundary-button'>Log out</button> */}
+          <HeaderUserLogin email={username} role ={role} />
         </div>
         :
         <div className='desktopControl'>
