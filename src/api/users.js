@@ -9,21 +9,14 @@ export const createUser = async (user) => {
 }
 
 export const getUsers = async () => {
-    // const response = await api.get('/users',{
-    //     headers: {
-    //     "Content-Type": "application/json",
-    //     "Authorization": `Bearer ${token}`
-    //     },
-    //     }
-    // )
-    await fetch("http://localhost:8080/users", {
+    const response = await fetch("http://localhost:8080/users", {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`
         },
-    })
-    .then(response => console.log(response.json()))
+    });
+    return response;
 }
 
 export const getUserByEmail = async (email) => {
@@ -37,12 +30,13 @@ export const getUserByEmail = async (email) => {
     return response;
 }
 
-export const updateUserRole = async (email, newRole) =>{
-    const response = await api.post(`/users/role?email=${email}&roleName${newRole}`,{
+export const updateUserRole = async (email, newRole) => {
+    const response = await api.post(`/users/role/${email}?roleName=${newRole}`, null, {
         headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
         },
-    })
+    }
+    )
     return response;
 }
