@@ -1,7 +1,5 @@
 import api from './api';
 
-const token = localStorage.getItem("token");
-
 // Obtener todas las experiencias
 export const getExperiences = async () => {
     const response = await api.get('/experiences');
@@ -16,6 +14,7 @@ export const getExperienceByID = async (id) => {
 
 // Crear una nueva experiencia
 export const createExperience = async (experience) => {
+    const token = localStorage.getItem("token");
     const response = await api.post('/experiences', experience,  
     {headers: {
         "Content-Type": "application/json",
@@ -27,6 +26,7 @@ export const createExperience = async (experience) => {
 
 // Actualizar una experiencia existente
 export const updateExperience = async (id, updatedExperience) => {
+    const token = localStorage.getItem("token");
     const response = await api.put(`/experiences/${id}`, updatedExperience, {headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`
@@ -37,6 +37,7 @@ export const updateExperience = async (id, updatedExperience) => {
 
 // Eliminar una experiencia
 export const deleteExperience = async (id) => {
+    const token = localStorage.getItem("token");
     const response = await api.delete(`/experiences/${id}`, {headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`
