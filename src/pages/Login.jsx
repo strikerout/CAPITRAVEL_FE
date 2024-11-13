@@ -24,7 +24,7 @@ const Login = () => {
              Swal.fire({
                 imageUrl: '/checkCapi.svg',
                 imageWidth: 200,
-                title: "Sussces login",
+                title: "Success login",
                 text: "You are logged in",
                 customClass: {
                   confirmButton: 'swalConfirmButton',
