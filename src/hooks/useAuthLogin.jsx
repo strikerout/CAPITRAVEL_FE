@@ -37,6 +37,14 @@ const useAuthLogin = () =>{
             setUsername(decodedToken.sub);
         }
     }
+    
+    const isTokenExpired = (token) => {
+        const decodedToken = decodeJwt(token);
+        const expirationTime = decodedToken.exp * 1000;
+        const currentTime = Date.now();
+        return currentTime >= expirationTime;
+    }
+
 
     const logout = () =>{
         localStorage.removeItem("token");
@@ -51,7 +59,8 @@ const useAuthLogin = () =>{
         role,
         username,
         logout,
-        checkToken
+        checkToken,
+        isTokenExpired
     }
 
 }
