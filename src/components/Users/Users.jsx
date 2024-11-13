@@ -1,6 +1,6 @@
 import React from 'react';
 import useUsers from '../../hooks/useUsers';
-import styles from './Users.module.css'; // Asegúrate de que la ruta sea correcta
+import styles from './Users.module.css';
 
 const Users = () => {
     const { users, loading, error, handleUpdateUserRole } = useUsers();
