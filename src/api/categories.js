@@ -28,13 +28,21 @@ export const createCategory = async (category) => {
 
 // Actualizar una categoría existente
 export const updateCategory = async (id, updatedCategory) => {
-  const response = await api.put(`/categories/${id}`, updatedCategory);
+  const response = await api.put(`/categories/${id}`, updatedCategory, {headers: {
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${token}`
+    }
+},);
   return response.data;
 };
 
 // Eliminar una categoría
 export const deleteCategory = async (id) => {
-  const response = await api.delete(`/categories/${id}`);
+  const response = await api.delete(`/categories/${id}`, {headers: {
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${token}`
+    }
+},);
   return response.data;
 };
 

@@ -2,6 +2,7 @@
 
 .productDescription{
     margin: 0 20px;
+    width: 70%;
     .productText{
         margin-top: 30px;
         display: flex;
@@ -34,6 +35,8 @@
         gap: 20px;
     }
     .property{
+        width: 50%;
+        overflow-wrap: break-word;
         img{
             width: 20px;
         }
