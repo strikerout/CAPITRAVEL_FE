@@ -1,7 +1,5 @@
 import api from './api';
 
-const token = localStorage.getItem("token");
-
 // Obtener todas las categorías
 export const getCategories = async () => {
   const response = await api.get('/categories');
@@ -16,6 +14,7 @@ export const getCategoryByID = async (id) => {
 
 // Crear una nueva categoría
 export const createCategory = async (category) => {
+  const token = localStorage.getItem("token");
   const response = await api.post('/categories', category,  
     {headers: {
         "Content-Type": "application/json",
@@ -28,6 +27,7 @@ export const createCategory = async (category) => {
 
 // Actualizar una categoría existente
 export const updateCategory = async (id, updatedCategory) => {
+  const token = localStorage.getItem("token");
   const response = await api.put(`/categories/${id}`, updatedCategory, {headers: {
     "Content-Type": "application/json",
     "Authorization": `Bearer ${token}`
@@ -38,6 +38,7 @@ export const updateCategory = async (id, updatedCategory) => {
 
 // Eliminar una categoría
 export const deleteCategory = async (id) => {
+  const token = localStorage.getItem("token");
   const response = await api.delete(`/categories/${id}`, {headers: {
     "Content-Type": "application/json",
     "Authorization": `Bearer ${token}`
