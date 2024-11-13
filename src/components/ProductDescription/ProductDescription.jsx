@@ -23,7 +23,7 @@ const ProductDescription = ({data}) => {
         <div className={style.propertyContainer}>
             {data.properties.map(property => (
               <div key={property.id} className={style.property}>
-                <img src={icon} alt="" />
+                <img src={property.image} alt="" />
                 <h5> {property.name} </h5>
                 <p>{property.description}</p>
               </div>

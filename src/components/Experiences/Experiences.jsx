@@ -4,7 +4,6 @@ import useProperties from "../../hooks/useProperties";
 import useExperiences from "../../hooks/useExperience";
 import ImageUploader from "../ImageUploader";
 import PrimaryButton from "../Buttons/PrimaryButton";
-import style from "./experiences.module.scss"
 import Swal from 'sweetalert2'
 import Loading from '../Loading';
 

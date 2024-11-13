@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import useCategories from '../../hooks/useCategories';
 import PrimaryButton from '../Buttons/PrimaryButton';
 import Swal from 'sweetalert2'
@@ -6,13 +6,13 @@ import Loading from '../Loading';
 
 
 const Categories = () => {
-  const { fetchCategories, fetchCategoryByID, categories, loading, error, addCategory, editCategory, removeCategory } = useCategories();
-  const [newCategory, setNewCategory] = useState({ name: '', description: '', image: '' });
+  const {fetchCategoryByID, categories, loading, addCategory, editCategory, removeCategory } = useCategories();
+  const [newCategory, setNewCategory] = useState({ name: '', description: ''});
   const [idToEdit, setIdToEdit] = useState('');
-  const [errors, setErrors] = useState({ name: '', description: '', image: '' });
+  const [errors, setErrors] = useState({ name: '', description: ''});
 
   const validateFields = () => {
-    const newErrors = { name: '', description: '', image: '' };
+    const newErrors = { name: '', description: ''};
 
     if (!newCategory.name) newErrors.name = "Name is required";
     else if ( newCategory.name.length < 3 || newCategory.name.length > 16) {
@@ -23,10 +23,7 @@ const Categories = () => {
     else if ( newCategory.description.length < 15 || newCategory.description.length > 256) {
       newErrors.description = 'Description must be between 15 and 256 characters.';
     }
-    
-    if (!newCategory.image) {
-      newErrors.image = 'Image is required.';
-    }
+
     setErrors(newErrors);
     return Object.values(newErrors).every((error) => error === '');
   };
@@ -98,7 +95,7 @@ const Categories = () => {
 
   const enableEditMode = async (id) => {
     const toEdit = await fetchCategoryByID(id);
-    setNewCategory({name: toEdit.name, description: toEdit.description, image: toEdit.image});
+    setNewCategory({name: toEdit.name, description: toEdit.description});
     setIdToEdit(id);
   };
 
@@ -152,7 +149,7 @@ const Categories = () => {
 
   const cancelEdit = () => {
     setIdToEdit('');
-    setNewCategory({ name: '', description: '', image: '' });
+    setNewCategory({ name: '', description: ''});
   };
 
   const handleSubmit = (e) => {
@@ -197,21 +194,6 @@ const Categories = () => {
               }
             />
             {errors.description && <p className="error">{errors.description}</p>}
-          </div>
-
-          <div>
-            <label htmlFor="image">Add a icon</label>
-            <input
-              type="text"
-              placeholder="Image"
-              id="image"
-              value={newCategory.image}
-              onChange={(e) =>
-                setNewCategory({ ...newCategory, image: e.target.value })
-              }
-            />
-            {errors.image && <p className="error">{errors.image}</p>}
-            <p>Supported files .PNG .SVG</p>
           </div>
 
           {idToEdit ? (
