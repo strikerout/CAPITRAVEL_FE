@@ -1,12 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, {useState} from "react";
 import ProductCard from "../Cards/ProductCard";
 import Pagination from './Pagination';
-import useExperiences from '../../hooks/useExperience'
 
-export const ExperiencesList = () => {
-
-  const {experiences, loading, error, shufflingExperiences} = useExperiences();
-  // const [experiences, setExperiences] = useState([]);
+export const ExperiencesList = ({ experiences }) => {
 
   const totalExperiences = experiences.length;
   const [experiencePerPage, setExperiencePerPage] = useState(10);
@@ -23,17 +19,20 @@ export const ExperiencesList = () => {
     <>
       <div className="desktopCars">
         <div className="grid-container">
-          {/* <!-- Fila 1 --> */}
-          {shufflingExperiences
-            .map((experience, index) => (
-              <div
-                className={`item item-${indexElements(index)}`}
-                key={experience.id}
-              >
-                <ProductCard data={experience}/>
-              </div>
-            ))
-            .slice(firstIndex, lastIndex)}
+          {experiences.length > 0 ? (
+            experiences
+              .map((experience, index) => (
+                <div
+                  className={`item item-${indexElements(index)}`}
+                  key={experience.id}
+                >
+                  <ProductCard data={experience} />
+                </div>
+              ))
+              .slice(firstIndex, lastIndex)
+          ) : (
+            <p>No experiences found for the selected categories.</p>
+          )}
         </div>
       </div>
       <Pagination
@@ -45,4 +44,5 @@ export const ExperiencesList = () => {
     </>
   );
 };
+
 export default ExperiencesList;

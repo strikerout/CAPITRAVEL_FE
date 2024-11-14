@@ -1,8 +1,12 @@
 import api from './api';
 
 // Obtener todas las experiencias
-export const getExperiences = async () => {
-    const response = await api.get('/experiences');
+export const getExperiences = async (categoryIds = []) => {
+    let url = '/experiences';
+    if (categoryIds.length > 0) {
+        url += `?categoryIds=${categoryIds.join(',')}`;
+    }
+    const response = await api.get(url);
     return response.data;
 };
 
