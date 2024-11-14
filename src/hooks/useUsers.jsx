@@ -51,16 +51,14 @@ const useUsers = () => {
         }
     };
 
-    useEffect(() => {
-        fetchUsers();
-    }, []);
 
     return{
         users,
         addUser,
         handleUpdateUserRole,
         loading,
-        error
+        error,
+        fetchUsers
     };
 };
 
