@@ -216,8 +216,8 @@ const Properties = () => {
               <div>
                   <h6>Uploaded images:</h6>
                     {newProperty.image && (
-                  <ul className="containerTag">
-                    <li className="imgExperienceForm">
+                  <ul className={styles.containerUl}>
+                    <li className={styles.iconPropertyLi}>
                     <img
                       src={newProperty.image}
                       alt="Uploaded image"
