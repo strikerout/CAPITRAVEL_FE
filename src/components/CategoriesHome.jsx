@@ -46,6 +46,7 @@ const CategoriesHome = ({ selectedCategories, setSelectedCategories }) => {
             style={{
               backgroundColor: categoryColors[category.id] ? categoryColors[category.id] : '#000',
               border: selectedCategories.includes(category.id) ? '1.3px solid brown' : 'none',
+              cursor: 'pointer',
             }}
             onClick={() => handleCategoryClick(category.id)}
             className={selectedCategories.includes(category.id) ? 'selected' : ''}
