@@ -41,7 +41,7 @@ const Home = () => {
 
       <Search />
       <CategoriesHome selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories} />
-      
+
       <br></br>
   
       <ExperiencesList experiences={experiences} />
@@ -49,7 +49,7 @@ const Home = () => {
       <section>
         <div className='home-carousel'>
           <div className='carouselHeader'>
-            <p>Meet Experiences</p>
+            <p>meet experiences</p>
             <h2>You can't miss it!</h2>
           </div>
           <Carousel data={experiences} />
