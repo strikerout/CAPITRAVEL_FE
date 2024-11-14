@@ -13,9 +13,13 @@ const Login = () => {
 
     const validateFields = () => {
         const newErrors = { email: '', password: '' };
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     
         if (!user.email) {
             newErrors.email = 'Please enter your email.';
+        } else if (!emailRegex.test(user.email)) {
+            newErrors.email = 'Please enter a valid email address.'; // Mensaje para formato inválido
         }
     
         if (!user.password) {
