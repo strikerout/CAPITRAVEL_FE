@@ -170,7 +170,7 @@ const Properties = () => {
   const handleRemoveImg = () => {
     setNewProperty({
       ...newProperty,
-      image: null,
+      image: '',
     })
   }
 
