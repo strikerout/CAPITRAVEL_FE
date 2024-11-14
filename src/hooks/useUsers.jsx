@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { createUser, getUsers , updateUserRole} from '../api/users';
+import { createUser, getUsers , resendEmailApi, updateUserRole} from '../api/users';
 
 
 const useUsers = () => {
@@ -49,6 +49,15 @@ const useUsers = () => {
         } catch (error) {
             setError(error.response?.data?.message || 'Failed to update user role');
         }
+    }
+
+    const resendEmail = async (userData) => {
+        try {
+            const response = await resendEmailApi(userData);
+            return null;
+        } catch (error) {
+            return error.response;
+        }
     };
 
 
@@ -58,7 +67,8 @@ const useUsers = () => {
         handleUpdateUserRole,
         loading,
         error,
-        fetchUsers
+        fetchUsers,
+        resendEmail
     };
 };
 

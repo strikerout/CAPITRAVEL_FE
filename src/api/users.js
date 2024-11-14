@@ -43,3 +43,8 @@ export const updateUserRole = async (email, newRole) => {
     )
     return response;
 }
+
+export const resendEmailApi = async (userData) => {
+    const response = await api.post(`/emails`, userData)
+    return response;
+}
