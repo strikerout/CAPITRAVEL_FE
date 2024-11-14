@@ -121,7 +121,7 @@ const Login = () => {
         </div>
         
         <PrimaryButton type="submit">Log in</PrimaryButton>
-        <Link to={'/register'}>Register</Link>
+        <Link to={'/register'}>Create Account</Link>
     </form>
     <img src="/capi_sunglasses_top.svg"  className='topImg' alt="" />
 
