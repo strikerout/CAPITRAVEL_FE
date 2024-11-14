@@ -53,7 +53,7 @@ export const Register = () => {
 
         if (!newUser.passwordB) newErrors.passwordB = "Capi needs you to repeat your password"
         else if( newUser.passwordA !== newUser.passwordB){
-            newErrors.passwordB = "Passwords don't match"
+            newErrors.passwordB = "Capi needs you to repeat the same password"
         }
 
 
