@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ProductCard from "../Cards/ProductCard";
 import Pagination from './Pagination';
+import Message from "../Message/Message";
 
 export const ExperiencesList = ({ experiences }) => {
   const [shuffledExperiences, setShuffledExperiences] = useState([]);
@@ -36,7 +37,7 @@ export const ExperiencesList = ({ experiences }) => {
                 </div>
               ))
           ) : (
-            <p>No experiences found for the selected categories.</p>
+           <Message/>
           )}
         </div>
       </div>

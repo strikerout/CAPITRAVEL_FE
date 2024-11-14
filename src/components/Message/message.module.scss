@@ -1,0 +1,17 @@
+@use "../../variables" as *;
+
+.container_message {
+margin-top: 3rem;
+display: flex;
+align-items: center;
+gap: 15px;
+
+  @media (min-width: 1000px) {
+    width: 500px;
+  }
+}
+
+.imgCapi{
+    transform: rotate(180deg); 
+    width: 100px;
+}
