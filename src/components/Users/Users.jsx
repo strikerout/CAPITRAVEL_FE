@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import useUsers from '../../hooks/useUsers';
 import styles from './Users.module.css';
 
 const Users = () => {
-    const { users, loading, error, handleUpdateUserRole } = useUsers();
+    const { users, loading, error, handleUpdateUserRole, fetchUsers } = useUsers();
+
+    useEffect(() => {
+        fetchUsers();
+    }, []);
 
     const handleRoleToggle = (email, isAdmin) => {
         const newRole = isAdmin ? 'ROLE_ADMIN' : 'ROLE_USER';
