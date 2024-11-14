@@ -157,7 +157,6 @@ export const Register = () => {
     const cleanForm = () => {
         setNewUser({ name: '', lastname: '', email: '', passwordA: '', passwordB: '' });
     };
-
     
   return (
     <>
@@ -173,7 +172,6 @@ export const Register = () => {
                 <img src="/capi_hat.svg" alt="" />
                 <h4>Create your Account</h4>
             </div>
-
             <div>
                 <label htmlFor='name'>Name</label>
                 <input 
@@ -244,9 +242,7 @@ export const Register = () => {
             <Link to={"/login"}>Log in</Link>
         </form>
         <img src="/capi_photo.svg"  className='buttonImg' alt="" />
-
     </div>
     </>
-
   )
 }
