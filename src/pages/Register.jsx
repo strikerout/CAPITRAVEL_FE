@@ -85,25 +85,81 @@ export const Register = () => {
             });
           }else{
             Swal.fire({
-              imageUrl: '/checkCapi.svg',
-              imageWidth: 200,
-              title: "Registered!",
-              text: "We have sent you a confirmation email",
-              html: `
+                imageUrl: '/checkCapi.svg',
+                imageWidth: 200,
+                title: "Registered!",
+                text: "We have sent you a confirmation email",
+                html: `
                     We have sent you a confirmation email
                     <div>
                         <a href="/login" autofocus>Login</a>
                         <a href="#" autofocus>Resend mail</a>
                     </div>
                 `,
-              customClass: {
-                confirmButton: 'swalConfirmButton',
-                title: 'swalTitle',
-                htmlContainer: 'swalHtmlContainer',
-              }
+                customClass: {
+                    confirmButton: 'swalConfirmButton',
+                    title: 'swalTitle',
+                    htmlContainer: 'swalHtmlContainer',
+                },//el did open tambien lo añadi
+                didOpen: () => {
+                    const resendLink = document.getElementById('resendEmailLink');
+                    if (resendLink) {
+                        resendLink.addEventListener('click', handleResendEmail);
+                    }
+                }
             });
         }
           cleanForm();
+    };
+//Esto es lo que agregue para el resend, revisenlo a ver
+    const handleResendEmail = async () => {
+        try {
+            // Preparar los datos que se enviarán en el cuerpo de la solicitud
+            const response = await fetch('/emails', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: newUser.email,        // Asegúrate de tener `newUser` definido con los datos del usuario
+                    name: newUser.name,
+                    lastName: newUser.lastName
+                })
+            });
+
+            if (!response.ok) {
+                // Verifica si el error es un 404 (usuario no encontrado)
+                if (response.status === 404) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Usuario no encontrado',
+                        text: 'No se encontró un usuario con el email proporcionado.',
+                    });
+                } else {
+                    // Si es otro tipo de error, muestra un mensaje genérico
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'No se pudo reenviar el correo. Inténtalo nuevamente.',
+                    });
+                }
+                return;
+            }
+
+            // En caso de éxito
+            Swal.fire({
+                icon: 'success',
+                title: 'Correo reenviado',
+                text: 'El correo de confirmación se ha enviado nuevamente.',
+            });
+        } catch (error) {
+            // Manejo de errores de red
+            Swal.fire({
+                icon: 'error',
+                title: 'Error de red',
+                text: 'Hubo un problema al intentar reenviar el correo. Por favor, intenta más tarde.',
+            });
+        }
     };
 
     const handleSubmit = (e) => {
