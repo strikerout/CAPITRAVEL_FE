@@ -37,3 +37,14 @@
         margin: 0 auto;
     }
 }
+
+.iconPropertyLi{
+    position: relative;
+    svg{
+        position: absolute;
+        left: 5px;
+        top: 5px;
+        width: 25px;
+        fill: $brown;
+    }
+}
