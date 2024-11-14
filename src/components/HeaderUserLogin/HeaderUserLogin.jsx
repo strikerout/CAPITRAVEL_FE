@@ -71,26 +71,22 @@ const HeaderUserLogin = ({ email, role }) => {
         <img src={arrow} alt="" />
       </div>
       <div className={`${style.dropdownMenu} ${open || style.inactive}`}>
-        {
-         role === "ROLE_ADMIN" ? (
+        {role === "ROLE_ADMIN" && (
           <Link to="/administrator" className={style.menuItem}>
           <img src={adminIcon} alt="admin icon" />
           <p>Admin Panel</p>
           </Link>
-         ) : (
-          <>
-          <div className={style.menuItem}>
-              <img src={heart} alt="" />
-              <p>My favorites</p>
-            </div>
-
-            <div className={style.menuItem}>
-              <img src={reservation} alt="" />
-              <p>My reservations</p>
-            </div>
-          </>
-         )
+         ) 
         }
+        <div className={style.menuItem}>
+          <img src={heart} alt="" />
+          <p>My favorites</p>
+        </div>
+
+        <div className={style.menuItem}>
+          <img src={reservation} alt="" />
+          <p>My reservations</p>
+        </div>
 
         <div className={style.menuItem}>
           <img src={logoutIcon} alt="" />
