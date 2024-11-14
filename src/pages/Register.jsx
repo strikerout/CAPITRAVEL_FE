@@ -1,17 +1,16 @@
-import React from 'react'
-import PrimaryButton from '../components/Buttons/PrimaryButton'
-import { Link, useNavigate } from 'react-router-dom'
-import { useState } from 'react'
-import Swal from 'sweetalert2'
-import useUsers from '../hooks/useUsers'
-import Loading from '../components/Loading'
+import React, { useState } from 'react';
+import PrimaryButton from '../components/Buttons/PrimaryButton';
+import { Link, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import useUsers from '../hooks/useUsers';
+import Loading from '../components/Loading';
 
 export const Register = () => {
-    const { addUser, loading} = useUsers();
-
+    const { addUser, resendEmail, loading } = useUsers();
     const navigate = useNavigate();
-    const [newUser, setNewUser] = useState({ name: '', lastname: '', email: '', passwordA: '', passwordB: ''})
-    const [errors, setErrors] = useState({ name: '', lastname: '', email: '', passwordA: '', passwordB: ''});
+    const [newUser, setNewUser] = useState({ name: '', lastname: '', email: '', passwordA: '', passwordB: '' });
+    const [errors, setErrors] = useState({ name: '', lastname: '', email: '', passwordA: '', passwordB: '' });
+    const [emailSent, setEmailSent] = useState(false); // Nuevo estado para controlar el envío del correo
 
     const validateFields = () => {
         const newErrors = { name: '', lastname: '', email: '', passwordA: '', passwordB: ''};
@@ -55,55 +54,97 @@ export const Register = () => {
         else if( newUser.passwordA !== newUser.passwordB){
             newErrors.passwordB = "Capi needs you to repeat the same password"
         }
-
-
         setErrors(newErrors);
-        
         return Object.values(newErrors).every((error) => error === '');
-    }
+    };
 
-    const handleAddUser = async() => {
+    const handleAddUser = async () => {
         const verifiedNewUser = {
             "name": newUser.name,
             "lastName": newUser.lastname,
             "email": newUser.email,
             "password": newUser.passwordA
-        }
+        };
         const error = await addUser(verifiedNewUser);
-
         if (error) {
             Swal.fire({
-              imageUrl: '/errorCapi.svg',
-              imageWidth: 200,
-              title: error.data?.error || "Error",
-              text: "Error: " + (error.status || "Connection error, please try later"),
-              customClass: {
-                confirmButton: 'swalConfirmButton',
-                title: 'swalTitle',
-                htmlContainer: 'swalHtmlContainer',
-              }
+                imageUrl: '/errorCapi.svg',
+                imageWidth: 200,
+                title: error.data?.error || "Error",
+                text: "Error: " + (error.status || "Connection error, please try later"),
+                customClass: {
+                    confirmButton: 'swalConfirmButton',
+                    title: 'swalTitle',
+                    htmlContainer: 'swalHtmlContainer',
+                }
             });
-          }else{
+        } else {
             Swal.fire({
-              imageUrl: '/checkCapi.svg',
-              imageWidth: 200,
-              title: "Registered!",
-              text: "We have sent you a confirmation email",
-              html: `
+                imageUrl: '/checkCapi.svg',
+                imageWidth: 200,
+                title: "Registered!",
+                text: "We have sent you a confirmation email",
+                html: `
                     We have sent you a confirmation email
                     <div>
                         <a href="/login" autofocus>Login</a>
-                        <a href="#" autofocus>Resend mail</a>
+                        <a href="#" class="resendMailLink" autofocus>Resend mail</a>
                     </div>
                 `,
-              customClass: {
-                confirmButton: 'swalConfirmButton',
-                title: 'swalTitle',
-                htmlContainer: 'swalHtmlContainer',
-              }
+                customClass: {
+                    confirmButton: 'swalConfirmButton',
+                    title: 'swalTitle',
+                    htmlContainer: 'swalHtmlContainer',
+                },
+                didOpen: () => {
+                    document.querySelector('.resendMailLink').addEventListener('click', handleResendEmail);
+                }
             });
+            setEmailSent(true);
         }
-          cleanForm();
+        cleanForm();
+    };
+    
+
+    const handleResendEmail = async () => {
+        const userData = {
+            email: newUser.email,
+            name: newUser.name,
+            lastName: newUser.lastname
+        };
+        const error = await resendEmail(userData);
+        if (error) {
+            Swal.fire({
+                imageUrl: '/errorCapi.svg',
+                imageWidth: 200,
+                title: error.data?.error || "Error",
+                text: "Error: " + (error.status || "Connection error, please try later"),
+                customClass: {
+                    confirmButton: 'swalConfirmButton',
+                    title: 'swalTitle',
+                    htmlContainer: 'swalHtmlContainer',
+                }
+            });
+        } else {
+            Swal.fire({
+                imageUrl: '/checkCapi.svg',
+                imageWidth: 200,
+                title: "Email Resent!",
+                text: "We have resent the confirmation email",
+                html: `
+                    We have resent the confirmation email
+                    <div>
+                        <a href="/login" autofocus>Login</a>
+                    </div>
+                `,
+                customClass: {
+                    confirmButton: 'swalConfirmButton',
+                    title: 'swalTitle',
+                    htmlContainer: 'swalHtmlContainer',
+                },
+            });
+            setEmailSent(true);
+        }
     };
 
     const handleSubmit = (e) => {
@@ -111,11 +152,12 @@ export const Register = () => {
         if (validateFields()) {
             handleAddUser();
         }
-      };
+    };
 
-      const cleanForm = () =>{
-        setNewUser({ name: '', lastname: '', email: '', passwordA: '', passwordB: ''})
-      }
+    const cleanForm = () => {
+        setNewUser({ name: '', lastname: '', email: '', passwordA: '', passwordB: '' });
+    };
+    
   return (
     <>
     {loading ? <Loading/> : null}
@@ -130,7 +172,6 @@ export const Register = () => {
                 <img src="/capi_hat.svg" alt="" />
                 <h4>Create your Account</h4>
             </div>
-            
             <div>
                 <label htmlFor='name'>Name</label>
                 <input 
@@ -201,9 +242,7 @@ export const Register = () => {
             <Link to={"/login"}>Log in</Link>
         </form>
         <img src="/capi_photo.svg"  className='buttonImg' alt="" />
-   
     </div>
     </>
-    
   )
 }
