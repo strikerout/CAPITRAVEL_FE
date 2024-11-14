@@ -51,9 +51,9 @@ export const Register = () => {
         }
 
 
-        if(!newUser.passwordB) newErrors.passwordB = "Password is required"
+        if (!newUser.passwordB) newErrors.passwordB = "Capi needs you to repeat your password"
         else if( newUser.passwordA !== newUser.passwordB){
-            newErrors.passwordB = "Passwords don't match"
+            newErrors.passwordB = "Capi needs you to repeat the same password"
         }
 
 
@@ -197,7 +197,7 @@ export const Register = () => {
                 {errors.passwordB && <p className="error">{errors.passwordB}</p>}
             </div>
 
-            <PrimaryButton type="submit">Register</PrimaryButton>
+            <PrimaryButton type="submit">Create Account</PrimaryButton>
             <Link to={"/login"}>Log in</Link>
         </form>
         <img src="/capi_photo.svg"  className='buttonImg' alt="" />
