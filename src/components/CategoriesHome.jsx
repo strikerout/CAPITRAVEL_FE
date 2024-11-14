@@ -17,7 +17,7 @@ const CategoriesHome = ({ selectedCategories, setSelectedCategories }) => {
   const handleCategoryClick = (categoryId) => {
     setSelectedCategories((prevSelectedCategories) => {
       if (prevSelectedCategories.includes(categoryId)) {
-        return prevSelectedCategories.filter(id => idFmee !== categoryId);
+        return prevSelectedCategories.filter(id => id !== categoryId);
       } else {
         return [...prevSelectedCategories, categoryId];
       }
