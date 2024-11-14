@@ -31,8 +31,11 @@ const useAuthLogin = () =>{
     const checkToken = () => {
         const token = localStorage.getItem("token");
         if (token) {
+            if(isTokenExpired(token)){
+                 localStorage.removeItem('token');
+                 return
+            }
             const decodedToken = decodeJwt(token);
-            console.log(decodedToken);
             setRole(decodedToken.role);
             setUsername(decodedToken.sub);
         }
