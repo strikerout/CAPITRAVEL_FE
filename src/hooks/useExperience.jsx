@@ -8,9 +8,9 @@ const useExperiences = () => {
     const [error, setError] = useState(null);
     const [shufflingExperiences, setShufflingExperiences] = useState([])
 
-    const fetchExperiences = async () => {
+    const fetchExperiences = async (categoryIds = []) => {
         try {
-            const data = await getExperiences();
+            const data = await getExperiences(categoryIds);
             setShufflingExperiences(data.slice().sort(() => Math.random() - 0.5))
             setExperiences(data);
         } catch (err) {
