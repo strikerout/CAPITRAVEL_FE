@@ -282,7 +282,7 @@ const Experiences = () => {
  
     if (!newExperience.description) newErrors.description = "Description is required";
     else if (newExperience.description.length < 32 || newExperience.description.length > 512)
-       newErrors.description = "Description must be between 32 and 256 characters";
+       newErrors.description = "Description must be between 32 and 512 characters";
  
     if (!newExperience.country) newErrors.country = "Country is required";
     else if (newExperience.country.length < 2 || newExperience.country.length > 32)
