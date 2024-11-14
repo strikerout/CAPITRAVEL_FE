@@ -28,8 +28,6 @@ const Home = () => {
 
   return (
     <div>
-      <Search />
-      <CategoriesHome selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories} />
       <Banner />
       <div className='top10-header'>
         <img src="/dotted_lines.svg" className='left-lines' alt="" />
@@ -41,7 +39,11 @@ const Home = () => {
         <img src="/dotted_lines.svg" className='right-lines' alt="" />
       </div>
 
-      {/* Pasamos las experiencias filtradas a ExperiencesList */}
+      <Search />
+      <CategoriesHome selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories} />
+      
+      <br></br>
+  
       <ExperiencesList experiences={experiences} />
 
       <section>
