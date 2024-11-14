@@ -11,20 +11,16 @@ const Home = () => {
   const { experiences, loading, fetchExperiences, error } = useExperiences();
 
   useEffect(() => {
+    fetchExperiences();
+  }, []);
+
+  useEffect(() => {
     if (selectedCategories.length > 0) {
       fetchExperiences(selectedCategories);
     } else {
       fetchExperiences();
     }
-  }, [selectedCategories, fetchExperiences]);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
+  }, [selectedCategories]);
 
   return (
     <div>
@@ -40,10 +36,14 @@ const Home = () => {
       </div>
 
       <Search />
-      <CategoriesHome selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories} />
+      <CategoriesHome 
+        selectedCategories={selectedCategories} 
+        setSelectedCategories={setSelectedCategories} 
+        fetchExperiences={fetchExperiences}
+      />
 
-      <br></br>
-  
+      <br />
+
       <ExperiencesList experiences={experiences} />
 
       <section>
