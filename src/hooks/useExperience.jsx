@@ -1,21 +1,29 @@
-import { useState, useEffect } from 'react';
-import {getExperiences, getExperienceByID, createExperience, updateExperience, deleteExperience} from '../api/experiences';
+import { useState, useEffect, useRef } from 'react';
+import { getExperiences, getExperienceByID, createExperience, updateExperience, deleteExperience } from '../api/experiences';
 
 const useExperiences = () => {
     const [experiences, setExperiences] = useState([]);
     const [experience, setExperience] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [shufflingExperiences, setShufflingExperiences] = useState([])
+    const [shufflingExperiences, setShufflingExperiences] = useState([]);
+
+    const prevCategories = useRef([]);
 
     const fetchExperiences = async (categoryIds = []) => {
-        try {
-            const data = await getExperiences(categoryIds);
-            setShufflingExperiences(data.slice().sort(() => Math.random() - 0.5))
-            setExperiences(data);
-        } catch (err) {
-            setError(err);
-        } finally {
+        setLoading(true);
+
+        if (categoryIds.length === 0 || JSON.stringify(categoryIds) !== JSON.stringify(prevCategories.current)) {
+            try {
+                const data = await getExperiences(categoryIds);
+                setExperiences(data);
+                prevCategories.current = categoryIds;
+            } catch (err) {
+                setError(err);
+            } finally {
+                setLoading(false);
+            }
+        } else {
             setLoading(false);
         }
     };
@@ -74,8 +82,6 @@ const useExperiences = () => {
             return error;
         }
     };
-
-   
 
     return {
         fetchExperiences,

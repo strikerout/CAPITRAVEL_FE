@@ -11,20 +11,16 @@ const Home = () => {
   const { experiences, loading, fetchExperiences, error } = useExperiences();
 
   useEffect(() => {
+    fetchExperiences();
+  }, []);
+
+  useEffect(() => {
     if (selectedCategories.length > 0) {
       fetchExperiences(selectedCategories);
     } else {
       fetchExperiences();
     }
-  }, [selectedCategories, fetchExperiences]);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
+  }, [selectedCategories]);
 
   return (
     <div>
@@ -40,16 +36,20 @@ const Home = () => {
       </div>
 
       <Search />
-      <CategoriesHome selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories} />
-      
-      <br></br>
-  
+      <CategoriesHome 
+        selectedCategories={selectedCategories} 
+        setSelectedCategories={setSelectedCategories} 
+        fetchExperiences={fetchExperiences}
+      />
+
+      <br />
+
       <ExperiencesList experiences={experiences} />
 
       <section>
         <div className='home-carousel'>
           <div className='carouselHeader'>
-            <p>Meet Experiences</p>
+            <p>meet experiences</p>
             <h2>You can't miss it!</h2>
           </div>
           <Carousel data={experiences} />

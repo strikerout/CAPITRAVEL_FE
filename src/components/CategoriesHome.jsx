@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import useCategories from '../hooks/useCategories';
 import { FaTimes } from 'react-icons/fa';
 
-const CategoriesHome = ({ selectedCategories, setSelectedCategories }) => {
+const CategoriesHome = ({ selectedCategories, setSelectedCategories, fetchExperiences }) => {
   const { categories } = useCategories();
   const [categoryColors, setCategoryColors] = useState({});
 
@@ -26,6 +26,7 @@ const CategoriesHome = ({ selectedCategories, setSelectedCategories }) => {
 
   const handleClearFilters = () => {
     setSelectedCategories([]);
+    fetchExperiences();
   };
 
   function getRandomColor() {
