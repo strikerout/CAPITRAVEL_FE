@@ -11,10 +11,20 @@ const Login = () => {
     const [user, setUser] = useState({email: '', password: ''});
     const [errors, setErrors] = useState({email: '', password: ''});
 
-    const validateFields = () =>{
-        const newErrors = {email: '', password: ''};
-        return true;
-    }
+    const validateFields = () => {
+        const newErrors = { email: '', password: '' };
+    
+        if (!user.email) {
+            newErrors.email = 'Please enter your email.';
+        }
+    
+        if (!user.password) {
+            newErrors.password = 'Please enter your password.';
+        }
+    
+        setErrors(newErrors);
+        return !newErrors.email && !newErrors.password; 
+    };
 
     const handleLogin = async() =>{
         const response = await loginUser(user);
@@ -43,7 +53,7 @@ const Login = () => {
             Swal.fire({
                 imageUrl: '/errorCapi.svg',
                 imageWidth: 200,
-                title: response.data,
+                title: response.data.error,
                 text: "Error: " + response.status,
                 customClass: {
                   confirmButton: 'swalConfirmButton',
