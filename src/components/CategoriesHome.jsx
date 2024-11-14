@@ -46,11 +46,11 @@ const CategoriesHome = ({ selectedCategories, setSelectedCategories, fetchExperi
             key={category.id}
             style={{
               backgroundColor: categoryColors[category.id] ? categoryColors[category.id] : '#000',
-              border: selectedCategories.includes(category.id) ? '2px solid brown' : 'none',
+              border: selectedCategories.includes(category.id) ? '2.5px solid #562210' : 'none',
+              boxShadow: categoryColors[category.id]? '0px 2px 0px 0px #562210' : 'none',
               cursor: 'pointer',
             }}
             onClick={() => handleCategoryClick(category.id)}
-            className={selectedCategories.includes(category.id) ? 'selected' : ''}
           >
             <p>{category.name}</p>
           </li>
