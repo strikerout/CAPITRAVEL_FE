@@ -23,7 +23,11 @@ const useCategories = () => {
           const category = await getCategoryByID(id);
           return category;
       } catch (err) {
-          setError(err);
+          const error = err.response || "Unknown error";
+          setError(error); 
+          return error;
+      }finally {
+        setLoading(false);
       }
   };
 
@@ -38,8 +42,11 @@ const useCategories = () => {
     try {
       const newCategory = await createCategory(category);
       setCategories((prev) => [...prev, newCategory]);
+      return null; 
     } catch (err) {
-      setError(err);
+      const error = err.response || "Unknown error";
+      setError(error); 
+      return error;
     }
   };
 
@@ -50,8 +57,11 @@ const useCategories = () => {
       setCategories((prev) =>
         prev.map((category) => (category.id === id ? updated : category))
       );
+      return null; 
     } catch (err) {
-      setError(err);
+      const error = err.response || "Unknown error";
+      setError(error); 
+      return error;
     }
   };
 
@@ -60,8 +70,11 @@ const useCategories = () => {
     try {
       await deleteCategory(id);
       setCategories((prev) => prev.filter((category) => category.id !== id));
+      return null; 
     } catch (err) {
-      setError(err);
+      const error = err.response || "Unknown error";
+      setError(error); 
+      return error;
     }
   };
 

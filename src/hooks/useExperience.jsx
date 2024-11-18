@@ -1,19 +1,29 @@
-import { useState, useEffect } from 'react';
-import {getExperiences, getExperienceByID, createExperience, updateExperience, deleteExperience} from '../api/experiences';
+import { useState, useEffect, useRef } from 'react';
+import { getExperiences, getExperienceByID, createExperience, updateExperience, deleteExperience } from '../api/experiences';
 
 const useExperiences = () => {
     const [experiences, setExperiences] = useState([]);
     const [experience, setExperience] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [shufflingExperiences, setShufflingExperiences] = useState([]);
 
-    const fetchExperiences = async () => {
-        try {
-            const data = await getExperiences();
-            setExperiences(data);
-        } catch (err) {
-            setError(err);
-        } finally {
+    const prevCategories = useRef([]);
+
+    const fetchExperiences = async (categoryIds = []) => {
+        setLoading(true);
+
+        if (categoryIds.length === 0 || JSON.stringify(categoryIds) !== JSON.stringify(prevCategories.current)) {
+            try {
+                const data = await getExperiences(categoryIds);
+                setExperiences(data);
+                prevCategories.current = categoryIds;
+            } catch (err) {
+                setError(err);
+            } finally {
+                setLoading(false);
+            }
+        } else {
             setLoading(false);
         }
     };
@@ -23,7 +33,11 @@ const useExperiences = () => {
             const experience = await getExperienceByID(id);
             return experience;
         } catch (err) {
-            setError(err);
+            const error = err.response || "Unknown error";
+            setError(error); 
+            return error;
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -35,19 +49,25 @@ const useExperiences = () => {
         try {
             const createdExperience = await createExperience(newExperience);
             setExperiences((prev) => [...prev, createdExperience]);
+            return null;
         } catch (err) {
-            setError(err);
+            const error = err.response || "Unknown error";
+            setError(error); 
+            return error;
         }
     };
 
-    const updateExistingExperience = async (id, updatedExperience) => {
+    const editExperience = async (id, updatedExperience) => {
         try {
             const updated = await updateExperience(id, updatedExperience);
             setExperiences((prev) =>
                 prev.map((exp) => (exp.id === id ? updated : exp))
             );
+            return null;
         } catch (err) {
-            setError(err);
+            const error = err.response || "Unknown error";
+            setError(error); 
+            return error;
         }
     };
 
@@ -55,12 +75,13 @@ const useExperiences = () => {
         try {
             await deleteExperience(id);
             setExperiences((prev) => prev.filter((exp) => exp.id !== id));
+            return null;
         } catch (err) {
-            setError(err);
+            const error = err.response || "Unknown error";
+            setError(error); 
+            return error;
         }
     };
-
-   
 
     return {
         fetchExperiences,
@@ -70,8 +91,9 @@ const useExperiences = () => {
         loading,
         error,
         addExperience,
-        updateExistingExperience,
+        editExperience,
         removeExperience,
+        shufflingExperiences,
     };
 };
 

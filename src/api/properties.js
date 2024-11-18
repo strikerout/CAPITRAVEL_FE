@@ -14,18 +14,33 @@ export const getPropertyByID = async (id) => {
 
 // Crear una nueva propiedad
 export const createProperty = async (property) => {
-    const response = await api.post('/properties', property);
+    const token = localStorage.getItem("token");
+    const response = await api.post('/properties', property, {headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+        }
+    },);
     return response.data;
 };
 
 // Actualizar una propiedad existente
 export const updateProperty = async (id, updatedProperty) => {
-    const response = await api.put(`/properties/${id}`, updatedProperty);
+    const token = localStorage.getItem("token");
+    const response = await api.put(`/properties/${id}`, updatedProperty, {headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+        }
+    },);
     return response.data;
 };
 
 // Eliminar una propiedad
 export const deleteProperty = async (id) => {
-    const response = await api.delete(`/properties/${id}`);
+    const token = localStorage.getItem("token");
+    const response = await api.delete(`/properties/${id}`, {headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+        }
+    },);
     return response.data;
 };

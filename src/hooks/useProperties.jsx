@@ -13,7 +13,9 @@ const useProperties = () => {
             const data = await getProperties();
             setProperties(data);
         } catch (err) {
-            setError(err);
+            const error = err.response || "Unknown error";
+            setError(error); 
+            return error;
         } finally {
             setLoading(false);
         }
@@ -21,10 +23,14 @@ const useProperties = () => {
 
     const fetchPropertyByID = async (id) => {
         try {
-            const property = await getExperienceByID(id);
+            const property = await getPropertyByID(id);
             return property;
         } catch (err) {
-            setError(err);
+            const error = err.response || "Unknown error";
+            setError(error); 
+            return error;
+        }finally {
+            setLoading(false);
         }
     };
 
@@ -32,8 +38,11 @@ const useProperties = () => {
         try {
             const createdProperty = await createProperty(newProperty);
             setProperties((prev) => [...prev, createdProperty]);
+            return null
         } catch (err) {
-            setError(err);
+            const error = err.response || "Unknown error";
+            setError(error); 
+            return error;
         }
     };
 
@@ -43,8 +52,11 @@ const useProperties = () => {
             setProperties((prev) =>
                 prev.map((prop) => (prop.id === id ? updated : prop))
             );
+            return null;
         } catch (err) {
-            setError(err);
+            const error = err.response || "Unknown error";
+            setError(error); 
+            return error;
         }
     };
 
@@ -52,8 +64,11 @@ const useProperties = () => {
         try {
             await deleteProperty(id);
             setProperties((prev) => prev.filter((prop) => prop.id !== id));
+            return null;
         } catch (err) {
-            setError(err);
+            const error = err.response || "Unknown error";
+            setError(error); 
+            return error;
         }
     };
 

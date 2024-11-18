@@ -1,0 +1,15 @@
+#root{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .mainContent{
+        flex-grow: 1;
+        position: relative;
+        padding: 70px 0 0 0;
+    }
+    .headerFooterOff{
+        padding: 0;
+        height: 100vh;
+    }
+}

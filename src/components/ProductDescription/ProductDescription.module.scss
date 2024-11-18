@@ -2,6 +2,7 @@
 
 .productDescription{
     margin: 0 20px;
+    width: 70%;
     .productText{
         margin-top: 30px;
         display: flex;
@@ -22,4 +23,29 @@
         }
     }
     
+}
+
+.productProperties{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    .propertyContainer{
+        margin-top: 20px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+    .property{
+        width: 50%;
+        overflow-wrap: break-word;
+        img{
+            width: 20px;
+        }
+        h5{
+            color: $brown;
+            font-size: 16px;
+        }
+        p{
+            color: #562110c5;
+        }
+    }
 }

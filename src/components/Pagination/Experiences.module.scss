@@ -1,0 +1,75 @@
+@use "../../variables" as *;
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 40px;
+  @media (min-width: $mobile) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 100px;
+    object-fit: cover;
+    justify-content: space-between;
+  }
+}
+
+.navbutton {
+  background-color: $blue;
+  color: $brown;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  @media (max-width: $mobile) {
+    display: none;
+  }
+}
+
+.navlist {
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navlist li {
+  margin-left: 10px;
+  display: flex;
+}
+
+.navlistbutton {
+  background-color: $blue;
+  color: $brown;
+  padding: 8px 15px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 10px;
+  display: flex;
+}
+
+.navlistbuttonSelected {
+  background-color: $primary-orange;
+  color: $beige;
+  padding: 8px 15px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 10px;
+}
+
+.navlistbutton:hover,
+.navbutton:hover {
+  background-color: $secundary-orange;
+}
+
+.navbutton:disabled {
+  background-color: transparent;
+  color: $brown;
+  cursor: not-allowed;
+  opacity: 0.4;
+}

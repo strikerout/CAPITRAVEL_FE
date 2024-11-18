@@ -1,0 +1,53 @@
+@use '../../variables' as *; 
+
+.bodyList{
+    margin: 25px;
+    display: flex;
+    flex-direction: column;
+    li{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 2fr 0.5fr ;
+        border-bottom: 1px $lightBrown solid;
+        padding: 15px;
+        p{
+            width: 80%;
+        }
+        div{
+            color: $brown;
+            display: flex;
+            gap: 10px;
+            svg{
+                width: 20px;
+            }
+        }
+        
+        
+    }
+}
+
+.icon{
+    width: 50px;
+}
+
+.headerList{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 2fr 0.5fr ;
+    margin: 40px;
+    .mainImgHeader{
+        margin: 0 auto;
+    }
+}
+.containerUl{
+    list-style: none;
+}
+
+.iconPropertyLi{
+    position: relative;
+    svg{
+        position: absolute;
+        left: 5px;
+        top: 5px;
+        width: 25px;
+        fill: $brown;
+    }
+}
