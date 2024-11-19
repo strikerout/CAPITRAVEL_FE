@@ -1,0 +1,110 @@
+@use "../../variables" as *;
+
+.policiesContainer {
+  text-align: center;
+  margin: 20px;
+
+  > * {
+    margin-bottom: 10px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.openModalButton {
+  background-color: $blue;
+  color: $brown;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+
+  &:active {
+    background-color: $secundary-orange;
+  }
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background: $beige;
+  padding: 20px;
+  width: 90%;
+  max-width: 800px;
+  max-height: 80%;
+  border-radius: 10px;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+  @media (max-width: 768px) {
+    width: 95%;
+    max-height: 90%;
+    padding: 15px;
+  }
+}
+
+.closeModalButton {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  color: $brown;
+  cursor: pointer;
+
+  &:hover {
+    color: $secundary-orange;
+  }
+}
+
+.policiesGrid {
+  background: transparent;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-top: 20px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.policyItem {
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: $brown;
+  font-size: 14px;
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+    padding: 8px;
+    text-align: justify; // Alineación justificada para dispositivos móviles
+  }
+}
+
+h2 {
+    text-decoration: underline;
+  }
