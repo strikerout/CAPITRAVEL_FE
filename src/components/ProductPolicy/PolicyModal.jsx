@@ -16,9 +16,8 @@ const PolicyModal = () => {
     "8. Age and Eligibility Requirements: Some experiences may have age restrictions or specific eligibility criteria. It is the user's responsibility to ensure they meet these requirements before booking.",
     "9. Changes and Cancellations: Hosts reserve the right to modify or cancel an experience due to unforeseen circumstances. Users will be notified and, where applicable, offered an alternative.",
     "10. Policy Updates: We reserve the right to update these policies at any time. Users will be informed of significant changes.",
-    "11. Contact: For questions about these policies or specific experiences, contact us at capitravelInfo@gmail.com."
+    "11. Contact: For questions about these policies or specific experiences, contact us at capitravelInfo@gmail.com.",
   ];
-  
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => {
@@ -27,10 +26,8 @@ const PolicyModal = () => {
 
   return (
     <div className={styles.policiesContainer}>
-      <h2>Acceptable Use Policy</h2>
-      <p>
-      Check our policies to ensure a safe and enjoyable experience.
-      </p>
+      <h3>Acceptable Use Policy</h3>
+      <p>Check our policies to ensure a safe and enjoyable experience.</p>
       <button className={styles.openModalButton} onClick={openModal}>
         Check Use Policy
       </button>
@@ -40,13 +37,16 @@ const PolicyModal = () => {
             <button className={styles.closeModalButton} onClick={closeModal}>
               ✕
             </button>
-            <h2>Acceptable Use Policy</h2>
+            <h3>Acceptable Use Policy</h3>
             <div className={styles.policiesGrid}>
-              {policies.map((policy, index) => (
-                <div key={index} className={styles.policyItem}>
-                  {policy}
-                </div>
-              ))}
+              {policies.map((policy, index) => {
+                const [title, description] = policy.split(":"); // Dividir en título y descripción
+                return (
+                  <div key={index} className={styles.policyItem}>
+                    <strong>{title}:</strong> {description}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>

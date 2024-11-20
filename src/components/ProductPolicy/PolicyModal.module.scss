@@ -75,21 +75,18 @@
 }
 
 .policiesGrid {
-  background: transparent;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, auto); // Número de filas que deseas en cada columna
+  grid-auto-flow: column; // Distribuye los elementos en columnas
   gap: 15px;
   margin-top: 20px;
 
   @media (max-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(6, auto); // Ajuste para pantallas más pequeñas
     gap: 10px;
   }
-
-  @media (max-width: 480px) {
-    grid-template-columns: 1fr;
-  }
 }
+
 
 .policyItem {
   padding: 10px;
@@ -105,6 +102,6 @@
   }
 }
 
-h2 {
+.policiesContainer h3 {
     text-decoration: underline;
   }
