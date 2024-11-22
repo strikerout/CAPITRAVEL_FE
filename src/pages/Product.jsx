@@ -43,7 +43,7 @@ const Product = () => {
           <PrimaryButton>Book Now</PrimaryButton>
         </div>
       </div>
-        <PolicyModal/>
+      <PolicyModal />
     </div>
   );
 };

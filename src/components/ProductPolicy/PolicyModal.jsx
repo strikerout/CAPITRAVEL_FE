@@ -26,18 +26,23 @@ const PolicyModal = () => {
 
   return (
     <div className={styles.policiesContainer}>
-      <h3>Acceptable Use Policy</h3>
-      <p>Check our policies to ensure a safe and enjoyable experience.</p>
-      <button className={styles.openModalButton} onClick={openModal}>
-        Check Use Policy
-      </button>
+      <div className={styles.policiesContainer1}>
+        <h3 className={styles.policyTitle}>Acceptable Use Policy</h3>
+        <p>Check our policies to ensure a safe and enjoyable experience.</p>
+      </div>
+      <div className={styles.policiesContainer2}>
+        <button className={styles.openModalButton} onClick={openModal}>
+          Check Use Policy
+        </button>
+      </div>
+
       {isModalOpen && (
         <div className={styles.modalOverlay}>
           <div className={styles.modalContent}>
             <button className={styles.closeModalButton} onClick={closeModal}>
               ✕
             </button>
-            <h3>Acceptable Use Policy</h3>
+            <h3 className={styles.policyTitle}>Acceptable Use Policy</h3>
             <div className={styles.policiesGrid}>
               {policies.map((policy, index) => {
                 const [title, description] = policy.split(":"); // Dividir en título y descripción

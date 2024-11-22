@@ -1,27 +1,49 @@
 @use "../../variables" as *;
 
 .policiesContainer {
-  text-align: center;
-  margin: 20px;
+  display: flex;
+  align-items: left;
+  margin-top: 5vh;
+  flex-direction: column;
+  margin: 55px 20px;
 
-  > * {
-    margin-bottom: 10px;
+  @media (min-width: $mobile) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    margin: 20px auto;
+    width: 70%;
+  }
+}
 
-    &:last-child {
-      margin-bottom: 0;
-    }
+.policiesContainer1 {
+  text-align: left;
+  flex-direction: column;
+  line-height: 40px;
+  @media (min-width: $mobile) {
+    padding: 0 20px;
+  }
+}
+
+.policiesContainer2 {
+  width: 100%;
+  margin-top: 15px;
+  @media (min-width: $mobile) {
+    width: 400px;
+    padding: 0 20px;
+    margin: 0;
   }
 }
 
 .openModalButton {
-  background-color: $blue;
-  color: $brown;
-  padding: 10px 20px;
+  width: 100%;
+  height: 35px;
   border: none;
-  border-radius: 10px;
+  background-color: $primary-orange;
+  color: white;
+  border-radius: 50px;
   cursor: pointer;
-  font-size: 16px;
-  font-weight: 600;
 
   &:active {
     background-color: $secundary-orange;
@@ -43,7 +65,7 @@
 
 .modalContent {
   background: $beige;
-  padding: 20px;
+  padding: 30px;
   width: 90%;
   max-width: 800px;
   max-height: 80%;
@@ -51,12 +73,6 @@
   overflow-y: auto;
   position: relative;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-
-  @media (max-width: 768px) {
-    width: 95%;
-    max-height: 90%;
-    padding: 15px;
-  }
 }
 
 .closeModalButton {
@@ -76,32 +92,19 @@
 
 .policiesGrid {
   display: grid;
-  grid-template-rows: repeat(4, auto); // Número de filas que deseas en cada columna
-  grid-auto-flow: column; // Distribuye los elementos en columnas
+  grid-template-rows: repeat(4, auto);
   gap: 15px;
-  margin-top: 20px;
-
-  @media (max-width: 768px) {
-    grid-template-rows: repeat(6, auto); // Ajuste para pantallas más pequeñas
-    gap: 10px;
-  }
+  margin-top: 25px;
 }
 
-
 .policyItem {
-  padding: 10px;
+  padding: 10px 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   color: $brown;
-  font-size: 14px;
-
-  @media (max-width: 768px) {
-    font-size: 12px;
-    padding: 8px;
-    text-align: justify; // Alineación justificada para dispositivos móviles
-  }
+  text-align: justify; // Alineación justificada para dispositivos móviles
 }
 
-.policiesContainer h3 {
-    text-decoration: underline;
-  }
+.policyTitle {
+  text-decoration: underline;
+}
