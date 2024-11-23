@@ -34,8 +34,6 @@ const Home = () => {
         <img src="/map.svg" alt="" className='banner-map-img' />
         <img src="/dotted_lines.svg" className='right-lines' alt="" />
       </div>
-
-      <Search />
       <CategoriesHome 
         selectedCategories={selectedCategories} 
         setSelectedCategories={setSelectedCategories} 
