@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import styles from "./PolicyModal.module.scss";
+import SecundaryButton from "../Buttons/SecundaryButton";
+import CloseButton from "../Buttons/CloseButton";
 
 const PolicyModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -31,17 +33,13 @@ const PolicyModal = () => {
         <p>Check our policies to ensure a safe and enjoyable experience.</p>
       </div>
       <div className={styles.policiesContainer2}>
-        <button className={styles.openModalButton} onClick={openModal}>
-          Check Use Policy
-        </button>
+      <SecundaryButton func={openModal}>Check Use policies</SecundaryButton>
       </div>
 
       {isModalOpen && (
         <div className={styles.modalOverlay}>
           <div className={styles.modalContent}>
-            <button className={styles.closeModalButton} onClick={closeModal}>
-              ✕
-            </button>
+            <CloseButton func={closeModal}/>
             <h3 className={styles.policyTitle}>Acceptable Use Policy</h3>
             <div className={styles.policiesGrid}>
               {policies.map((policy, index) => {
