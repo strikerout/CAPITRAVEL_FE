@@ -1,16 +1,17 @@
-import React from 'react'
-import { useState, useEffect } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import ProductGallery from '../components/ProductGallery/ProductGallery';
-import ProductHeader from '../components/ProductHeader/ProductHeader';
-import ProductDescription from '../components/ProductDescription/ProductDescription';
-import PrimaryButton from '../components/Buttons/PrimaryButton'
-import ProductRate from '../components/ProductRate/ProductRate';
-import useExperiences from '../hooks/useExperience'
+import React from "react";
+import { useState, useEffect } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import ProductGallery from "../components/ProductGallery/ProductGallery";
+import ProductHeader from "../components/ProductHeader/ProductHeader";
+import ProductDescription from "../components/ProductDescription/ProductDescription";
+import PrimaryButton from "../components/Buttons/PrimaryButton";
+import ProductRate from "../components/ProductRate/ProductRate";
+import useExperiences from "../hooks/useExperience";
+import PolicyModal from "../components/ProductPolicy/PolicyModal";
 
 const Product = () => {
-  const {id} = useParams();
-  const {fetchExperienceByID} = useExperiences();
+  const { id } = useParams();
+  const { fetchExperienceByID } = useExperiences();
   const [experience, setExperience] = useState(null);
   const [error, setError] = useState(null);
 
@@ -25,27 +26,26 @@ const Product = () => {
     };
 
     getExperience();
-  }, [id])
+  }, [id]);
 
-  if (! experience) return <div>Loading...</div>;
+  if (!experience) return <div>Loading...</div>;
 
   return (
-    <div className='product'>
-      <ProductHeader data={experience}/>
+    <div className="product">
+      <ProductHeader data={experience} />
 
-      <ProductGallery data={experience}/>
+      <ProductGallery data={experience} />
 
-      <div className='productDescRate'>
-        <ProductDescription data={experience}/>
-        <div className='rateAndBookContainer'>
-          <ProductRate rating={experience.reputation}/>
+      <div className="productDescRate">
+        <ProductDescription data={experience} />
+        <div className="rateAndBookContainer">
+          <ProductRate rating={experience.reputation} />
           <PrimaryButton>Book Now</PrimaryButton>
         </div>
       </div>
-
-     
+      <PolicyModal />
     </div>
-  )
-}
+  );
+};
 
-export default Product
+export default Product;
