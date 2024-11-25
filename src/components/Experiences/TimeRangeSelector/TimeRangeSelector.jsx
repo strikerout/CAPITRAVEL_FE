@@ -1,3 +1,4 @@
+import style from './timeRangeSelector.module.scss'
 const TimeRangeSelector = ({ startTime, endTime, onChange }) => {
 
   const generateMilitaryHours = () => {
@@ -25,23 +26,15 @@ const TimeRangeSelector = ({ startTime, endTime, onChange }) => {
   };
 
   return (
-    <div style={{ fontFamily: "Arial, sans-serif", color: "#6b4226" }}>
-      <h2>Choose A Service Time</h2>
-      <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
+      <section className={style.containerTime}>
         <div>
           <label htmlFor="start-time">Start Time</label>
           <select
             id="start-time"
             value={startTime}
             onChange={handleStartTimeChange}
-            style={{
-              padding: "0.5rem",
-              border: "1px solid #6b4226",
-              borderRadius: "5px",
-              marginTop: "0.5rem",
-            }}
           >
-            <option value="">--:--</option>
+            <option value="">00:00</option>
             {militaryHours.map((time) => (
               <option key={time} value={time}>
                 {time}
@@ -55,14 +48,8 @@ const TimeRangeSelector = ({ startTime, endTime, onChange }) => {
             id="end-time"
             value={endTime}
             onChange={handleEndTimeChange}
-            style={{
-              padding: "0.5rem",
-              border: "1px solid #6b4226",
-              borderRadius: "5px",
-              marginTop: "0.5rem",
-            }}
           >
-            <option value="">--:--</option>
+            <option value="">00:00</option>
             {militaryHours.map((time) => (
               <option key={time} value={time}>
                 {time}
@@ -70,8 +57,7 @@ const TimeRangeSelector = ({ startTime, endTime, onChange }) => {
             ))}
           </select>
         </div>
-      </div>
-    </div>
+      </section>
   );
 };
 

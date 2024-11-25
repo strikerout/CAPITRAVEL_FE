@@ -1,26 +1,27 @@
+@use '../../../variables' as *;
+
 .daysContainer {
-    // Estilos para el contenedor
     text-align: center;
   }
   
   .daysButtons {
-    display: flex;
-    justify-content: center;
     gap: 10px;
+    display: flex;
+    flex-flow: row wrap;
+    padding: 10px;
   }
   
   .dayButton {
     padding: 8px 16px;
     border: none;
-    background-color: #e0f7fa;
-    color: #00796b;
+    background-color: #E4F5F2;
+    color: $brown;
     font-weight: bold;
     cursor: pointer;
-    border-radius: 8px;
+    border-radius: 50px;
   }
   
   .dayButton.selected {
-    background-color: #00796b;
-    color: white;
+    background-color: $blue;
+    border: 1px solid $brown;
   }
-  

@@ -19,8 +19,7 @@ const DaysOfService = ({ selectedDays, fun }) => {
 
   return (
     <div className={style.daysContainer}>
-      <h3>What Days Will You Offer Service?</h3>
-      <div className={style.daysButtons}>
+      <article className={style.daysButtons}>
         {daysOfWeek.map((day) => (
           <button
             key={day.short}
@@ -32,7 +31,7 @@ const DaysOfService = ({ selectedDays, fun }) => {
             {day.short}
           </button>
         ))}
-      </div>
+      </article>
     </div>
   );
 };

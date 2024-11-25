@@ -26,10 +26,6 @@ const Experiences = () => {
   const [selectedProperty, setSelectedProperty] = useState("");
   const [selectedProperties, setSelectedProperties] = useState([]);
 
-    // Estado para las horas seleccionadas
-    const [startTime, setStartTime] = useState("");
-    const [endTime, setEndTime] = useState("");  
-
   const [idToEdit, setIdToEdit] = useState('');
 
   const [newExperience, setNewExperience] = useState({
@@ -55,7 +51,6 @@ const Experiences = () => {
     });
   };
 
-// Manejar el cambio en el rango de tiempo
 const handleTimeChange = (startTime, endTime) => {
   const formattedServiceHours = `${startTime}-${endTime}`;
   setNewExperience((prevExperience) => ({
@@ -408,7 +403,7 @@ cancelEdit();
       <section className="content-general-experience">
         <form className={isActive ? "displayForm adminForm-experience" : "hiddenForm"}  onSubmit={handleSubmit}>
           <section>
-            <div>
+            <div className={style.cardOrange}>
               <h5>About the Experience</h5>
               <div>
                 <label htmlFor="title">Title</label>
@@ -429,7 +424,7 @@ cancelEdit();
               <div>
                 <div className="labelCharacter">
                 <label htmlFor="description"> Description</label>
-                <p>0/500</p>
+                <p>{newExperience.description.length}/500</p>
                 </div>
                 <textarea
                   name="description"
@@ -446,7 +441,7 @@ cancelEdit();
               </div>
             </div>
 
-            <div>
+            <div className={style.cardGreen}>
               <h5>Where is it?</h5>
               <div>
                 <label htmlFor="country">Country</label>
@@ -482,7 +477,7 @@ cancelEdit();
           </section>
 
           <section>
-            <div>
+            <div className={style.cardBlue}>
               <h5>Specifications</h5>
               <div>
                 <label htmlFor="categorySelect">Category</label>
@@ -560,9 +555,11 @@ cancelEdit();
               </div>
             </div>
 
-            <div className={style.div_inputs}>
+            <div className={style.cardBrown}>
               <h5>Duration</h5>
-              <label htmlFor="quantity">Number of..</label>
+              <article className={style.containerDuration}>
+                <div>
+                <label htmlFor="quantity">Number of..</label>
               <input
                 type="number"
                 min="1"
@@ -576,8 +573,9 @@ cancelEdit();
                   })
                 }
               />{errors.quantity && <p className="error">{errors.quantity}</p>}
-
-              <label htmlFor="timeUnit">Unit of Time</label>
+                </div>
+                <div>
+                <label htmlFor="timeUnit">Unit of Time</label>
               <select 
               id="timeUnit"
               className={style.select}
@@ -598,6 +596,8 @@ cancelEdit();
                   </option>
                 </select>
                 {errors.timeUnit && <p className="error">{errors.timeUnit}</p>}
+                </div>
+              </article>
             </div>
           </section>
 
@@ -635,9 +635,9 @@ cancelEdit();
           )}
           </section>
 
-          <section>
-            <h5>Hours and days of service</h5>
+          <section className="sectionTime">
             <div>
+            <h4>Hours and days of service</h4>
               <p>What days will you offer service?</p>
               <DaysOfService
                 selectedDays={newExperience.availableDays}
@@ -648,15 +648,14 @@ cancelEdit();
 
             <div>
               <p>
-              choose a service time
+              Choose a service time
               </p>
               {errors.serviceHours && <p className="error">{errors.serviceHours}</p>}
               <TimeRangeSelector
                 startTime={newExperience.serviceHours.split("-")[0] || ""}
                 endTime={newExperience.serviceHours.split("-")[1] || ""}
                 onChange={handleTimeChange}
-              />;
-              <p>Selected Service Hours: {newExperience.serviceHours}</p>
+              />
             </div>
           </section>
         </form>
@@ -675,7 +674,6 @@ cancelEdit();
               <li key={experience.id}>
                 <p>{experience.id}</p>
                 <p>{experience.title}</p>
-                <p>{experience.serviceHours} </p>
                 <img
                   src={experience.images[0]}
                   alt=""
