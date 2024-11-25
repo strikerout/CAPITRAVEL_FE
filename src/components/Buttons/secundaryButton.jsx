@@ -6,4 +6,5 @@ const SecundaryButton = ({children, func, type = "button"}) => {
     <button className={style.secundaryButton} onClick={func} type={type}> {children} </button>
   )
 }
+
 export default SecundaryButton
