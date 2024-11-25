@@ -2,13 +2,17 @@ import React, { useState, useRef  } from "react";
 import useCategories from "../../hooks/useCategories";
 import useProperties from "../../hooks/useProperties";
 import useExperiences from "../../hooks/useExperience";
+import style from "./experiences.module.scss"
 import ImageUploader from "../ImageUploader";
 import PrimaryButton from "../Buttons/PrimaryButton";
 import Swal from 'sweetalert2'
 import Loading from '../Loading';
+import TimeRangeSelector from "./TimeRangeSelector/TimeRangeSelector";
+import DaysOfService from "./DaysSelector/DaysSelector";
 
 const Experiences = () => {
   const divRef = useRef(null);
+
   const { addExperience, editExperience, removeExperience, fetchExperienceByID, experiences, loading } = useExperiences();
 
   const [isActive, setIsActive] = useState(false);
@@ -31,13 +35,43 @@ const Experiences = () => {
     country: "",
     ubication: "",
     description: "",
-    duration: "",
+    quantity: 0,
+    timeUnit: "",
     images: [],
     categoryIds: [],
     propertyIds: [],
+    serviceHours:  "",
+    availableDays:[]
   });
 
   const [errors, setErrors] = useState({});
+
+  const handleChangeTimeUnit = (e) => {
+    setNewExperience({
+      ...newExperience,
+      timeUnit: e.target.value,
+    });
+  };
+
+  const handleTimeChange = (startTime, endTime) => {
+    const formattedServiceHours = `${startTime}-${endTime}`;
+    setNewExperience((prevExperience) => ({
+      ...prevExperience,
+      serviceHours: formattedServiceHours,
+    }));
+  };
+
+  const handleDayAvailable = (day) => {
+    setNewExperience((prevExperience) => {
+      const updatedDays = prevExperience.availableDays.includes(day)
+        ? prevExperience.availableDays.filter((d) => d !== day)
+        : [...prevExperience.availableDays, day];
+      return {
+        ...prevExperience,
+        availableDays: updatedDays,
+      };
+    });
+  };
 
   const scrollToDiv = () => {
     if (divRef.current) {
@@ -48,14 +82,12 @@ const Experiences = () => {
   const handleImagesAdded = (base64Images) => {
     setNewExperience((prevExperience) => ({
       ...prevExperience,
-      images: [...prevExperience.images, ...base64Images], // Añadir nuevas imágenes a la experiencia
+      images: [...prevExperience.images, ...base64Images], 
     }));
   };
 
   const handleRemoveImg = (index) => {
-    console.log(index)
     const updatedImages = newExperience.images.filter((_, i) => i !== index);
-    console.log(updatedImages);
     setNewExperience({
       ...newExperience,
       images: updatedImages
@@ -91,7 +123,6 @@ const Experiences = () => {
   };
 
   const handleRemoveCategory = (id) => {
-    console.log(selectedCategories)
     const updatedCategories = selectedCategories.filter(
       (category) => category.id !== id
     );
@@ -184,29 +215,28 @@ const Experiences = () => {
               }
             });
           }
-          
         }
       });
   };
 
   const handleAddExperience = async (e) => {
     e.preventDefault();
-    const error = await addExperience(newExperience);
-    if (error) {
-      Swal.fire({
-        imageUrl: '/errorCapi.svg',
-        imageWidth: 200,
-        title: error.data.error,
-        text: "Error: " + error.status,
-        customClass: {
-          confirmButton: 'swalConfirmButton',
-          title: 'swalTitle',
-          htmlContainer: 'swalHtmlContainer',
-        }
-      });
+    console.log(newExperience)
+     const error = await addExperience(newExperience);
+     if (error) {
+  Swal.fire({
+    imageUrl: '/errorCapi.svg',
+    imageWidth: 200,
+    title: error.data.error,
+    text: "Error: " + error.status,
+    customClass: {
+      confirmButton: 'swalConfirmButton',
+      title: 'swalTitle',
+      htmlContainer: 'swalHtmlContainer',
     }
-    cancelEdit();
-  
+  });
+}
+cancelEdit();
   };
 
   const handleEditExperience = () =>{
@@ -252,7 +282,6 @@ const Experiences = () => {
               }
             });
           }
-          
         }
       });
   };
@@ -265,10 +294,13 @@ const Experiences = () => {
       country: "",
       ubication: "",
       description: "",
-      duration: "",
+      quantity: 0,
+      timeUnit: "",
       images: [],
       categoryIds: [],
       propertyIds: [],
+      serviceHours: "",
+      availableDays:[]
     }); 
     setSelectedCategories([])
     setSelectedProperties([])
@@ -292,10 +324,15 @@ const Experiences = () => {
     else if (newExperience.ubication.length < 2 || newExperience.ubication.length > 128)
       newErrors.ubication = "Ubication must be between 2 and 128 characters";
 
-    if (!newExperience.duration) newErrors.duration = "Duration is required";
+    if (!newExperience.quantity) newErrors.quantity = "A number of time is required";
+    if (!newExperience.timeUnit) newErrors.timeUnit = "A unit of time is required";
   
     if (selectedCategories.length === 0) newErrors.category = "Category is required";
-    if (newExperience.images.length === 0) newErrors.images = "At least one image is required"; 
+   
+    if (newExperience.images.length === 0) newErrors.images = "At least one image is required";
+    
+    if (!newExperience.availableDays) newErrors.availableDays = "Choose a day of service";
+    if (!newExperience.serviceHours) newErrors.serviceHours = "Choose a service time";
  
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -303,19 +340,20 @@ const Experiences = () => {
  
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (validate()) {
-      idToEdit ? handleEditExperience() : handleAddExperience(e);
-      cancelEdit();
-   }
+    
+   if (validate()) {
+     idToEdit ? handleEditExperience() : handleAddExperience(e);
+     cancelEdit();
+  }
+  handleAddExperience(e)
   };
 
   const enableEditMode = async (id) => {
-
     if(isActive == false){
       setIsActive(!isActive);
     }
    
-    scrollToDiv(); //scrool hacia el form
+    scrollToDiv(); 
 
     const toEdit = await fetchExperienceByID(id);
 
@@ -336,17 +374,19 @@ const Experiences = () => {
       idPropertiesToEdit=[...idPropertiesToEdit, property.id]
     })}
     setSelectedProperties(propertiesToEdit)
-
     setNewExperience({
       title: toEdit.title,
       country: toEdit.country,
       ubication: toEdit.ubication,
       description: toEdit.description,
-      duration: toEdit.duration,
+      quantity: toEdit.quantity,
+      timeUnit: toEdit.timeUnit,
       images: toEdit.images,
       categoryIds: idCategoriesToEdit,
       propertyIds: idPropertiesToEdit,
-    });
+      serviceHours: "",
+      availableDays:[]
+    })
     setIdToEdit(id);
   };
 
@@ -370,7 +410,7 @@ const Experiences = () => {
             <div>
               <h5>About the Experience</h5>
               <div>
-                <label for="title">Title</label>
+                <label htmlFor="title">Title</label>
                 <input
                   type="text"
                   placeholder="Enter a title"
@@ -387,7 +427,7 @@ const Experiences = () => {
 
               <div>
                 <div className="labelCharacter">
-                <label for="description"> Description</label>
+                <label htmlFor="description"> Description</label>
                 <p>0/500</p>
                 </div>
                 <textarea
@@ -408,7 +448,7 @@ const Experiences = () => {
             <div>
               <h5>Where is it?</h5>
               <div>
-                <label for="country">Country</label>
+                <label htmlFor="country">Country</label>
                 <input
                   type="text"
                   placeholder="Enter country name"
@@ -423,7 +463,7 @@ const Experiences = () => {
                 />{errors.country && <p className="error">{errors.country}</p>}
               </div>
               <div>
-                <label for="ubication">Ubication</label>
+                <label htmlFor="ubication">Ubication</label>
                 <input
                   type="text"
                   placeholder="City, state/region"
@@ -444,7 +484,7 @@ const Experiences = () => {
             <div>
               <h5>Specifications</h5>
               <div>
-                <label for="categorySelect">Category</label>
+                <label htmlFor="categorySelect">Category</label>
                 <div className="container-select">
                 <select
                   id="categorySelect"
@@ -482,7 +522,7 @@ const Experiences = () => {
               </div>
 
               <div>
-                <label for="propertySelect">Property</label>
+                <label htmlFor="propertySelect">Property</label>
                 <div className="container-select">
                 <select
                   id="propertySelect"
@@ -502,9 +542,6 @@ const Experiences = () => {
                   Add 
                 </button>
                 </div>
-                
-
-                
                 <ul className="containerTag">
                   {selectedProperties.map((property) => (
                     <li key={property.id} className="tag">
@@ -522,22 +559,44 @@ const Experiences = () => {
               </div>
             </div>
 
-            <div>
+            <div className={style.div_inputs}>
               <h5>Duration</h5>
-              <label for="duration">Time (minutes)</label>
+              <label htmlFor="quantity">Number of..</label>
               <input
                 type="number"
                 min="1"
-                placeholder="Enter a duration"
-                id="duration"
-                value={newExperience.duration}
+                placeholder="Type a number"
+                id="quantity"
+                value={newExperience.quantity}
                 onChange={(e) =>
                   setNewExperience({
                     ...newExperience,
-                    duration: e.target.value,
+                    quantity: e.target.value,
                   })
                 }
-              />{errors.duration && <p className="error">{errors.duration}</p>}
+              />{errors.quantity && <p className="error">{errors.quantity}</p>}
+
+              <label htmlFor="timeUnit">Unit of Time</label>
+              <select 
+              id="timeUnit"
+              className={style.select}
+              value={newExperience.timeUnit}
+              onChange={handleChangeTimeUnit}
+                >
+                  <option value="" disabled>
+                    Minutes, Hour, Days..
+                  </option>
+                  <option value="MINUTES">
+                    Minutes
+                  </option>
+                  <option value="HOURS" >
+                    Hour
+                  </option>
+                  <option value="DAYS">
+                    Day
+                  </option>
+                </select>
+                {errors.timeUnit && <p className="error">{errors.timeUnit}</p>}
             </div>
           </section>
 
@@ -571,13 +630,30 @@ const Experiences = () => {
               <PrimaryButton func={cancelEdit}>Cancel</PrimaryButton>
             </div>
           ) : (
-            <PrimaryButton type="submit">Add Experience</PrimaryButton>
+            <PrimaryButton func={handleSubmit} type="submit">Add Experience</PrimaryButton>
           )}
+          </section>
+
+          <section>
+            <h5>Hours and days of service</h5>
+            <div>
+              <p>What days will you offer service?</p>
+              <DaysOfService fun={handleDayAvailable}/>´
+              {errors.availableDays && <p className="error">{errors.availableDays}</p>}
+            </div>
+
+            <div>
+              <p>
+              choose a service time
+              </p>
+              {errors.serviceHours && <p className="error">{errors.serviceHours}</p>}
+              <TimeRangeSelector onChange={handleTimeChange} />
+              <p>Selected Service Hours: {newExperience.serviceHours}</p>
+            </div>
           </section>
         </form>
 
         <div className="adminList">
-
           <div className="headerList experienceList">
             <h4>ID</h4>
             <h4>Name</h4>
@@ -591,6 +667,7 @@ const Experiences = () => {
               <li key={experience.id}>
                 <p>{experience.id}</p>
                 <p>{experience.title}</p>
+                <p>{experience.serviceHours} </p>
                 <img
                   src={experience.images[0]}
                   alt=""

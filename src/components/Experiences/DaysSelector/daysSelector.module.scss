@@ -1,0 +1,26 @@
+.daysContainer {
+    // Estilos para el contenedor
+    text-align: center;
+  }
+  
+  .daysButtons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .dayButton {
+    padding: 8px 16px;
+    border: none;
+    background-color: #e0f7fa;
+    color: #00796b;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 8px;
+  }
+  
+  .dayButton.selected {
+    background-color: #00796b;
+    color: white;
+  }
+  
