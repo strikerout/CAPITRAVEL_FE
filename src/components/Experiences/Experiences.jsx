@@ -329,8 +329,10 @@ cancelEdit();
    
     if (newExperience.images.length === 0) newErrors.images = "At least one image is required";
     
-    if (!newExperience.availableDays) newErrors.availableDays = "Choose a day of service";
-    if (!newExperience.serviceHours) newErrors.serviceHours = "Choose a service time";
+    if (newExperience.availableDays.length === 0) newErrors.availableDays = "Choose a day of service";
+    if (!newExperience.serviceHours) newErrors.serviceHours = "This fields are required";
+    if(!newExperience.serviceHours.split("-")[0] === "") newErrors.serviceHours = "Select a start Time";
+    if(newExperience.serviceHours.split("-")[1] === "") newErrors.serviceHours ="Select a end time"
  
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -639,11 +641,12 @@ cancelEdit();
             <div>
             <h4>Hours and days of service</h4>
               <p>What days will you offer service?</p>
+              {errors.availableDays && <p className="error">{errors.availableDays}</p>}
               <DaysOfService
                 selectedDays={newExperience.availableDays}
                 fun={handleDayAvailable}
               />
-              {errors.availableDays && <p className="error">{errors.availableDays}</p>}
+             
             </div>
 
             <div>
