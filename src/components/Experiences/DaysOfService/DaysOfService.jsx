@@ -1,8 +1,6 @@
-import React, { useState } from "react";
-import style from "./daysSelector.module.scss";
+import style from "./DaysOfService.module.scss";
 
-const DaysOfService = ({ fun }) => {
-  // Mapeo de los días abreviados a los nombres completos
+const DaysOfService = ({ selectedDays, fun }) => {
   const daysOfWeek = [
     { short: "Mon", full: "MONDAY" },
     { short: "Tue", full: "TUESDAY" },
@@ -13,20 +11,9 @@ const DaysOfService = ({ fun }) => {
     { short: "Sun", full: "SUNDAY" },
   ];
 
-  const [selectedDays, setSelectedDays] = useState([]);
 
-  // Manejar la selección/deselección de días
   const handleDayClick = (e, day) => {
     e.preventDefault();
-
-    // Actualizar el estado local para gestionar la visualización
-    setSelectedDays((prevState) =>
-      prevState.includes(day.full)
-        ? prevState.filter((d) => d !== day.full) // Deseleccionar
-        : [...prevState, day.full] // Seleccionar
-    );
-
-    // Llamar a la función pasada como prop para actualizar el estado en el componente padre
     fun(day.full);
   };
 

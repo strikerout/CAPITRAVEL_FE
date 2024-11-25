@@ -8,7 +8,7 @@ import PrimaryButton from "../Buttons/PrimaryButton";
 import Swal from 'sweetalert2'
 import Loading from '../Loading';
 import TimeRangeSelector from "./TimeRangeSelector/TimeRangeSelector";
-import DaysOfService from "./DaysSelector/DaysSelector";
+import DaysOfService from "./DaysOfService/DaysOfService";
 
 const Experiences = () => {
   const divRef = useRef(null);
@@ -26,7 +26,9 @@ const Experiences = () => {
   const [selectedProperty, setSelectedProperty] = useState("");
   const [selectedProperties, setSelectedProperties] = useState([]);
 
-  const [selectedImages, setSelectedImages] = useState([]);
+    // Estado para las horas seleccionadas
+    const [startTime, setStartTime] = useState("");
+    const [endTime, setEndTime] = useState("");  
 
   const [idToEdit, setIdToEdit] = useState('');
 
@@ -53,13 +55,14 @@ const Experiences = () => {
     });
   };
 
-  const handleTimeChange = (startTime, endTime) => {
-    const formattedServiceHours = `${startTime}-${endTime}`;
-    setNewExperience((prevExperience) => ({
-      ...prevExperience,
-      serviceHours: formattedServiceHours,
-    }));
-  };
+// Manejar el cambio en el rango de tiempo
+const handleTimeChange = (startTime, endTime) => {
+  const formattedServiceHours = `${startTime}-${endTime}`;
+  setNewExperience((prevExperience) => ({
+    ...prevExperience,
+    serviceHours: formattedServiceHours,
+  }));
+};
 
   const handleDayAvailable = (day) => {
     setNewExperience((prevExperience) => {
@@ -116,7 +119,7 @@ const Experiences = () => {
       setSelectedCategories(updatedCategories);
       setNewExperience((prevExperience) => ({
         ...prevExperience,
-        categoryIds: [...prevExperience.categoryIds, categoryToAdd.id], // Solo guarda el ID
+        categoryIds: [...prevExperience.categoryIds, categoryToAdd.id], 
       }));
       setSelectedCategory([]);
     }
@@ -151,7 +154,7 @@ const Experiences = () => {
       setSelectedProperties(updatedProperties);
       setNewExperience((prevExperience) => ({
         ...prevExperience,
-        propertyIds: [...prevExperience.propertyIds, propertyToAdd.id], //Solo guarda el ID
+        propertyIds: [...prevExperience.propertyIds, propertyToAdd.id], 
       }));
       setSelectedProperty("");
     }
@@ -339,13 +342,11 @@ cancelEdit();
  };
  
   const handleSubmit = (e) => {
-    e.preventDefault();
-    
-   if (validate()) {
-     idToEdit ? handleEditExperience() : handleAddExperience(e);
-     cancelEdit();
-  }
-  handleAddExperience(e)
+    e.preventDefault(); 
+    if (validate()) {
+      idToEdit ? handleEditExperience() : handleAddExperience(e);
+      cancelEdit();
+    }
   };
 
   const enableEditMode = async (id) => {
@@ -384,8 +385,8 @@ cancelEdit();
       images: toEdit.images,
       categoryIds: idCategoriesToEdit,
       propertyIds: idPropertiesToEdit,
-      serviceHours: "",
-      availableDays:[]
+      serviceHours: toEdit.serviceHours,
+      availableDays:toEdit.availableDays
     })
     setIdToEdit(id);
   };
@@ -638,7 +639,10 @@ cancelEdit();
             <h5>Hours and days of service</h5>
             <div>
               <p>What days will you offer service?</p>
-              <DaysOfService fun={handleDayAvailable}/>´
+              <DaysOfService
+                selectedDays={newExperience.availableDays}
+                fun={handleDayAvailable}
+              />
               {errors.availableDays && <p className="error">{errors.availableDays}</p>}
             </div>
 
@@ -647,7 +651,11 @@ cancelEdit();
               choose a service time
               </p>
               {errors.serviceHours && <p className="error">{errors.serviceHours}</p>}
-              <TimeRangeSelector onChange={handleTimeChange} />
+              <TimeRangeSelector
+                startTime={newExperience.serviceHours.split("-")[0] || ""}
+                endTime={newExperience.serviceHours.split("-")[1] || ""}
+                onChange={handleTimeChange}
+              />;
               <p>Selected Service Hours: {newExperience.serviceHours}</p>
             </div>
           </section>

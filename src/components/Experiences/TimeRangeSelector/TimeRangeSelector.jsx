@@ -1,7 +1,5 @@
-import React, { useState } from "react";
+const TimeRangeSelector = ({ startTime, endTime, onChange }) => {
 
-const TimeRangeSelector = ({ onChange }) => {
-  // Generar las horas en formato militar
   const generateMilitaryHours = () => {
     const hours = [];
     for (let i = 0; i < 24; i++) {
@@ -16,32 +14,14 @@ const TimeRangeSelector = ({ onChange }) => {
 
   const militaryHours = generateMilitaryHours();
 
-  // Estado para las horas seleccionadas
-  const [startTime, setStartTime] = useState("");
-  const [endTime, setEndTime] = useState("");
-
-  // Función para enviar los valores de las horas al componente padre
   const handleStartTimeChange = (e) => {
     const selectedStartTime = e.target.value;
-    setStartTime(selectedStartTime);
-    onChange(selectedStartTime, endTime);  // Pasamos los valores actualizados al componente padre
+    onChange(selectedStartTime, endTime); 
   };
 
   const handleEndTimeChange = (e) => {
     const selectedEndTime = e.target.value;
-    setEndTime(selectedEndTime);
-    onChange(startTime, selectedEndTime);  // Pasamos los valores actualizados al componente padre
-  };
-
-  // Obtener el formato "HH:mm-HH:mm"
-  const getFormattedRange = () => {
-    if (!startTime || !endTime) return "";
-    
-    // Asegurarse de que ambas horas están formateadas correctamente
-    const startFormatted = startTime;  // Ya está en el formato adecuado
-    const endFormatted = endTime;      // Ya está en el formato adecuado
-    
-    return `${startFormatted}-${endFormatted}`;
+    onChange(startTime, selectedEndTime); 
   };
 
   return (
@@ -91,13 +71,6 @@ const TimeRangeSelector = ({ onChange }) => {
           </select>
         </div>
       </div>
-
-      {/* Mostrar el rango formateado */}
-      {startTime && endTime && (
-        <p style={{ marginTop: "1rem", fontWeight: "bold" }}>
-          Selected Range: {getFormattedRange()}
-        </p>
-      )}
     </div>
   );
 };
