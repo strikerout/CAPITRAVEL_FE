@@ -17,7 +17,7 @@ const ProductCard = ({data}) => {
     <ButtonFavorite experienceId={data.id}/>
     <Link to={`/product/${data.id}`} className={styles.productCard}>
       <div className={styles.productImg + " productImg"}>
-       
+        
         <img
           src={data.images[0]}
           alt=""

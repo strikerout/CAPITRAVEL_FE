@@ -5,6 +5,7 @@ import Search from '../components/Search';
 import CategoriesHome from '../components/CategoriesHome';
 import useExperiences from '../hooks/useExperience';
 import ExperiencesList from '../components/Pagination/ExperiencesList';
+// import FavoriteExperiences from '../components/Favorites/Favorites';
 
 const Home = () => {
   const [selectedCategories, setSelectedCategories] = useState([]);
@@ -36,6 +37,7 @@ const Home = () => {
       </div>
 
       <Search />
+      {/* <FavoriteExperiences/> */}
       <CategoriesHome 
         selectedCategories={selectedCategories} 
         setSelectedCategories={setSelectedCategories} 
