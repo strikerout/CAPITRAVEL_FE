@@ -1,30 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import style from './buttonFavorite.module.scss';
 import defaultFavorite from '../../../../public/default_favorite.svg';
 import selectedFavorite from '../../../../public/selectedFavorite.svg';
 import { useFavorites } from '../../../context/Contex';
-import  useAuthLogin  from '../../../hooks/useAuthLogin'; // Asegúrate de importar el hook
+import  useAuthLogin  from '../../../hooks/useAuthLogin';
 
 const ButtonFavorite = ({ experienceId }) => {
   const { favorites, handleToggleFavorite } = useFavorites();
-  const { username, checkToken } = useAuthLogin(); // Obtén el username y checkToken desde el hook
-
+  const { username, checkToken } = useAuthLogin();
   const isFavorite = favorites.includes(experienceId);
   const [isChecked, setIsChecked] = useState(isFavorite);
 
-  // Maneja el clic en el botón
-  const handleClick = () => {
-    checkToken();  // Verificar el token al hacer clic
+  // Ejecuta checkToken al montar el componente
+  useEffect(() => {
+    checkToken();
+  }, [checkToken]);
 
-    // Si el username es nulo, significa que no está autenticado
+  const handleClick = () => {
+    // Verifica si el usuario está autenticado antes de proceder
     if (!username) {
       console.warn("Usuario no autenticado. No se puede agregar a favoritos.");
-      return;  // Si no está autenticado, no continuar con la acción
+      return;
     }
-
-    // Si está autenticado, proceder con la acción de favoritos
-    handleToggleFavorite(username, experienceId);  // Agregar a favoritos
-    setIsChecked(!isChecked); // Cambiar el estado del botón (agregar/quitar favorito)
+    
+    handleToggleFavorite(username, experienceId);
+    setIsChecked(!isChecked);
   };
 
   return (
