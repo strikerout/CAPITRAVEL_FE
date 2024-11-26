@@ -25,6 +25,17 @@ const Home = () => {
   return (
     <div>
       <Banner />
+      
+      <section className='seachCategoriesContainer'>
+        <Search />
+        <CategoriesHome 
+          selectedCategories={selectedCategories} 
+          setSelectedCategories={setSelectedCategories} 
+          fetchExperiences={fetchExperiences}
+        />
+      </section>
+
+      
       <div className='top10-header'>
         <img src="/dotted_lines.svg" className='left-lines' alt="" />
         <div>
@@ -35,14 +46,7 @@ const Home = () => {
         <img src="/dotted_lines.svg" className='right-lines' alt="" />
       </div>
 
-      <Search />
-      <CategoriesHome 
-        selectedCategories={selectedCategories} 
-        setSelectedCategories={setSelectedCategories} 
-        fetchExperiences={fetchExperiences}
-      />
 
-      <br />
 
       <ExperiencesList experiences={experiences} />
 
