@@ -2,7 +2,8 @@
 import React from "react";
 import styles from "./ProductCard.module.scss";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import useExperiences from '../../hooks/useExperience'
+import useExperiences from '../../hooks/useExperience';
+import ButtonFavorite from "../Buttons/ButtonFavorite/ButtonFavorite";
 
 const ProductCard = ({data}) => {
   const {loading, error, fetchExperienceByID} = useExperiences();
@@ -12,8 +13,11 @@ const ProductCard = ({data}) => {
   return (
     <>
     {data ? 
+    <>
+    <ButtonFavorite experienceId={data.id}/>
     <Link to={`/product/${data.id}`} className={styles.productCard}>
       <div className={styles.productImg + " productImg"}>
+       
         <img
           src={data.images[0]}
           alt=""
@@ -55,6 +59,7 @@ const ProductCard = ({data}) => {
         </svg>
       </div>
     </Link> 
+    </>
     :
     <p>Data not found</p>}
     </>

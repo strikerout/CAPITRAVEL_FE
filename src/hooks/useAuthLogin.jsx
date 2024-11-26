@@ -5,14 +5,14 @@ const useAuthLogin = () =>{
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const [role, setRole] = useState(null);
-    const [username, setUsername] = useState(null)
+    const [username, setUsername] = useState(null);
 
     const loginUser = async(user) =>{
         try{
             setLoading(true);
             const data = await login(user);
             // localStorage.setItem("token", data.token);
-            // checkToken();
+            checkToken();
             return data;
         }catch(err){
             const error = err.response || "Connection error";
@@ -33,6 +33,8 @@ const useAuthLogin = () =>{
         if (token) {
             if(isTokenExpired(token)){
                  localStorage.removeItem('token');
+                 setRole(null);
+                 setUsername(null);
                  return
             }
             const decodedToken = decodeJwt(token);
@@ -53,7 +55,6 @@ const useAuthLogin = () =>{
         localStorage.removeItem("token");
         checkToken();
     }
-
 
     return{
         loginUser,
