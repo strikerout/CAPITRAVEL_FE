@@ -16,6 +16,12 @@ export const getExperienceByID = async (id) => {
     return response.data;
 };
 
+// Obtener listado de paises de experiencias
+export const getExperiencesCountries = async () => {
+    const response = await api.get(`/experiences/countries`);
+    return response.data;
+};
+
 // Crear una nueva experiencia
 export const createExperience = async (experience) => {
     const token = localStorage.getItem("token");
@@ -27,6 +33,12 @@ export const createExperience = async (experience) => {
     },);
     return response.data;
 };
+
+// Buscar experiencias
+export const searchExperiences = async (country, keywords, startDate, endDate) =>{
+    const response = await api.get(`/experiences?country=${country}&keywords=${keywords}&startDate=${startDate}&endDate=${endDate}`);
+    return response.data;
+}
 
 // Actualizar una experiencia existente
 export const updateExperience = async (id, updatedExperience) => {
