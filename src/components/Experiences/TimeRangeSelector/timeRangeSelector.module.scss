@@ -1,0 +1,12 @@
+@use "../../../variables" as *;
+
+.containerTime {
+  margin-top: 10px;
+  display: flex;
+  div {
+    width: 200px;
+    label {
+      margin-bottom: 10px;
+    }
+  }
+}
