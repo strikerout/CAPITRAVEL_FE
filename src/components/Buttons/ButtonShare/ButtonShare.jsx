@@ -57,8 +57,7 @@ const ButtonShare = ({ product }) => {
         <IoMdShare />
         Share
       </button>
-
-      {/* Modal */}
+      
       {openModal && (
         <div className={style.modalOverlay}>
           <div className={style.modalContent}>
