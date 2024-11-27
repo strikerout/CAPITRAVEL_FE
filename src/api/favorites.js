@@ -17,11 +17,11 @@ export const toggleFavorite = async (email, experienceId) => {
     );
 
     if (response.status === 200) {
-      return { success: true }; // Acción exitosa
+      return { success: true }; 
     }
   } catch (error) {
     console.error("Error toggling favorite:", error);
-    return { success: false, error: error.message }; // Manejo del error
+    return { success: false, error: error.message }; 
   }
 };
 
