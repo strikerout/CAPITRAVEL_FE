@@ -33,7 +33,7 @@ const Favorites = () => {
     };
 
     fetchFavoritesData(); 
-  }, [favoritesData]);
+  }, []);
 
   return (
     <section className={style.containerPage}>
