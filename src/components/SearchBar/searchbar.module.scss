@@ -10,25 +10,40 @@
     top: -28px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    // align-items: center;
     padding: 30px 0;
+    
+    h4{
+        text-align: center;
+        height: 50px;
+    }
 }
 
 .button_inputs_container{
     display: flex;
     align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
     gap: 8px;
 
     button{
-       width: 95px;
+        display: flex;
+        align-self: center;
+        justify-content: center;
+        padding: 5px;
+        width: 95px;
+        margin-bottom: 15px;
     }
 }
 
 .inputs_container{
     display: flex;
     align-items: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
     gap: 18px;
     margin-top: 18px;
+    margin: 0 auto;
 }
 
 .input_container{
@@ -86,5 +101,14 @@ border: 1px solid $primary-orange;
     background-color: $white;
   }
 
+.resultList{
+    display: grid; 
+    grid-template-columns: 1fr;
+    gap: 10px; 
+    padding: 10px;
 
+    @media(min-width: $mobile){
+        grid-template-columns: repeat(3, 1fr);
+    }
+  }
   

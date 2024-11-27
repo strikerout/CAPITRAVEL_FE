@@ -6,9 +6,11 @@ import CategoriesHome from '../components/CategoriesHome';
 import useExperiences from '../hooks/useExperience';
 import ExperiencesList from '../components/Pagination/ExperiencesList';
 
+
 const Home = () => {
   const [selectedCategories, setSelectedCategories] = useState([]);
-  const { experiences, loading, fetchExperiences, error } = useExperiences();
+  const { experiences, loading, foundExperiences, fetchExperiences, error } = useExperiences();
+
 
   useEffect(() => {
     fetchExperiences();

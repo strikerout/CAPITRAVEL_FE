@@ -1,9 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
-import { getExperiences, getExperienceByID, createExperience, updateExperience, deleteExperience } from '../api/experiences';
+import { getExperiences, getExperienceByID, createExperience, searchExperiences, updateExperience, getExperiencesCountries, deleteExperience } from '../api/experiences';
 
 const useExperiences = () => {
     const [experiences, setExperiences] = useState([]);
     const [experience, setExperience] = useState([]);
+    const [countries, setCountries] = useState([]);
+    const [foundExperiences, setFoundExperiences] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [shufflingExperiences, setShufflingExperiences] = useState([]);
@@ -28,6 +30,18 @@ const useExperiences = () => {
         }
     };
 
+    const fetchCountries = async () =>{
+        setLoading(true);
+        try {
+            const data = await getExperiencesCountries();
+            setCountries(data);
+        } catch (err) {
+            setError(err);
+        } finally {
+            setLoading(false);
+        }
+    }
+
     const fetchExperienceByID = async (id) => {
         try {
             const experience = await getExperienceByID(id);
@@ -43,6 +57,7 @@ const useExperiences = () => {
 
     useEffect(() => {
         fetchExperiences();
+        fetchCountries();
     }, []);
 
     const addExperience = async (newExperience) => {
@@ -56,6 +71,20 @@ const useExperiences = () => {
             return error;
         }
     };
+
+    const findExperiences = async (country, keywords, startDate, endDate) =>{
+        setLoading(true);
+        try{
+            const data = await searchExperiences(country, keywords, startDate, endDate)
+            setFoundExperiences(data)
+            return data;
+        } catch (err) {
+            setError(err);
+        } finally {
+            setLoading(false);
+        }
+    }
+
 
     const editExperience = async (id, updatedExperience) => {
         try {
@@ -88,9 +117,13 @@ const useExperiences = () => {
         fetchExperienceByID,
         experiences,
         experience,
+        foundExperiences,
+        setFoundExperiences,
+        countries,
         loading,
         error,
         addExperience,
+        findExperiences,
         editExperience,
         removeExperience,
         shufflingExperiences,
