@@ -8,6 +8,7 @@ import PrimaryButton from "../components/Buttons/PrimaryButton";
 import ProductRate from "../components/ProductRate/ProductRate";
 import useExperiences from "../hooks/useExperience";
 import PolicyModal from "../components/ProductPolicy/PolicyModal";
+import ButtonShare from "../components/Buttons/ButtonShare/ButtonShare";
 
 const Product = () => {
   const { id } = useParams();
@@ -33,7 +34,7 @@ const Product = () => {
   return (
     <div className="product">
       <ProductHeader data={experience} />
-
+       <ButtonShare product={experience}/>
       <ProductGallery data={experience} />
 
       <div className="productDescRate">
