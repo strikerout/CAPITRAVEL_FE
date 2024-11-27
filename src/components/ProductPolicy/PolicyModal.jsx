@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from "./PolicyModal.module.scss";
 import CloseButton from "../Buttons/CloseButton";
-import SecundaryButton from "src/components/Buttons/SecundaryButton.jsx";
+import SecundaryButton from "../Buttons/SecundaryButton";
 
 const PolicyModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
