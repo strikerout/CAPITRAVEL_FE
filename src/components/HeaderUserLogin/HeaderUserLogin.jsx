@@ -48,6 +48,8 @@ const HeaderUserLogin = ({ email, role }) => {
 
   const name = user.name ? greeting() : "";
 
+  localStorage.setItem("userFavoriteExperienceList", JSON.stringify(user.favoriteExperienceIds));
+  
   const handleLogOut = () => {
     logout();
     navigate("/");
