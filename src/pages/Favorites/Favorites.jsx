@@ -1,39 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { getFavorites } from "../../api/favorites";
+import React from "react";
 import ProductCard from "../../components/Cards/ProductCard";
 import style from "./favorites.module.scss";
 import capiFavorite from "../../../public/capi_favorite.svg";
 import { useNavigate } from "react-router-dom";
+import { useFavorites } from "../../context/Contex";
 
 const Favorites = () => {
-
-  function indexElements(index) {
-    return (index % 10) + 1;
-  }
+  const { favoritesData } = useFavorites();
   const navigate = useNavigate();
-  const [favoritesData, setFavoritesData] = useState(null);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchFavoritesData = async () => {
-      console.log(localStorage.getItem("userFavoriteExperienceList"));
-      const userFavoriteExperienceList = localStorage.getItem(
-        "userFavoriteExperienceList"
-      );
-
-      if (userFavoriteExperienceList) {
-        try {
-          const favoriteIds = JSON.parse(userFavoriteExperienceList); 
-          const data = await getFavorites(favoriteIds); 
-          setFavoritesData(data);
-        } catch (err) {
-          setError(err.message); 
-        }
-      }
-    };
-
-    fetchFavoritesData(); 
-  }, []);
 
   return (
     <section className={style.containerPage}>
@@ -68,16 +42,14 @@ const Favorites = () => {
         </div>
       </div>
 
-      {error && <p>Error: {error}</p>}
-      {!error && !favoritesData && <p>Cargando favoritos...</p>}
-      {favoritesData && favoritesData.length > 0 && (
+      {favoritesData.length > 0 && (
         <div className="desktopCars">
           <div className="grid-container">
-            {favoritesData.map((favorite, index) => (
-              <div key={favorite.id}  className={`item item-${indexElements(index)}`}>
-            <ProductCard key={favorite.id} data={favorite} />
-            </div>
-          ))}
+            {favoritesData.map((favorite) => (
+              <div key={favorite.id} className="item">
+                <ProductCard data={favorite} />
+              </div>
+            ))}
           </div>
         </div>
       )}

@@ -34,7 +34,7 @@ export const getFavorites = async (experienceIdList) => {
       throw new Error("La lista de IDs de experiencias está vacía o no es válida.");
     }
 
-    const queryParam = experienceIdList.join(","); // Convertimos la lista en una cadena separada por comas
+    const queryParam = experienceIdList.join(","); 
     console.log(queryParam)
     const response = await api.get(`/experiences/favorites?experienceIdList=${queryParam}`, {
       headers: {
@@ -45,10 +45,10 @@ export const getFavorites = async (experienceIdList) => {
 
     if (response.status === 200) {
       console.log(response.data)
-      return response.data ; // Retorna los datos de favoritos
+      return response.data ;
     }
   } catch (error) {
     console.error("Error fetching favorites:", error);
-    return { success: false, error: error.message }; // Manejo de errores
+    return { success: false, error: error.message }; 
   }
 };
