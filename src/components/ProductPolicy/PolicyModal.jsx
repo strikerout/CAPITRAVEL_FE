@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styles from "./PolicyModal.module.scss";
 import CloseButton from "../Buttons/CloseButton";
 import SecundaryButton from "../Buttons/SecundaryButton";
