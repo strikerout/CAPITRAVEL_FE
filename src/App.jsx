@@ -9,6 +9,7 @@ import CompleteGallery from './pages/CompleteGallery';
 import Loading from './components/Loading';
 import { Register } from './pages/Register';
 import Login from './pages/Login';
+import Favorites from './pages/Favorites/Favorites';
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
       <Route path='/administrator/*' element={<AdminPanel/>}/>
       <Route path='/register' element={<Register/>}/>
       <Route path='/login' element={<Login/>}/>
+      <Route path='/experiences/favorites' element={<Favorites />}/> 
 
     </Routes>
     </div>

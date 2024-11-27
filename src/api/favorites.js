@@ -25,4 +25,30 @@ export const toggleFavorite = async (email, experienceId) => {
   }
 };
 
+console.log(localStorage.getItem("token"))
 
+export const getFavorites = async (experienceIdList) => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!experienceIdList || experienceIdList.length === 0) {
+      throw new Error("La lista de IDs de experiencias está vacía o no es válida.");
+    }
+
+    const queryParam = experienceIdList.join(","); // Convertimos la lista en una cadena separada por comas
+    console.log(queryParam)
+    const response = await api.get(`/experiences/favorites?experienceIdList=${queryParam}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (response.status === 200) {
+      console.log(response.data)
+      return response.data ; // Retorna los datos de favoritos
+    }
+  } catch (error) {
+    console.error("Error fetching favorites:", error);
+    return { success: false, error: error.message }; // Manejo de errores
+  }
+};
