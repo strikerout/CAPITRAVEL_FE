@@ -32,6 +32,7 @@ const useAuthLogin = () => {
     if (token) {
       if (isTokenExpired(token)) {
         localStorage.removeItem('token');
+        localStorage.removeItem('userFavoriteExperienceList')
         setRole(null);
         setUsername(null);
         return;
@@ -39,7 +40,9 @@ const useAuthLogin = () => {
       const decodedToken = decodeJwt(token);
       setRole(decodedToken.role);
       setUsername(decodedToken.sub);
+      return;
     }
+    localStorage.removeItem('userFavoriteExperienceList');
   };
 
   useEffect(() => {

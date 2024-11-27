@@ -1,30 +1,25 @@
-import React, { createContext, useState, useContext } from "react";
-import { toggleFavorite } from "../api/favorites";
+import React, { createContext, useContext} from "react";
+import { toggleFavorite, } from "../api/favorites";
 
 const FavoritesContext = createContext();
 
 export const FavoritesProvider = ({ children }) => {
-  const [favorites, setFavorites] = useState([]);
 
   const handleToggleFavorite = async (email, experienceId) => {
     const result = await toggleFavorite(email, experienceId);
     if (result.success) {
-      setFavorites((prev) =>
-        prev.includes(experienceId)
-          ? prev.filter((id) => id !== experienceId) // Elimina si ya está
-          : [...prev, experienceId] // Agrega si no está
-      );
+      console.log("Favorite toggled successfully");
     } else {
       console.error("Error toggling favorite:", result.error);
     }
   };
 
+
   return (
-    <FavoritesContext.Provider value={{ favorites, handleToggleFavorite }}>
+    <FavoritesContext.Provider value={{handleToggleFavorite}}>
       {children}
     </FavoritesContext.Provider>
   );
 };
 
-export const 
-useFavorites = () => useContext(FavoritesContext);
+export const useFavorites = () => useContext(FavoritesContext);
