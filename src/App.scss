@@ -421,6 +421,11 @@ body{
     }
 
     .product{
+        @media(min-width: $mobile){
+           width: 90%;
+           margin: 0 auto;
+        }
+
         .rateAndBookContainer{
             padding: 0 20px;
             
@@ -970,4 +975,25 @@ body{
   .clear-filters-btn:hover {
     background-color: $primary-orange;
     color: $white;
+  }
+
+  .buttonMoreAction{
+        font-size: 1rem;
+        cursor: pointer;
+        background-color: #FDE0BC;
+        color: #562210;
+        padding: 5px 5px;
+        width: 130px;
+        height: 50px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        gap: 10px;
+    
+        &:hover{
+          background-color: $primary-orange;
+          color: $white;
+        }
   }
