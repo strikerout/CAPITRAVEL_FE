@@ -1,0 +1,18 @@
+@use "../../variables" as *;
+
+.policiesContainer {
+  display: flex;
+  align-items: left;
+  margin-top: 5vh;
+  flex-direction: column;
+  margin: 55px 20px;
+
+  @media (min-width: $mobile) {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    margin: 20px auto;
+    width: 70%;
+  }
+}
