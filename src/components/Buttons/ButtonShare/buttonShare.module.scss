@@ -1,6 +1,9 @@
 @use '../../../variables' as *; 
+  .buttonshare{
+    margin-left: 20px;
+    margin-bottom: 20px;
+  }
 
-  /* Estilos para el modal */
   .modalOverlay{
     z-index: 2;
     position: fixed;

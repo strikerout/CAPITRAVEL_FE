@@ -53,7 +53,7 @@ const ButtonShare = ({ product }) => {
 
   return (
     <>
-      <button onClick={handleShare} className="buttonMoreAction">
+      <button onClick={handleShare} className={`buttonMoreAction ${style.buttonshare}`}>
         <IoMdShare />
         Share
       </button>
