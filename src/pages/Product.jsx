@@ -9,6 +9,7 @@ import ProductRate from "../components/ProductRate/ProductRate";
 import useExperiences from "../hooks/useExperience";
 import PolicyModal from "../components/ProductPolicy/PolicyModal";
 import ButtonShare from "../components/Buttons/ButtonShare/ButtonShare";
+import ButtonFavorite from "../components/Buttons/ButtonFavorite/ButtonFavorite";
 
 const Product = () => {
   const { id } = useParams();
@@ -35,6 +36,7 @@ const Product = () => {
     <div className="product">
       <ProductHeader data={experience} />
        <ButtonShare product={experience}/>
+       <ButtonFavorite experienceId={experience.id}/>
       <ProductGallery data={experience} />
 
       <div className="productDescRate">

@@ -13,7 +13,7 @@ const ButtonFavorite = ({ experienceId }) => {
 
   const isFavorite = favoriteExperienceIds.includes(experienceId);
 
-  const handleClick = () => {
+  const handleClick = (e) => {
     if (!username) {
       console.warn("User is not logged in. Cannot toggle favorite.");
       navigate("/login");

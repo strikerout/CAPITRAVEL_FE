@@ -1,6 +1,7 @@
 import React from 'react'
 import style from './ProductHeader.module.scss'
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import ButtonFavorite from '../Buttons/ButtonFavorite/ButtonFavorite';
 
 
 const ProductHeader = ({data}) => {
