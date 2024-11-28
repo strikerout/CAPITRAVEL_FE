@@ -17,6 +17,8 @@ const SearchBar = () => {
   const [checkInDate, setCheckInDate] = useState(null);
   const [checkOutDate, setCheckOutDate] = useState(null);
 
+  const [searchActive, setSearchActive] = useState(false);
+
   const [stringStartDate, setStringStartDate] = useState("")
   const [stringEndDate, setStringEndDate] = useState("")
 
@@ -35,6 +37,14 @@ const SearchBar = () => {
   const handleSubmit = async (e) =>{
     e.preventDefault();
     setResultList( await findExperiences(country, encodeURIComponent(keywords), stringStartDate, stringEndDate))
+    setSearchActive(true);
+  }
+
+  const cleanSearch = () =>{
+    setCounty("")
+    setKeywords("")
+    setCheckInDate(null)
+    setCheckOutDate(null)
   }
 
   return (
@@ -45,6 +55,7 @@ const SearchBar = () => {
           <div className={style.input_container}>
             <label htmlFor="plan">What’s your plan?</label>
             <input type="text" placeholder="Drink mate, surf,..." 
+            value={keywords}
             onChange={(e) =>
               setKeywords(e.target.value)
             }
@@ -57,6 +68,7 @@ const SearchBar = () => {
               <label htmlFor="where">Where?</label>
             </div>
             <select
+            value={country}
               onChange={(e) =>
                 setCounty(e.target.value)
               }
@@ -78,6 +90,7 @@ const SearchBar = () => {
 
             <DatePicker
               selected={checkInDate}
+              value={checkInDate}
               onChange={(date) => {
                 if (date) {
                   setCheckInDate(date);
@@ -107,6 +120,7 @@ const SearchBar = () => {
 
             <DatePicker
               selected={checkOutDate}
+              value={checkOutDate}
               onChange={handleCheckOutChange}
               minDate={checkInDate}
               dateFormat="dd/MM/yyyy"
@@ -117,19 +131,25 @@ const SearchBar = () => {
               <label htmlFor=""> I`m not sure yet</label>
             </div> */}
           </div>
-          <PrimaryButton type="submit">Search</PrimaryButton>
+          <div>
+            <PrimaryButton type="submit">Search</PrimaryButton>
+            <p onClick={cleanSearch} className={style.clean}>Clean Search</p>
+          </div>
+          
+          
         </div>
         
       </form>
 
+      {resultList.length > 0 ?
       <section className={style.resultList}>
-        {resultList ? resultList.map((experience, index) => (
+         {resultList.map((experience, index) => (
                   <ProductCard key={index} data={experience} />
               ))
-              
-        : null}
+            }
       </section>
-      
+      : searchActive && <h4 className={style.notFound}>Not found experiences</h4>
+    }
    
       
 
