@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import {getExperiencesCountries, getExperiences, getExperienceByID, createExperience, updateExperience, deleteExperience, createReviewApi, alreadyReviewed, getAllReviews } from '../api/experiences';
+import {getExperiencesCountries, getExperiences, searchExperiences,  getExperienceByID, createExperience, updateExperience, deleteExperience, createReviewApi, alreadyReviewed, getAllReviews } from '../api/experiences';
 
 const useExperiences = () => {
     const [experiences, setExperiences] = useState([]);
