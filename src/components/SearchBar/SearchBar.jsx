@@ -45,7 +45,7 @@ const SearchBar = () => {
         <div className={style.inputs_container}>
           <div className={style.input_container}>
             <label htmlFor="plan">What’s your plan?</label>
-            <input type="text" placeholder="Drink mate, surfer,..." 
+            <input type="text" placeholder="Drink mate, surf,..." 
             onChange={(e) =>
               setKeywords(e.target.value)
             }
@@ -62,7 +62,7 @@ const SearchBar = () => {
                 setCounty(e.target.value)
               }
             >
-              <option value="">Select Categories</option>
+              <option value="">Select Country</option>
               {countries.map((country, index) => (
                     <option key={index} value={country}>
                       {country}
@@ -92,12 +92,12 @@ const SearchBar = () => {
               }}
               minDate={new Date()}
               dateFormat="dd/MM/yyyy"
-              placeholderText="Selecciona una fecha"
+              placeholderText="Select date"
             />
-            <div className={style.checkbox_container}>
+            {/* <div className={style.checkbox_container}>
               <input type="checkbox" />
               <label htmlFor=""> I`m not sure yet</label>
-            </div>
+            </div> */}
           </div>
 
           <div className={style.input_container}>
@@ -111,12 +111,12 @@ const SearchBar = () => {
               onChange={handleCheckOutChange}
               minDate={checkInDate}
               dateFormat="dd/MM/yyyy"
-              placeholderText="Selecciona una fecha"
+              placeholderText="Select date"
             />
-            <div className={style.checkbox_container}>
+            {/* <div className={style.checkbox_container}>
               <input type="checkbox" />
               <label htmlFor=""> I`m not sure yet</label>
-            </div>
+            </div> */}
           </div>
           <PrimaryButton type="submit">Search</PrimaryButton>
         </div>
