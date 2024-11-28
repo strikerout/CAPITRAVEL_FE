@@ -127,11 +127,11 @@ const Reservations = () => {
         <div className={style.adminList}>
           <div className={`${style.headerList} ${style.reservationsList}`}>
             <h4>ID</h4>
-            <h4>Experiencia</h4>
+            <h4>Experience</h4>
             <h4>Check-In</h4>
             <h4>Check-Out</h4>
-            <h4>Nombre</h4>
-            <h4>Estado</h4>
+            <h4>Name</h4>
+            <h4>Status</h4>
             <h4>Acción</h4>
           </div>
           <ul className={`${style.bodyList} ${style.reservationsBody}`}>
