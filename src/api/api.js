@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_BACKEND_URL, 
+  baseURL: 'https://capitravelbackcopy-production.up.railway.app', 
   timeout: 20000,
 });
 
