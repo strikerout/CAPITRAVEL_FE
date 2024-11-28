@@ -1,0 +1,29 @@
+# Etapa de construcción
+FROM node:18 AS build
+
+# Configuración del directorio de trabajo
+WORKDIR /app
+
+# Copiar archivos de tu proyecto
+COPY package.json package-lock.json ./
+
+# Instalar dependencias
+RUN npm install
+
+# Copiar el resto del proyecto
+COPY . .
+
+# Construir la aplicación
+RUN npm run build
+
+# Etapa de producción
+FROM nginx:alpine AS production
+
+# Copia los archivos construidos al directorio de NGINX
+COPY --from=build /app/build /usr/share/nginx/html
+
+# Expone el puerto 80
+EXPOSE 80
+
+# Comando por defecto para NGINX
+CMD ["nginx", "-g", "daemon off;"]
