@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from "./PolicyModal.module.scss";
-import SecundaryButton from "../Buttons/secundaryButton";
+import SecundaryButton from "C:\Users\Luis Soto\Documents\DH\PI\CAPITRAVEL_FE\src\components\Buttons\SecundaryButton.jsx"
 import CloseButton from "../Buttons/CloseButton";
 
 const PolicyModal = () => {
