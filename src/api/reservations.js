@@ -38,13 +38,8 @@ export const getReservationsByUser = async (email) => {
 
 // Obtener fechas reservadas por experiencia
 export const getReservationDatesByExperience = async (experienceId) => {
-  const token = localStorage.getItem("token");
-  const response = await api.get(`/reservations/experience/${experienceId}`, {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
+
+  const response = await api.get(`/reservations/experience/${experienceId}`);
   return response.data;
 };
 

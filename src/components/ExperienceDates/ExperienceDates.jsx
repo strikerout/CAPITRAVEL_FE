@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-//import styles from './experienceDates.module.scss';
+import styles from './experienceDates.module.scss';
 import Calendar from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -127,21 +127,20 @@ const ExperienceDates = ({ data, reservations, onDateTimeSelect }) => {
     setSelectedDate(date);
     calculateCheckOut(date); 
     const formattedDate = formatDate(date);
-    console.log(`Formatted date: ${formattedDate}`);
     if (onDateTimeSelect) {
       onDateTimeSelect(formattedDate);
     }
   };
 
   return (
-    <div >
-      <h3>Add dates to book</h3>
-      <p>Choose the start time of your experience</p>
-      <div>
+    <div className={styles.reservationContainer} >
+      <h3 className={styles.reservationContainer}>Add dates to book</h3>
+      <p className={styles.reservationContainer}>Choose the start time of your experience</p>
+      <div className={styles.reservationContainer}>
         <label>Available Time:</label>
         <p>{data.serviceHours}</p>
       </div>
-      <div >
+      <div className={styles.reservationContainer}>
         <p>Check-In:</p>
         <Calendar
           popperPlacement="top-start"
@@ -158,9 +157,9 @@ const ExperienceDates = ({ data, reservations, onDateTimeSelect }) => {
           placeholderText="Select a weekday"
         />
   {selectedDate && (
-          <div >
+          <div className={styles.reservationDates}>
             <p>
-              <strong>Selected Date: </strong>
+              <strong>Check-In: </strong>
               {selectedDate.toLocaleString()}
             </p>
             {checkOut && (

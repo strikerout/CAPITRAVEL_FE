@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ProductGallery from "../components/ProductGallery/ProductGallery";
 import ProductHeader from "../components/ProductHeader/ProductHeader";
 import ProductDescription from "../components/ProductDescription/ProductDescription";
@@ -11,8 +11,11 @@ import PolicyModal from "../components/ProductPolicy/PolicyModal";
 import ButtonShare from "../components/Buttons/ButtonShare/ButtonShare";
 import Reviews from "../components/Reviews/Reviews";
 import ExperienceDates from "../components/ExperienceDates/ExperienceDates";
+import useAuthLogin from "../hooks/useAuthLogin";
+import Swal from "sweetalert2";
 
 const Product = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const { fetchExperienceByID } = useExperiences();
   const {
@@ -21,6 +24,7 @@ const Product = () => {
     loading,
     error,
   } = useReservations();
+  const { username } = useAuthLogin();
   const [experience, setExperience] = useState(null);
   const [reservations, setReservations] = useState([]); // Estado para reservas
   const [errorExperience, setErrorExperience] = useState(null);
@@ -52,8 +56,22 @@ const Product = () => {
   }, [id]); // Dependencia de `experience.id`, se vuelve a ejecutar si cambia el ID de la experiencia
 
   const handleReservation = async () => {
+    if (!localStorage.getItem("token")) {
+      navigate("/login");
+    }
+
     if (!selectedDateTime) {
-      alert("Please select a date and time before booking.");
+      Swal.fire({
+        imageUrl: "/warningCapi.svg",
+        imageWidth: 200,
+        title: "Date and Time",
+        text: "Please select Date and Time",
+        customClass: {
+          confirmButton: "swalConfirmButton",
+          title: "swalTitle",
+          htmlContainer: "swalHtmlContainer",
+        },
+      });
       return;
     }
 
@@ -61,7 +79,7 @@ const Product = () => {
       const reservationData = {
         checkIn: selectedDateTime,
         experienceId: experience.id,
-        email: "fabiogadea21@gmail.com", // Esto es solo un ejemplo
+        email: username, // Esto es solo un ejemplo
       };
       await createNewReservation(reservationData); // Crear la nueva reserva en el backend
 
@@ -70,10 +88,36 @@ const Product = () => {
         experience.id
       ); // Llamar de nuevo para obtener las reservas actualizadas
       setReservations(updatedReservations); // Actualizar el estado local
-      alert("Reservation successfully created!");
+      setSelectedDateTime[""];
+      Swal.fire({
+        imageUrl: "/checkCapi.svg",
+        imageWidth: 200,
+        title: "Successfully!",
+        text: "The reservation has been booked.",
+        customClass: {
+          confirmButton: "swalConfirmButton",
+          title: "swalTitle",
+          htmlContainer: "swalHtmlContainer",
+        },
+      });
     } catch (err) {
-      console.error("Error creating reservation:", err);
-      alert("Failed to create reservation.");
+      console.log("Error creating reservation:", err.response.data.error);
+      Swal.fire({
+        imageUrl: "/errorCapi.svg",
+        imageWidth: 200,
+        title: err.response.data.error,
+        text: "Error: " + err.status,
+        customClass: {
+          confirmButton: "swalConfirmButton",
+          title: "swalTitle",
+          htmlContainer: "swalHtmlContainer",
+        },
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Recargar la página
+          window.location.reload();  // Recarga la página actual
+        }
+      });
     }
   };
 
@@ -82,7 +126,7 @@ const Product = () => {
   return (
     <div className="product">
       <ProductHeader data={experience} />
-       <ButtonShare product={experience}/>
+      <ButtonShare product={experience} />
       <ProductGallery data={experience} />
 
       <div className="productDescRate">
@@ -102,7 +146,7 @@ const Product = () => {
         </div>
       </div>
       {error && <p>Error: {error}</p>}
-      <PolicyModal/>
+      <PolicyModal />
       <Reviews experienceId={experience.id} />
     </div>
   );
