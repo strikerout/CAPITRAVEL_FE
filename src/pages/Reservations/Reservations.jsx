@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import useReservations from '../../hooks/useReservations';
 import Swal from 'sweetalert2';
 import useAuthLogin from '../../hooks/useAuthLogin';
@@ -12,10 +12,26 @@ const Reservations = () => {
   const {isAlredyReviewed} = useExperiences()
   const { username } = useAuthLogin();
   const navigate = useNavigate();
+  const [reviewStatus, setReviewStatus] = useState({});
 
   useEffect(() => {
     fetchReservationsByUser(username);
   }, [username]);
+
+  useEffect(() => {
+    const checkReviewStatuses = async () => {
+      const statuses = {};
+      for (const reservation of reservations) {
+        const reviewed = await isAlredyReviewed(reservation.experience.id, username);
+        statuses[reservation.experience.id] = reviewed;
+      }
+      setReviewStatus(statuses);
+    };
+
+    if (reservations.length > 0) {
+      checkReviewStatuses();
+    }
+  }, []);
 
   const getReservationStatus = (checkIn, checkOut) => {
     const today = new Date();
@@ -35,6 +51,7 @@ const Reservations = () => {
     const reviewed = await isAlredyReviewed(experienceId, username)
     return reviewed
   }
+  
 
   const handleRemoveReservation = (id) => {
     Swal.fire({
@@ -184,7 +201,7 @@ const Reservations = () => {
                 {
                   getReservationStatus(reservation.checkIn, reservation.checkOut) !== 'Past' ? (
                     <p>Evaluate until finished</p> 
-                  ) : isAvailableToReview(reservation.experience.id) ? ( 
+                  ) : reviewStatus[reservation.experience.id] != undefined && reviewStatus[reservation.experience.id] != true ? ( 
                     <RatingForm experience={reservation.experience} />
                   ) : (
                     <p>Reviewed</p> 
