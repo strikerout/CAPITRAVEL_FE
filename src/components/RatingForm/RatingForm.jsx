@@ -29,6 +29,7 @@ const RatingForm = ({ experience }) => {
     e.preventDefault();
     await createReview(experience.id, username, rating, description);
     setOpenModal(false);
+    window.location.reload();
   };
 
   return (

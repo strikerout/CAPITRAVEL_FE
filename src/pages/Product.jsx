@@ -9,6 +9,7 @@ import ProductRate from "../components/ProductRate/ProductRate";
 import useExperiences from "../hooks/useExperience";
 import PolicyModal from "../components/ProductPolicy/PolicyModal";
 import ButtonShare from "../components/Buttons/ButtonShare/ButtonShare";
+import Reviews from "../components/Reviews/Reviews";
 
 const Product = () => {
   const { id } = useParams();
@@ -44,7 +45,8 @@ const Product = () => {
           <PrimaryButton>Book Now</PrimaryButton>
         </div>
       </div>
-      <PolicyModal />
+      <PolicyModal/>
+      <Reviews experienceId={experience.id} />
     </div>
   );
 };

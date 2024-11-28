@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { getExperiences, getExperienceByID, createExperience, updateExperience, deleteExperience, createReviewApi, alredyReviewed } from '../api/experiences';
+import { getExperiences, getExperienceByID, createExperience, updateExperience, deleteExperience, createReviewApi, alredyReviewed, getAllReviews } from '../api/experiences';
 
 const useExperiences = () => {
     const [experiences, setExperiences] = useState([]);
@@ -97,14 +97,27 @@ const useExperiences = () => {
     const isAlredyReviewed = async (experienceId, email) => {
         try {
             const reviewed = await alredyReviewed(experienceId, email);
-            console.log(reviewed)
+            console.log(reviewed);
             return reviewed > 0.0;
         } catch (err) {
             const error = err.response || "Unknown error";
             setError(error); 
             return error;
+        }
     };
-    }
+
+    const getReviews = async (experienceId) => {
+        try {
+            const allReviewed = await getAllReviews(experienceId);
+            console.log(allReviewed);
+            return allReviewed;
+        } catch (err) {
+            const error = err.response || "Unknown error";
+            setError(error); 
+            return error;
+        }
+    };
+
     return {
         fetchExperiences,
         fetchExperienceByID,
@@ -117,7 +130,8 @@ const useExperiences = () => {
         removeExperience,
         shufflingExperiences,
         createReview,
-        isAlredyReviewed
+        isAlredyReviewed,
+        getReviews,
     };
 };
 
