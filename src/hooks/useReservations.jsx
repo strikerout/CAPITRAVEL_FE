@@ -58,8 +58,10 @@ const useReservations = () => {
     try {
       const data = await getReservationDatesByExperience(experienceId);
       setReservations(data);
+      return data;
     } catch (err) {
       setError(err.response || 'Unknown error');
+      throw err;
     } finally {
       setLoading(false);
     }
