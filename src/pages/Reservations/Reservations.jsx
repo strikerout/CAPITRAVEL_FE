@@ -1,18 +1,49 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import useReservations from '../../hooks/useReservations';
 import Swal from 'sweetalert2';
 import useAuthLogin from '../../hooks/useAuthLogin';
 import style from './reservation.module.scss';
 import { useNavigate } from 'react-router-dom';
+import RatingForm from '../../components/RatingForm/RatingForm';
+import useExperiences from '../../hooks/useExperience';
 
 const Reservations = () => {
   const { reservations, loading, error, fetchReservationsByUser, removeReservation } = useReservations();
+  const { isAlredyReviewed } = useExperiences();
   const { username } = useAuthLogin();
   const navigate = useNavigate();
+  const [reviewStatus, setReviewStatus] = useState({});
 
   useEffect(() => {
     fetchReservationsByUser(username);
   }, [username]);
+
+  useEffect(() => {
+    const checkReviewStatuses = async () => {
+      const statuses = {};
+      for (const reservation of reservations) {
+        try {
+          const reviewed = await isAlredyReviewed(reservation.experience.id, username);
+          if (reviewed !== true && reviewed !== false) {
+            return;
+          }
+          statuses[reservation.experience.id] = reviewed || false;
+        } catch (error) {
+          console.error(`Error checking review status for ${reservation.experience.id}:`, error);
+          statuses[reservation.experience.id] = false;
+        }
+      }      
+      console.log(statuses);
+      
+      setReviewStatus(statuses);
+    };
+
+    if (reservations.length > 0) {
+      checkReviewStatuses();
+    }
+    console.log();
+    
+  }, [reservations]);
 
   const getReservationStatus = (checkIn, checkOut) => {
     const today = new Date();
@@ -133,6 +164,7 @@ const Reservations = () => {
             <h4>Name</h4>
             <h4>Status</h4>
             <h4>Action</h4>
+            <h4>Review</h4>
           </div>
           <ul className={`${style.bodyList} ${style.reservationsBody}`}>
             {reservations.map((reservation) => (
@@ -172,6 +204,15 @@ const Reservations = () => {
                     />
                   </svg>
                 </div>
+                {
+                  getReservationStatus(reservation.checkIn, reservation.checkOut) !== 'Past' ? (
+                    <p>Evaluate until finished</p> 
+                  ) : reviewStatus[reservation.experience.id] != undefined && reviewStatus[reservation.experience.id] != true ? ( 
+                    <RatingForm experience={reservation.experience} />
+                  ) : (
+                    <p>Reviewed</p> 
+                  )
+                }
               </li>
 
             ))}

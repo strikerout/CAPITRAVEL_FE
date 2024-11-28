@@ -61,3 +61,30 @@ export const deleteExperience = async (id) => {
     },);
     return response.data;
 };
+
+export const createReviewApi= async (experienceId, email, rating, message ) => {
+    const token = localStorage.getItem("token");
+    const response = await api.post(`/experiences/reputation/${experienceId}/${email}?rating=${rating}`, message,  
+    {headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+        }
+    },);
+    return response.data;
+};
+
+export const alreadyReviewed = async (experienceId, email) => {
+    const token = localStorage.getItem("token");
+    const response = await api.get(`/experiences/reputation/${experienceId}/${email}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return response.data
+};
+
+export const getAllReviews = async (experienceId) => {
+    const response = await api.get(`/experiences/reputation/${experienceId}`);
+    return response.data;
+};
