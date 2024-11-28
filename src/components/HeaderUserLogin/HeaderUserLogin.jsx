@@ -85,10 +85,10 @@ const HeaderUserLogin = ({ email, role }) => {
           <p>My favorites</p>
         </Link>
 
-        <div className={style.menuItem}>
-          <img src={reservation} alt="" />
+        <Link to="/experiences/reservations" className={style.menuItem}>
+          <img src={reservation} alt="My reservations" />
           <p>My reservations</p>
-        </div>
+        </Link>
 
         <div className={style.menuItem}>
           <img src={logoutIcon} alt="" />
