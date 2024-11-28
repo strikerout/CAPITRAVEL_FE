@@ -5,9 +5,11 @@ import useAuthLogin from '../../hooks/useAuthLogin';
 import style from './reservation.module.scss';
 import { useNavigate } from 'react-router-dom';
 import RatingForm from '../../components/RatingForm/RatingForm';
+import useExperiences from '../../hooks/useExperience';
 
 const Reservations = () => {
   const { reservations, loading, error, fetchReservationsByUser, removeReservation } = useReservations();
+  const {isAlredyReviewed} = useExperiences()
   const { username } = useAuthLogin();
   const navigate = useNavigate();
 
@@ -28,6 +30,11 @@ const Reservations = () => {
       return 'Currently';
     }
   };
+
+  const isAvailableToReview = async (experienceId) => {
+    const reviewed = await isAlredyReviewed(experienceId, username)
+    return reviewed
+  }
 
   const handleRemoveReservation = (id) => {
     Swal.fire({
@@ -175,10 +182,14 @@ const Reservations = () => {
                   </svg>
                 </div>
                 {
-                   getReservationStatus(reservation.checkIn, reservation.checkOut) === 'Past' ? ( <RatingForm experience={reservation.experience}/>)
-                    : <p>Evaluate until finished</p>
+                  getReservationStatus(reservation.checkIn, reservation.checkOut) !== 'Past' ? (
+                    <p>Evaluate until finished</p> 
+                  ) : isAvailableToReview(reservation.experience.id) ? ( 
+                    <RatingForm experience={reservation.experience} />
+                  ) : (
+                    <p>Reviewed</p> 
+                  )
                 }
-
               </li>
 
             ))}
