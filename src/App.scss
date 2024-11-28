@@ -429,6 +429,11 @@ body{
     }
 
     .product{
+        @media(min-width: $mobile){
+           width: 90%;
+           margin: 0 auto;
+        }
+
         .rateAndBookContainer{
             padding: 0 20px;
             
@@ -592,11 +597,6 @@ body{
         }
     }
     .content-general-experience{
-       h5{
-        color: $primary-orange;
-        margin-bottom: 8px;
-       }
-
        label{
         font-size: 15px;
        }
@@ -615,8 +615,14 @@ body{
             height: auto;
             display: grid;
             grid-template-columns: 35% 35% 28%;
+            grid-template-rows: auto auto;
             gap: 10px;
-         
+            
+            .sectionTime{
+                grid-column: 1 / -1; /* Esto hace que la nueva sección ocupe toda la fila */
+                display: flex;
+                gap: 10px;
+            }
 
             .labelCharacter{
                 display: flex;
@@ -668,6 +674,7 @@ body{
             
 
             .tag{
+                color: $brown;
                 list-style: none;
                 font-size: 13px;
                 font-weight: bold;
@@ -677,22 +684,37 @@ body{
                 display: flex;
                 flex-direction: row;
                 align-items: center;
-                justify-content: space-around;
+                justify-content: center;
                 border-radius: 50px;
             }
 
             .button-detele-tag{
                 margin-left: 3px;
+                width: 25px;
+                height:25px;
                 background-color: transparent;
                 border: none;
+                color: $brown;
+                font-weight: bold;
+                &:hover{
+                    cursor: pointer;
+                    color: $white;
+                    border-radius: 50px;
+                    background-color: #6DB6AB;
+                }
             }
 
             .buttonAdd{
+                cursor: pointer;
                 background-color: $blue;
                 padding: 10px;
                 color: $white;
                 border: none;
                 border-radius: 50px;
+
+                &:hover{
+                    background-color:#6DB6AB;
+                }
             }
         }
 
@@ -963,3 +985,23 @@ body{
     color: $white;
   }
 
+  .buttonMoreAction{
+        font-size: 1rem;
+        cursor: pointer;
+        background-color: #FDE0BC;
+        color: #562210;
+        padding: 5px 5px;
+        width: 130px;
+        height: 50px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        gap: 10px;
+    
+        &:hover{
+          background-color: $primary-orange;
+          color: $white;
+        }
+  }

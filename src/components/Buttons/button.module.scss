@@ -10,3 +10,31 @@
     cursor: pointer;
 
 }
+
+.secundaryButton{
+    width: 50%;
+    height: 35px;
+    border: none;
+    background-color: $blue;
+    color: $brown;
+    border-radius: 50px;
+    cursor: pointer;
+    &:hover {
+        background-color: $lightBlue;
+      }
+}
+
+.closeButton {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    color: $brown;
+    cursor: pointer;
+  
+    &:hover {
+      color: $secundary-orange;
+    }
+  }
