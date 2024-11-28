@@ -132,7 +132,7 @@ const Reservations = () => {
             <h4>Check-Out</h4>
             <h4>Name</h4>
             <h4>Status</h4>
-            <h4>Acción</h4>
+            <h4>Action</h4>
           </div>
           <ul className={`${style.bodyList} ${style.reservationsBody}`}>
             {reservations.map((reservation) => (
