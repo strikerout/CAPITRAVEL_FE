@@ -3,6 +3,9 @@ import style from './ProductRate.module.scss'
 
 const ProductRate = ({rating, ratingCount}) => {
   if(ratingCount === 0){
+    ratingCount = 1
+  }
+  if(rating === 0){
     rating = 1
   }
   return (
