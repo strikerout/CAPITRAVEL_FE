@@ -35,7 +35,7 @@ const RatingForm = ({ experience }) => {
     <>
       <button onClick={handleShare} className={`buttonMoreAction`}>
         <FaStar />
-        Rate
+        Review
       </button>
       {openModal && (
         <div className={style.modalRate}>
@@ -74,7 +74,7 @@ const RatingForm = ({ experience }) => {
               rows="4"
               className={style.textarea}
             />
-            <PrimaryButton type="submit">Send Rate</PrimaryButton>
+            <PrimaryButton type="submit">Send Review</PrimaryButton>
           </form>
         </div>
       )}
