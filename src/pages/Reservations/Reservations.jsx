@@ -49,9 +49,9 @@ const Reservations = () => {
     const today = new Date();
     const checkInDate = new Date(checkIn);
     const checkOutDate = new Date(checkOut);
-
+  
     if (checkOutDate < today) {
-      return 'Past';
+      return 'Past'; 
     } else if (checkInDate > today) {
       return 'Upcoming';
     } else if (checkInDate <= today && checkOutDate >= today) {
@@ -164,7 +164,7 @@ const Reservations = () => {
             <h4>Name</h4>
             <h4>Status</h4>
             <h4>Action</h4>
-            <h4>Rate</h4>
+            <h4>Review</h4>
           </div>
           <ul className={`${style.bodyList} ${style.reservationsBody}`}>
             {reservations.map((reservation) => (
@@ -172,7 +172,7 @@ const Reservations = () => {
                 <p>{reservation.id}</p>
                 <a href={`/product/${reservation.experience.id}`} className={style.experienceLink}>
                   <span className={style.experienceText}>{reservation.experience.title}</span>
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="18px" fill="#5f6368" className={style.icon}>
                     <path d="M440-280H280q-83 0-141.5-58.5T80-480q0-83 58.5-141.5T280-680h160v80H280q-50 0-85 35t-35 85q0 50 35 85t85 35h160v80ZM320-440v-80h320v80H320Zm200 160v-80h160q50 0 85-35t35-85q0-50-35-85t-85-35H520v-80h160q83 0 141.5 58.5T880-480q0 83-58.5 141.5T680-280H520Z" />
                   </svg>
                 </a>
@@ -180,15 +180,13 @@ const Reservations = () => {
                 <p>{new Date(reservation.checkIn).toLocaleString()}</p>
                 <p>{new Date(reservation.checkOut).toLocaleString()}</p>
                 <p>{`${reservation.user.name} ${reservation.user.lastName}`}</p>
-                <p
-                  className={
-                    getReservationStatus(reservation.checkIn, reservation.checkOut) === 'Past'
-                      ? style.past
-                      : getReservationStatus(reservation.checkIn, reservation.checkOut) === 'Upcoming'
+                <p className={
+                  getReservationStatus(reservation.checkIn, reservation.checkOut) === 'Past'
+                    ? style.past
+                    : getReservationStatus(reservation.checkIn, reservation.checkOut) === 'Upcoming'
                       ? style.upcoming
                       : style.today
-                  }
-                >
+                }>
                   {getReservationStatus(reservation.checkIn, reservation.checkOut)}
                 </p>
 
@@ -202,11 +200,10 @@ const Reservations = () => {
                   >
                     <path
                       fill="#EB5436"
-                      d="M5 3h2a1 1 0 0 0-2 0M4 3a2 2 0 1 1 4 0h2.5a.5.5 0 0 1 0 1h-.441l-.443 5.17A2 2 0 0 1 7.623 11H4.377a2 2 0 0 1-1.993-1.83L1.941 4H1.5a.5.5 0 0 1 0-1H4Z"
+                      d="M5 3h2a1 1 0 0 0-2 0M4 3a2 2 0 1 1 4 0h2.5a.5.5 0 0 1 0 1h-.441l-.443 5.17A2 2 0 0 1 7.623 11H4.377a2 2 0 0 1-1.993-1.83L1.941 4H1.5a.5.5 0 0 1 0-1zm3.5 3a.5.5 0 0 0-1 0v2a.5.5 0 0 0 1 0zM5 5.5a.5.5 0 0 0-.5.5v2a.5.5 0 0 0 1 0V6a.5.5 0 0 0-.5-.5"
                     />
                   </svg>
                 </div>
-                <div>
                 {
                   getReservationStatus(reservation.checkIn, reservation.checkOut) !== 'Past' ? (
                     <p>Evaluate until finished</p> 
@@ -216,8 +213,8 @@ const Reservations = () => {
                     <p>Reviewed</p> 
                   )
                 }
-                </div>
               </li>
+
             ))}
           </ul>
         </div>
