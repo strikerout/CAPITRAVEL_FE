@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styles from "./PolicyModal.module.scss";
-import SecundaryButton from "./Buttons/SecundaryButton"
+import SecundaryButton from "../Buttons/secundaryButton";
 import CloseButton from "../Buttons/CloseButton";
 
 const PolicyModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
 
   // Políticas de uso
   const policies = [
