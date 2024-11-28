@@ -33,8 +33,7 @@ const SearchBar = () => {
   };
 
   const handleSubmit = async (e) =>{
-    e.preventDefault()
-    // console.log(country, encodeURIComponent(keywords), stringStartDate, stringEndDate)
+    e.preventDefault();
     setResultList( await findExperiences(country, encodeURIComponent(keywords), stringStartDate, stringEndDate))
   }
 
