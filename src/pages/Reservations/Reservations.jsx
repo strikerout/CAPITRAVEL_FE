@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import useAuthLogin from '../../hooks/useAuthLogin';
 import style from './reservation.module.scss';
 import { useNavigate } from 'react-router-dom';
+import RatingForm from '../../components/RatingForm/RatingForm';
 
 const Reservations = () => {
   const { reservations, loading, error, fetchReservationsByUser, removeReservation } = useReservations();
@@ -133,6 +134,7 @@ const Reservations = () => {
             <h4>Name</h4>
             <h4>Status</h4>
             <h4>Action</h4>
+            <h4>Rate</h4>
           </div>
           <ul className={`${style.bodyList} ${style.reservationsBody}`}>
             {reservations.map((reservation) => (
@@ -172,6 +174,11 @@ const Reservations = () => {
                     />
                   </svg>
                 </div>
+                {
+                   getReservationStatus(reservation.checkIn, reservation.checkOut) === 'Past' ? ( <RatingForm experience={reservation.experience}/>)
+                    : <p>Evaluate until finished</p>
+                }
+
               </li>
 
             ))}

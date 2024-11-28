@@ -83,6 +83,17 @@ const useExperiences = () => {
         }
     };
 
+    const createReview = async (experienceId, email, rating, message) => {
+        try {
+            await createReview(experienceId, email, rating, message);
+            return null;
+        } catch (err) {
+            const error = err.response || "Unknown error";
+            setError(error); 
+            return error;
+        }
+    };
+
     return {
         fetchExperiences,
         fetchExperienceByID,
@@ -94,6 +105,7 @@ const useExperiences = () => {
         editExperience,
         removeExperience,
         shufflingExperiences,
+        createReview
     };
 };
 
