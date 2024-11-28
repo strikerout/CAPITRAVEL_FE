@@ -10,6 +10,7 @@ import useReservations from "../hooks/useReservations";
 import PolicyModal from "../components/ProductPolicy/PolicyModal";
 import ButtonShare from "../components/Buttons/ButtonShare/ButtonShare";
 import Reviews from "../components/Reviews/Reviews";
+import ButtonFavorite from "../components/Buttons/ButtonFavorite/ButtonFavorite";
 import ExperienceDates from "../components/ExperienceDates/ExperienceDates";
 import useAuthLogin from "../hooks/useAuthLogin";
 import Swal from "sweetalert2";
@@ -126,13 +127,16 @@ const Product = () => {
   return (
     <div className="product">
       <ProductHeader data={experience} />
-      <ButtonShare product={experience} />
+       <ButtonShare product={experience}/>
+       <ButtonFavorite experienceId={experience.id}/>
       <ProductGallery data={experience} />
 
       <div className="productDescRate">
         <ProductDescription data={experience} />
         <div className="rateAndBookContainer">
-          <ProductRate rating={experience.reputation} />
+
+          <ProductRate rating={experience.reputation} ratingCount={experience.ratingCount}/>
+          <PrimaryButton>Book Now</PrimaryButton>
           <div className="bookinContainer">
             <ExperienceDates
               data={experience}
