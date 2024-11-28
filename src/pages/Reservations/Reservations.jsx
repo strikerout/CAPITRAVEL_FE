@@ -9,7 +9,7 @@ import useExperiences from '../../hooks/useExperience';
 
 const Reservations = () => {
   const { reservations, loading, error, fetchReservationsByUser, removeReservation } = useReservations();
-  const { isAlredyReviewed } = useExperiences();
+  const { isAlreadyReviewed } = useExperiences();
   const { username } = useAuthLogin();
   const navigate = useNavigate();
   const [reviewStatus, setReviewStatus] = useState({});
@@ -23,7 +23,7 @@ const Reservations = () => {
       const statuses = {};
       for (const reservation of reservations) {
         try {
-          const reviewed = await isAlredyReviewed(reservation.experience.id, username);
+          const reviewed = await isAlreadyReviewed(reservation.experience.id, username);
           if (reviewed !== true && reviewed !== false) {
             return;
           }
