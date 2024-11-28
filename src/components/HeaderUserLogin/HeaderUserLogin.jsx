@@ -21,6 +21,7 @@ const HeaderUserLogin = ({ email, role }) => {
     const userByEmail = async () => {
       try {
         const response = await getUserByEmail(email);
+        localStorage.setItem("userFavoriteExperienceList", JSON.stringify(response.data.favoriteExperienceIds));
         setUser(response.data);
       } catch (error) {
         console.error("Error al obtener el usuario:", error);
@@ -48,8 +49,7 @@ const HeaderUserLogin = ({ email, role }) => {
 
   const name = user.name ? greeting() : "";
 
-  localStorage.setItem("userFavoriteExperienceList", JSON.stringify(user.favoriteExperienceIds));
-  
+
   const handleLogOut = () => {
     logout();
     navigate("/");
@@ -75,10 +75,10 @@ const HeaderUserLogin = ({ email, role }) => {
       <div className={`${style.dropdownMenu} ${open || style.inactive}`}>
         {role === "ROLE_ADMIN" && (
           <Link to="/administrator" className={style.menuItem}>
-          <img src={adminIcon} alt="admin icon" />
-          <p>Admin Panel</p>
+            <img src={adminIcon} alt="admin icon" />
+            <p>Admin Panel</p>
           </Link>
-         ) 
+        )
         }
         <Link to="/experiences/favorites" className={style.menuItem}>
           <img src={heart} alt="My favorites" />
