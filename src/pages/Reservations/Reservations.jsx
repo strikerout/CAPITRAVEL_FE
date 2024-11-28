@@ -22,9 +22,17 @@ const Reservations = () => {
     const checkReviewStatuses = async () => {
       const statuses = {};
       for (const reservation of reservations) {
-        const reviewed = await isAlredyReviewed(reservation.experience.id, username);
-        statuses[reservation.experience.id] = reviewed;
-      }
+        try {
+          const reviewed = await isAlredyReviewed(reservation.experience.id, username);
+          if (reviewed !== true && reviewed !== false) {
+            return;
+          }
+          statuses[reservation.experience.id] = reviewed || false;
+        } catch (error) {
+          console.error(`Error checking review status for ${reservation.experience.id}:`, error);
+          statuses[reservation.experience.id] = false;
+        }
+      }      
       console.log(statuses);
       
       setReviewStatus(statuses);
