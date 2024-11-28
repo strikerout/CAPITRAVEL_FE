@@ -61,7 +61,7 @@ export const createReviewApi= async (experienceId, email, rating, message ) => {
     return response.data;
 };
 
-export const alredyReviewed = async (experienceId, email) => {
+export const alreadyReviewed = async (experienceId, email) => {
     const token = localStorage.getItem("token");
     const response = await api.get(`/experiences/reputation/${experienceId}/${email}`, {
         headers: {
