@@ -9,6 +9,7 @@ import useExperiences from "../hooks/useExperience";
 import useReservations from "../hooks/useReservations";
 import PolicyModal from "../components/ProductPolicy/PolicyModal";
 import ButtonShare from "../components/Buttons/ButtonShare/ButtonShare";
+import Reviews from "../components/Reviews/Reviews";
 import ExperienceDates from "../components/ExperienceDates/ExperienceDates";
 
 const Product = () => {
@@ -101,7 +102,8 @@ const Product = () => {
         </div>
       </div>
       {error && <p>Error: {error}</p>}
-      <PolicyModal />
+      <PolicyModal/>
+      <Reviews experienceId={experience.id} />
     </div>
   );
 };
