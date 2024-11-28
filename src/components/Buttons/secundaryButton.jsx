@@ -7,4 +7,5 @@ const SecundaryButton = ({children, func, type = "button"}) => {
   )
 }
 
+
 export default SecundaryButton
