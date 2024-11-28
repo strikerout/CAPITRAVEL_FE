@@ -5,10 +5,13 @@ import Search from '../components/Search';
 import CategoriesHome from '../components/CategoriesHome';
 import useExperiences from '../hooks/useExperience';
 import ExperiencesList from '../components/Pagination/ExperiencesList';
+// import FavoriteExperiences from '../components/Favorites/Favorites';
+
 
 const Home = () => {
   const [selectedCategories, setSelectedCategories] = useState([]);
-  const { experiences, loading, fetchExperiences, error } = useExperiences();
+  const { experiences, loading, foundExperiences, fetchExperiences, error } = useExperiences();
+
 
   useEffect(() => {
     fetchExperiences();
@@ -35,7 +38,6 @@ const Home = () => {
         <img src="/dotted_lines.svg" className='right-lines' alt="" />
       </div>
 
-      <Search />
       <CategoriesHome 
         selectedCategories={selectedCategories} 
         setSelectedCategories={setSelectedCategories} 

@@ -27,7 +27,7 @@ export const getReservationById = async (id) => {
 // Obtener reservas por usuario
 export const getReservationsByUser = async (email) => {
   const token = localStorage.getItem("token");
-  const response = await api.get(`/reservations/${email}`, {
+  const response = await api.get(`/reservations/user/${email}`, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,

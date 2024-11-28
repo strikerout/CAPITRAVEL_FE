@@ -8,6 +8,7 @@ import ProductRate from "../components/ProductRate/ProductRate";
 import useExperiences from "../hooks/useExperience";
 import useReservations from "../hooks/useReservations";
 import PolicyModal from "../components/ProductPolicy/PolicyModal";
+import ButtonShare from "../components/Buttons/ButtonShare/ButtonShare";
 import ExperienceDates from "../components/ExperienceDates/ExperienceDates";
 
 const Product = () => {
@@ -80,7 +81,7 @@ const Product = () => {
   return (
     <div className="product">
       <ProductHeader data={experience} />
-
+       <ButtonShare product={experience}/>
       <ProductGallery data={experience} />
 
       <div className="productDescRate">

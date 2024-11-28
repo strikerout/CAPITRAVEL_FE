@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from './experienceDates.module.scss';
+//import styles from './experienceDates.module.scss';
 import Calendar from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -77,6 +77,7 @@ const ExperienceDates = ({ data, reservations, onDateTimeSelect }) => {
 
       // Si el bloque de tiempo se solapa con alguna reserva, deshabilitar
       return (
+        (blockStart <= new Date())||
         (blockStart >= reservationStart && blockStart < reservationEnd) ||
         (blockEnd > reservationStart && blockEnd <= reservationEnd) ||
         (blockStart <= reservationStart && blockEnd >= reservationEnd)
@@ -133,19 +134,17 @@ const ExperienceDates = ({ data, reservations, onDateTimeSelect }) => {
   };
 
   return (
-    <div className={styles.reservationContainer}>
+    <div >
       <h3>Add dates to book</h3>
       <p>Choose the start time of your experience</p>
       <div>
         <label>Available Time:</label>
         <p>{data.serviceHours}</p>
       </div>
-      <div className={styles.calendarContainer}>
+      <div >
         <p>Check-In:</p>
         <Calendar
           popperPlacement="top-start"
-          calendarClassName={styles.stylesCalendar}
-          className={styles.stylesInputCalendar}
           selected={selectedDate}
           onChange={handleDateChange}
           filterDate={filterDays}
@@ -159,7 +158,7 @@ const ExperienceDates = ({ data, reservations, onDateTimeSelect }) => {
           placeholderText="Select a weekday"
         />
   {selectedDate && (
-          <div className={styles.selectedDateContainer}>
+          <div >
             <p>
               <strong>Selected Date: </strong>
               {selectedDate.toLocaleString()}

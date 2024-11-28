@@ -41,6 +41,7 @@ const useReservations = () => {
 
   // Obtener reservas por usuario
   const fetchReservationsByUser = async (email) => {
+    if (!email) return; // Si no hay email, no hacemos nada
     setLoading(true);
     try {
       const data = await getReservationsByUser(email);
@@ -85,15 +86,22 @@ const useReservations = () => {
   const removeReservation = async (id) => {
     setLoading(true);
     try {
+      // Elimina la reserva
       await deleteReservation(id);
+  
+      // Actualiza el estado de las reservas, eliminando la reserva con el id especificado
+      setReservations((prev) => prev.filter((reservation) => reservation.id !== id));
+  
+      return null;
     } catch (err) {
-      setError(err.response || 'Unknown error');
-      throw err;
+      const error = err.response || 'Unknown error';
+      setError(error); 
+      return error;
     } finally {
       setLoading(false);
     }
   };
-
+  
   return {
     reservations,
     loading,
