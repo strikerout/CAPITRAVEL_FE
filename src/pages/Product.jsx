@@ -87,14 +87,16 @@ const Product = () => {
         <ProductDescription data={experience} />
         <div className="rateAndBookContainer">
           <ProductRate rating={experience.reputation} />
-          <ExperienceDates
-            data={experience}
-            reservations={reservations} // Pasar reservas como prop
-            onDateTimeSelect={setSelectedDateTime}
-          />
-          <PrimaryButton func={handleReservation} disabled={loading}>
-            {loading ? "Booking..." : "Book Now"}
-          </PrimaryButton>
+          <div className="bookinContainer">
+            <ExperienceDates
+              data={experience}
+              reservations={reservations} // Pasar reservas como prop
+              onDateTimeSelect={setSelectedDateTime}
+            />
+            <PrimaryButton func={handleReservation} disabled={loading}>
+              {loading ? "Booking..." : "Book Now"}
+            </PrimaryButton>
+          </div>
         </div>
       </div>
       {error && <p>Error: {error}</p>}

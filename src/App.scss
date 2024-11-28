@@ -422,20 +422,24 @@ body{
 
     .product{
         .rateAndBookContainer{
-            padding: 0 20px;
             
+            padding: 0 20px;
             @media(min-width: $mobile){
                 width: 400px;
             }
         }
         .productDescRate{
-           
             @media(min-width: $mobile){
                 display: flex;
                 justify-content: space-between;
                 margin: 0 auto;
                 width: 70%;
             }
+        }
+        .bookinContainer{
+            background-color: $white;
+            border-radius: 10px;
+            padding: 10px;
         }
     }
 
