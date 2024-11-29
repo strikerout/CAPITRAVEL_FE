@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from './experienceDates.module.scss';
+import styles from "./experienceDates.module.scss";
 import Calendar from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -38,7 +38,7 @@ const ExperienceDates = ({ data, reservations, onDateTimeSelect }) => {
       HOURS: 10,
       DAYS: 30,
     };
-    return (timeUnitToMinutes[timeUnit] || 60);
+    return timeUnitToMinutes[timeUnit] || 60;
   };
 
   const experienceDurationMs = getDurationInMs(data.quantity, data.timeUnit);
@@ -57,8 +57,6 @@ const ExperienceDates = ({ data, reservations, onDateTimeSelect }) => {
       const reservationEnd = new Date(checkOut).getTime();
       const blockStart = startOfDay.getTime();
       const blockEnd = blockStart + experienceDurationMs;
-
-      // Si la reserva se solapa con la parte del día, bloquear
       return (
         (blockStart >= reservationStart && blockStart < reservationEnd) ||
         (blockEnd > reservationStart && blockEnd <= reservationEnd) ||
@@ -70,25 +68,24 @@ const ExperienceDates = ({ data, reservations, onDateTimeSelect }) => {
   const isTimeReserved = (date) => {
     const blockStart = date.getTime();
     const blockEnd = blockStart + experienceDurationMs;
-
     return reservations.some(({ checkIn, checkOut }) => {
       const reservationStart = new Date(checkIn).getTime();
       const reservationEnd = new Date(checkOut).getTime();
-
-      // Si el bloque de tiempo se solapa con alguna reserva, deshabilitar
       return (
-        (blockStart <= new Date())||
+        blockStart <= new Date() ||
         (blockStart >= reservationStart && blockStart < reservationEnd) ||
         (blockEnd > reservationStart && blockEnd <= reservationEnd) ||
         (blockStart <= reservationStart && blockEnd >= reservationEnd)
       );
     });
   };
+
   const filterDays = (date) => {
     const isAllowedDay = allowedDays.has(date.getDay());
     const isNotReserved = !isDayReserved(date);
     return isAllowedDay && isNotReserved;
   };
+
   const filterTimes = (date) => {
     const minTime = new Date(date);
     minTime.setHours(
@@ -101,6 +98,7 @@ const ExperienceDates = ({ data, reservations, onDateTimeSelect }) => {
       serviceHours[1].split(":")[0],
       serviceHours[1].split(":")[1]
     );
+
     if (checkOut && date.toDateString() === checkOut.toDateString()) {
       const minCheckOutTime = new Date(checkOut).setHours(
         checkOut.getHours(),
@@ -125,7 +123,7 @@ const ExperienceDates = ({ data, reservations, onDateTimeSelect }) => {
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
-    calculateCheckOut(date); 
+    calculateCheckOut(date);
     const formattedDate = formatDate(date);
     if (onDateTimeSelect) {
       onDateTimeSelect(formattedDate);
@@ -133,9 +131,11 @@ const ExperienceDates = ({ data, reservations, onDateTimeSelect }) => {
   };
 
   return (
-    <div className={styles.reservationContainer} >
+    <div className={styles.reservationContainer}>
       <h3 className={styles.reservationContainer}>Add dates to book</h3>
-      <p className={styles.reservationContainer}>Choose the start time of your experience</p>
+      <p className={styles.reservationContainer}>
+        Choose the start time of your experience
+      </p>
       <div className={styles.reservationContainer}>
         <label>Available Time:</label>
         <p>{data.serviceHours}</p>
@@ -156,7 +156,7 @@ const ExperienceDates = ({ data, reservations, onDateTimeSelect }) => {
           dateFormat="MMMM d, yyyy h:mm aa"
           placeholderText="Select a weekday"
         />
-  {selectedDate && (
+        {selectedDate && (
           <div className={styles.reservationDates}>
             <p>
               <strong>Check-In: </strong>
