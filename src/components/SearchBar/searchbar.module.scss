@@ -1,0 +1,124 @@
+@use '../../variables' as *; 
+
+.div_search_bar_container{
+    background-color:$white;
+    border-radius: 30px;
+    width:90%;
+    max-width: 1250px;
+    height: auto;
+    position: relative;
+    top: -28px;
+    display: flex;
+    flex-direction: column;
+    // align-items: center;
+    padding: 30px 0;
+    
+    h4{
+        text-align: center;
+        height: 50px;
+    }
+}
+
+.button_inputs_container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    button{
+        display: flex;
+        align-self: center;
+        justify-content: center;
+        padding: 5px;
+        width: 95px;
+        margin-top: 20px;
+    }
+}
+
+.inputs_container{
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 18px;
+    margin-top: 18px;
+    margin: 0 auto;
+}
+
+.input_container{
+    display: flex;
+    flex-direction: column;
+
+    label, .label_icon_container{
+       // margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+}
+
+select{
+    border: 1px $lightBrown solid;
+    height: 44px;
+    border-radius: 8px;
+    padding: 0 10px;
+    margin-bottom: 5px;
+    color: #7B7C80;
+}
+
+.checkbox_container{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    input{
+      height: 20px;
+      border-radius: 50px;
+    }
+}
+
+.icon{
+    color:$primary-orange;
+    font-size: 15px;
+}
+
+.icon_location{
+    color:$primary-orange;
+    font-size: 20px;
+}
+
+:global(.react-datepicker) {
+border-radius: 10px;
+border: 1px solid $primary-orange;
+  }
+
+:global(.react-datepicker__month-container) {
+    background-color: $white;
+  }
+
+  :global(.react-datepicker__header) {
+    background-color: $white;
+  }
+
+.resultList{
+    display: grid; 
+    grid-template-columns: 1fr;
+    gap: 10px; 
+    padding: 10px;
+
+    @media(min-width: $mobile){
+        grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+.clean{
+    cursor: pointer;
+}
+  
+
+.notFound{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,13 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ProductCard from "../../components/Cards/ProductCard";
 import style from "./favorites.module.scss";
 import capiFavorite from "../../../public/capi_favorite.svg";
 import { useNavigate } from "react-router-dom";
 import { useFavorites } from "../../context/Contex";
+import useAuthLogin from "../../hooks/useAuthLogin";
 
 const Favorites = () => {
-  const { favoritesData } = useFavorites();
+  let { favoritesData, favoriteExperienceIds, fetchFavorites } = useFavorites();
+  const { username } = useAuthLogin();
   const navigate = useNavigate();
+
+  const favoritesInLocalStorage = JSON.parse(localStorage.getItem("userFavoriteExperienceList"));
+  if (favoritesInLocalStorage) {
+    favoriteExperienceIds = favoritesInLocalStorage;
+  }
+  useEffect(() => {
+    if (username) {
+      fetchFavorites(favoriteExperienceIds);
+    }
+  }, [username, fetchFavorites]);
 
   return (
     <section className={style.containerPage}>

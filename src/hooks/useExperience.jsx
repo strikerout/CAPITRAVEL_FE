@@ -1,9 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
-import { getExperiences, getExperienceByID, createExperience, updateExperience, deleteExperience } from '../api/experiences';
+import {getExperiencesCountries, getExperiences, searchExperiences,  getExperienceByID, createExperience, updateExperience, deleteExperience, createReviewApi, alreadyReviewed, getAllReviews } from '../api/experiences';
+
 
 const useExperiences = () => {
     const [experiences, setExperiences] = useState([]);
     const [experience, setExperience] = useState([]);
+    const [countries, setCountries] = useState([]);
+    const [foundExperiences, setFoundExperiences] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [shufflingExperiences, setShufflingExperiences] = useState([]);
@@ -28,6 +31,18 @@ const useExperiences = () => {
         }
     };
 
+    const fetchCountries = async () =>{
+        setLoading(true);
+        try {
+            const data = await getExperiencesCountries();
+            setCountries(data);
+        } catch (err) {
+            setError(err);
+        } finally {
+            setLoading(false);
+        }
+    }
+
     const fetchExperienceByID = async (id) => {
         try {
             const experience = await getExperienceByID(id);
@@ -43,6 +58,7 @@ const useExperiences = () => {
 
     useEffect(() => {
         fetchExperiences();
+        fetchCountries();
     }, []);
 
     const addExperience = async (newExperience) => {
@@ -56,6 +72,20 @@ const useExperiences = () => {
             return error;
         }
     };
+
+    const findExperiences = async (country, keywords, startDate, endDate) =>{
+        setLoading(true);
+        try{
+            const data = await searchExperiences(country, keywords, startDate, endDate)
+            setFoundExperiences(data)
+            return data;
+        } catch (err) {
+            setError(err);
+        } finally {
+            setLoading(false);
+        }
+    }
+
 
     const editExperience = async (id, updatedExperience) => {
         try {
@@ -83,17 +113,59 @@ const useExperiences = () => {
         }
     };
 
+    const createReview = async (experienceId, email, rating, message) => {
+        try {
+            await createReviewApi(experienceId, email, rating, message);
+            return null;
+        } catch (err) {
+            const error = err.response || "Unknown error";
+            setError(error); 
+            return error;
+        }
+    };
+    
+    const isAlreadyReviewed = async (experienceId, email) => {
+        try {
+            const reviewed = await alreadyReviewed(experienceId, email);
+            console.log(reviewed);
+            return reviewed > 0.0;
+        } catch (err) {
+            const error = err.response || "Unknown error";
+            setError(error); 
+            return error;
+        }
+    };
+
+    const getReviews = async (experienceId) => {
+        try {
+            const allReviewed = await getAllReviews(experienceId);
+            console.log(allReviewed);
+            return allReviewed;
+        } catch (err) {
+            const error = err.response || "Unknown error";
+            setError(error); 
+            return error;
+        }
+    };
+
     return {
         fetchExperiences,
         fetchExperienceByID,
         experiences,
         experience,
+        foundExperiences,
+        setFoundExperiences,
+        countries,
         loading,
         error,
         addExperience,
+        findExperiences,
         editExperience,
         removeExperience,
         shufflingExperiences,
+        createReview,
+        isAlreadyReviewed,
+        getReviews,
     };
 };
 
