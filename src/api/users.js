@@ -8,7 +8,7 @@ export const createUser = async (user) => {
 export const getUsers = async () => {
     const token = localStorage.getItem("token");
 
-    const response = await fetch(import.meta.env.VITE_BACKEND_UR, {
+    const response = await fetch(import.meta.env.VITE_BACKEND_URL, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
