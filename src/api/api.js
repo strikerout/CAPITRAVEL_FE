@@ -7,10 +7,3 @@ const api = axios.create({
 
 export default api;
 
-api.get('/experiences')
-  .then(response => {
-    console.log('Respuesta de la API:', response.data);  // Verifica los datos
-  })
-  .catch(error => {
-    console.error('Error al obtener datos:', error);
-  });
