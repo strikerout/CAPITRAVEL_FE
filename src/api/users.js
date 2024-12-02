@@ -13,7 +13,7 @@ export const getUsers = async () => {
             "Authorization": `Bearer ${token}`
         },
     });
-    return response.data;
+    return response;
 }
 
 export const getUserByEmail = async (email) => {
