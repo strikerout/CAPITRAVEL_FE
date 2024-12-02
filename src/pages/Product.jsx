@@ -27,7 +27,7 @@ const Product = () => {
   } = useReservations();
   const { username } = useAuthLogin();
   const [experience, setExperience] = useState(null);
-  const [reservations, setReservations] = useState([]); // Estado para reservas
+  const [reservations, setReservations] = useState([]);
   const [errorExperience, setErrorExperience] = useState(null);
   const [selectedDateTime, setSelectedDateTime] = useState(null);
 
@@ -47,14 +47,14 @@ const Product = () => {
   useEffect(() => {
     const fetchReservations = async () => {
       try {
-        const data = await fetchReservationDatesByExperience(id); // Llamar a la función para obtener las reservas de la experiencia
-        setReservations(data); // Actualizar el estado de las reservas
+        const data = await fetchReservationDatesByExperience(id);
+        setReservations(data);
       } catch (err) {
         console.error("Error fetching reservation dates:", err);
       }
     };
-    fetchReservations(); // Ejecutar la función
-  }, [id]); // Dependencia de `experience.id`, se vuelve a ejecutar si cambia el ID de la experiencia
+    fetchReservations();
+  }, [id]); 
 
   const handleReservation = async () => {
     if (!localStorage.getItem("token")) {
@@ -65,8 +65,8 @@ const Product = () => {
       Swal.fire({
         imageUrl: "/warningCapi.svg",
         imageWidth: 200,
-        title: "Date and Time",
-        text: "Please select Date and Time",
+        title: "Chek-In",
+        text: "Please select a Check-In date",
         customClass: {
           confirmButton: "swalConfirmButton",
           title: "swalTitle",
@@ -80,15 +80,14 @@ const Product = () => {
       const reservationData = {
         checkIn: selectedDateTime,
         experienceId: experience.id,
-        email: username, // Esto es solo un ejemplo
+        email: username,
       };
-      await createNewReservation(reservationData); // Crear la nueva reserva en el backend
+      await createNewReservation(reservationData);
 
-      // Actualizar el estado de las reservas y el calendario
       const updatedReservations = await fetchReservationDatesByExperience(
         experience.id
-      ); // Llamar de nuevo para obtener las reservas actualizadas
-      setReservations(updatedReservations); // Actualizar el estado local
+      ); 
+      setReservations(updatedReservations);
       setSelectedDateTime[""];
       Swal.fire({
         imageUrl: "/checkCapi.svg",
@@ -100,6 +99,10 @@ const Product = () => {
           title: "swalTitle",
           htmlContainer: "swalHtmlContainer",
         },
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/experiences/reservations");
+        }
       });
     } catch (err) {
       console.log("Error creating reservation:", err.response.data.error);
@@ -115,8 +118,7 @@ const Product = () => {
         },
       }).then((result) => {
         if (result.isConfirmed) {
-          // Recargar la página
-          window.location.reload();  // Recarga la página actual
+          window.location.reload();
         }
       });
     }
@@ -136,11 +138,10 @@ const Product = () => {
         <div className="rateAndBookContainer">
 
           <ProductRate rating={experience.reputation} ratingCount={experience.ratingCount}/>
-          <PrimaryButton>Book Now</PrimaryButton>
           <div className="bookinContainer">
             <ExperienceDates
               data={experience}
-              reservations={reservations} // Pasar reservas como prop
+              reservations={reservations}
               onDateTimeSelect={setSelectedDateTime}
             />
             <PrimaryButton func={handleReservation} disabled={loading}>
