@@ -8,13 +8,12 @@ export const createUser = async (user) => {
 export const getUsers = async () => {
     const token = localStorage.getItem("token");
 
-    const response = await api.get(`/users`, {
+    const response = await api.get('/user', {
         headers: {
-            "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`
         },
     });
-    return response;
+    return response.data;
 }
 
 export const getUserByEmail = async (email) => {
