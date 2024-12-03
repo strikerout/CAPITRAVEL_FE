@@ -6,8 +6,9 @@ import { MdPlace } from "react-icons/md";
 import style from "./searchbar.module.scss";
 import PrimaryButton from "../Buttons/PrimaryButton";
 import useExperiences from '../../hooks/useExperience'
-import ProductCard from "../Cards/ProductCard";
-import SkeletonCard from "../Cards/SkeletonCard";
+import ClearButton from "../Buttons/ClearButton";
+
+
 
 const SearchBar = ({search, setSearch}) => {
 
@@ -33,12 +34,14 @@ const SearchBar = ({search, setSearch}) => {
 
   const handleSubmit = async (e) =>{
     e.preventDefault();
-    setSearch({
-      country: country, 
-      keywords: encodeURIComponent(keywords), 
-      startDate: stringStartDate, 
-      endDate: stringEndDate
-    })
+    if(keywords || country || checkInDate || checkOutDate){
+      setSearch({
+        country: country, 
+        keywords: encodeURIComponent(keywords), 
+        startDate: stringStartDate, 
+        endDate: stringEndDate
+      })
+    }
   }
 
   const cleanSearch = () =>{
@@ -133,9 +136,9 @@ const SearchBar = ({search, setSearch}) => {
               <label htmlFor=""> I`m not sure yet</label>
             </div> */}
           </div>
-          <div>
+          <div className={style.searchButtons}>
+            <ClearButton func={cleanSearch}>Clean</ClearButton>
             <PrimaryButton type="submit">Search</PrimaryButton>
-            <p onClick={cleanSearch} className={style.clean}>Clean Search</p>
           </div>
           
           

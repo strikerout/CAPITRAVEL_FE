@@ -395,13 +395,11 @@ cancelEdit();
   return (
     <>
       {loading ? <Loading/> : null}
-      <h3 ref={divRef} className="margin-temporary">List Experiences</h3>
-      <button
-      className="margin-temporary primary-button"
-      onClick={ToggleButton}
-      >
-      Create Experience
-     </button>
+      <div className={style.titleButtonExp}>
+        <h3 ref={divRef}>List Experiences</h3>
+        <PrimaryButton func={ToggleButton}>Create Experience</PrimaryButton>
+      </div>
+      
       <section className="content-general-experience">
         <form className={isActive ? "displayForm adminForm-experience" : "hiddenForm"}  onSubmit={handleSubmit}>
           <section>

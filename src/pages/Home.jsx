@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Banner from '../components/Banner';
 import Carousel from '../components/Carousel/Carousel';
-import Search from '../components/Search';
 import CategoriesHome from '../components/CategoriesHome';
 import useExperiences from '../hooks/useExperience';
 import ExperiencesList from '../components/Pagination/ExperiencesList';
@@ -76,7 +75,7 @@ const Home = () => {
       null
     }
 
-    {/* if category is selected without expetiences asociated and the search is not active */}
+    {/* if the search is active but no results */}
     {Object.keys(search).length > 0 && experiences.length === 0 ?
         <Message 
         message={"Ups! there seems to be no experiences"} 
