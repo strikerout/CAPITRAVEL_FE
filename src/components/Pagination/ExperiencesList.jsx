@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ProductCard from "../Cards/ProductCard";
 import Pagination from './Pagination';
-import Message from "../Message/Message";
+
 
 export const ExperiencesList = ({ experiences }) => {
   const [shuffledExperiences, setShuffledExperiences] = useState([]);
@@ -23,9 +23,11 @@ export const ExperiencesList = ({ experiences }) => {
 
   return (
     <>
+    {shuffledExperiences.length > 0 ?
+      <>
       <div className="desktopCars">
         <div className="grid-container">
-          {shuffledExperiences.length > 0 ? (
+          {
             shuffledExperiences
               .slice(firstIndex, lastIndex)
               .map((experience, index) => (
@@ -36,9 +38,7 @@ export const ExperiencesList = ({ experiences }) => {
                   <ProductCard data={experience} />
                 </div>
               ))
-          ) : (
-           <Message/>
-          )}
+          }
         </div>
       </div>
       <Pagination
@@ -47,6 +47,7 @@ export const ExperiencesList = ({ experiences }) => {
         setCurrentPage={setCurrentPage}
         totalExperiences={totalExperiences}
       />
+      </> : null}
     </>
   );
 };

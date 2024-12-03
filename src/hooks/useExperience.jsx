@@ -6,17 +6,18 @@ const useExperiences = () => {
     const [experiences, setExperiences] = useState([]);
     const [experience, setExperience] = useState([]);
     const [countries, setCountries] = useState([]);
-    const [foundExperiences, setFoundExperiences] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [shufflingExperiences, setShufflingExperiences] = useState([]);
 
     const prevCategories = useRef([]);
 
-    const fetchExperiences = async (categoryIds = []) => {
+    const fetchExperiences = async (categoryIds = [], search = {}) => {
         setLoading(true);
 
-        if (categoryIds.length === 0 || JSON.stringify(categoryIds) !== JSON.stringify(prevCategories.current)) {
+        if (Object.keys(search).length > 0){
+            findExperiences(search.country, search.keywords, search.startDate, search.endDate)
+        }else if (categoryIds.length === 0 || JSON.stringify(categoryIds) !== JSON.stringify(prevCategories.current)) {
             try {
                 const data = await getExperiences(categoryIds);
                 setExperiences(data);
@@ -77,7 +78,7 @@ const useExperiences = () => {
         setLoading(true);
         try{
             const data = await searchExperiences(country, keywords, startDate, endDate)
-            setFoundExperiences(data)
+            setExperiences(data)
             return data;
         } catch (err) {
             setError(err);
@@ -153,8 +154,6 @@ const useExperiences = () => {
         fetchExperienceByID,
         experiences,
         experience,
-        foundExperiences,
-        setFoundExperiences,
         countries,
         loading,
         error,

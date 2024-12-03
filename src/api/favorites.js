@@ -35,7 +35,7 @@ export const getFavorites = async (experienceIdList) => {
     }
 
     const queryParam = experienceIdList.join(","); 
-    console.log(queryParam)
+  
     const response = await api.get(`/experiences/favorites?experienceIdList=${queryParam}`, {
       headers: {
         "Content-Type": "application/json",
@@ -44,7 +44,6 @@ export const getFavorites = async (experienceIdList) => {
     });
 
     if (response.status === 200) {
-      console.log(response.data)
       return response.data ;
     }
   } catch (error) {
