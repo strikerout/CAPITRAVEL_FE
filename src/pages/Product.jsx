@@ -58,7 +58,9 @@ const Product = () => {
 
   const handleReservation = async () => {
     if (!localStorage.getItem("token")) {
+      localStorage.setItem("currentExperrience", id)
       navigate("/login");
+      return null;
     }
 
     if (!selectedDateTime) {

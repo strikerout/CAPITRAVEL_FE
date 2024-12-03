@@ -11,6 +11,7 @@ const Home = () => {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [search, setSearch] = useState({})
   const { experiences, loading, fetchExperiences, error } = useExperiences();
+  localStorage.removeItem("currentExperrience")
 
   useEffect(() => {
     fetchExperiences();

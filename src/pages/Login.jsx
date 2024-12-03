@@ -48,7 +48,7 @@ const Login = () => {
               }).then((result) => {
                 if (result.isConfirmed) {
                     cleanForm();
-                    navigate('/'); 
+                    localStorage.getItem("currentExperrience") ? navigate(`/product/${localStorage.getItem("currentExperrience")}`) : navigate('/')
                 }
               });
            
