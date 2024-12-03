@@ -6,24 +6,36 @@ p{
 }
 
 .productHeader{
-    padding: 0 5px;
     display: flex;
-    flex-direction: column;
-    margin: 0 auto;
-    gap: 10px;
+    flex-direction: row;
+    justify-content: space-between;
     margin-bottom: 20px;
+    align-items: center;
+    gap: 20px;
+
+    @media(max-width: 700px){
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
     .productTitle{
         display: flex;
-        align-items: center;
+        flex-direction: column;
+
+        .title{
+            display: flex;
+            align-items: center;
+            margin-bottom:20px;
+        }
         svg{
             color: $brown;
             width: 40px;
         }
     }
     .productLocation{
-        display: flex;
-        align-items: center;
         padding: 0 10px;
+        display: flex;
+        gap: 10px;
         svg{
             color: $brown;
             width: 20px;
@@ -31,33 +43,20 @@ p{
     }
 }
 
-.productHeader :nth-child(2){
+.productcategories{
+    padding: 0 10px;
+    align-self: flex-start;
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-    @media (min-width: $mobile){
-        flex-direction: row;
-        justify-content: space-between;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 6px;
+    max-width: 600px;
+    p{
+        padding: 2px 10px;
+        border-radius: 50px;
+
     }
-    .productcategories{
-        padding: 0 10px;
-        align-self: flex-start;
-        display: flex;
-        flex-direction: row;
-        gap: 6px;
-        p{
-            padding: 2px 10px;
-            border-radius: 50px;
-    
-        }
-        .mainCategory{
-            background-color: $blue;
-        }
-        .secondCategory{
-            background-color: $lightGreen;
-        }
+    .mainCategory{
+        background-color: $blue;
     }
-   
 }
-
-
