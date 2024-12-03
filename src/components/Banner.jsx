@@ -1,7 +1,7 @@
 import React from "react";
 import SearchBar from "./SearchBar/SearchBar";
 
-const Banner = () => {
+const Banner = ({search, setSearch}) => {
   return (
     <section className="section_banner">
       <div className="banner">
@@ -24,7 +24,7 @@ const Banner = () => {
           <img src="/capi_sun.svg" alt="" className="banner-capi-img" />
         </div>
       </div>
-      <SearchBar/>
+      <SearchBar search={search} setSearch={setSearch} />
     </section>
   );
 };

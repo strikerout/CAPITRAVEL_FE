@@ -6,10 +6,11 @@ import { MdPlace } from "react-icons/md";
 import style from "./searchbar.module.scss";
 import PrimaryButton from "../Buttons/PrimaryButton";
 import useExperiences from '../../hooks/useExperience'
-import ProductCard from "../Cards/ProductCard";
-import SkeletonCard from "../Cards/SkeletonCard";
+import ClearButton from "../Buttons/ClearButton";
 
-const SearchBar = () => {
+
+
+const SearchBar = ({search, setSearch}) => {
 
   const{loading, countries, findExperiences, setFoundExperiences} = useExperiences();
 
@@ -18,12 +19,8 @@ const SearchBar = () => {
   const [checkInDate, setCheckInDate] = useState(null);
   const [checkOutDate, setCheckOutDate] = useState(null);
 
-  const [searchActive, setSearchActive] = useState(false);
-
   const [stringStartDate, setStringStartDate] = useState("")
   const [stringEndDate, setStringEndDate] = useState("")
-
-  const [resultList, setResultList] = useState([]);
 
   const handleCheckOutChange = (date) => {
     if (date > checkInDate || !checkInDate) {
@@ -37,8 +34,14 @@ const SearchBar = () => {
 
   const handleSubmit = async (e) =>{
     e.preventDefault();
-    setResultList( await findExperiences(country, encodeURIComponent(keywords), stringStartDate, stringEndDate))
-    setSearchActive(true);
+    if(keywords || country || checkInDate || checkOutDate){
+      setSearch({
+        country: country, 
+        keywords: encodeURIComponent(keywords), 
+        startDate: stringStartDate, 
+        endDate: stringEndDate
+      })
+    }
   }
 
   const cleanSearch = () =>{
@@ -46,6 +49,7 @@ const SearchBar = () => {
     setKeywords("")
     setCheckInDate(null)
     setCheckOutDate(null)
+    setSearch({})
   }
 
   return (
@@ -132,25 +136,15 @@ const SearchBar = () => {
               <label htmlFor=""> I`m not sure yet</label>
             </div> */}
           </div>
-          <div>
+          <div className={style.searchButtons}>
+            <ClearButton func={cleanSearch}>Clean</ClearButton>
             <PrimaryButton type="submit">Search</PrimaryButton>
-            <p onClick={cleanSearch} className={style.clean}>Clean Search</p>
           </div>
           
           
         </div>
         
       </form>
-
-      {resultList.length > 0 ?
-      <section className={style.resultList}>
-         {resultList.map((experience, index) => (
-                  <ProductCard key={index} data={experience} />
-              ))
-            }  
-      </section>
-      : searchActive && <h4 className={style.notFound}>Not found experiences</h4>
-    }
     </div>
   );
 };

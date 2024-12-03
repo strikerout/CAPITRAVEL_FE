@@ -3,6 +3,8 @@ import useAuthLogin from '../hooks/useAuthLogin';
 import { useEffect, useState } from 'react';
 import HeaderUserLogin from '../components/HeaderUserLogin/HeaderUserLogin'
 import MenuMobile from './MenuMobile/MenuMobile';
+import ClearButton from './Buttons/ClearButton';
+import PrimaryButton from './Buttons/PrimaryButton';
 
 const Header = ({id}) => {
   const navigate = useNavigate();
@@ -55,8 +57,8 @@ const Header = ({id}) => {
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M3 8h18a1 1 0 0 0 0-2H3a1 1 0 0 0 0 2m18 8H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2m0-5H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2"/></svg>
         </div>
         <div className='desktopControl'>
-          <button className='secundary-button' onClick={()=>navigate('/register')}>Create Account </button>
-          <button className='primary-button' onClick={()=>navigate('/login')}>Log In</button>
+          <ClearButton func={()=>navigate('/register')}>Create Account</ClearButton>
+          <PrimaryButton func={()=>navigate('/login')}>Log In</PrimaryButton>
         </div>
         </>
         }

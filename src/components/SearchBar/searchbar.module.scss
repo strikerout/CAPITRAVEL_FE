@@ -30,7 +30,7 @@
         display: flex;
         align-self: center;
         justify-content: center;
-        padding: 5px;
+        padding: 6px;
         width: 95px;
         margin-top: 20px;
     }
@@ -112,13 +112,11 @@ border: 1px solid $primary-orange;
     }
   }
 
-.clean{
-    cursor: pointer;
-}
-  
 
-.notFound{
+
+.searchButtons{
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 5px;
 }
