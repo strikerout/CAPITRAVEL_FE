@@ -33,11 +33,11 @@ const CompleteGallery = () => {
             <svg onClick={()=>navigate(-1)} xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="m14 7l-5 5l5 5"/></svg>
             <h3>{experience.title}</h3>
         </div>
-        {experience? 
-        experience.images.map((image, index)=>(
-            <img key={index} src={image} alt="" />
-        ))
-
+        
+        {experience.images && Array.isArray(experience.images) ?
+          experience.images.map((image, index)=>(
+              <img key={index} src={image} alt="" />
+          ))
         : null
     }
     </div>
