@@ -7,6 +7,7 @@ import style from "./searchbar.module.scss";
 import PrimaryButton from "../Buttons/PrimaryButton";
 import useExperiences from '../../hooks/useExperience'
 import ProductCard from "../Cards/ProductCard";
+import SkeletonCard from "../Cards/SkeletonCard";
 
 const SearchBar = () => {
 
@@ -146,13 +147,10 @@ const SearchBar = () => {
          {resultList.map((experience, index) => (
                   <ProductCard key={index} data={experience} />
               ))
-            }
+            }  
       </section>
       : searchActive && <h4 className={style.notFound}>Not found experiences</h4>
     }
-   
-      
-
     </div>
   );
 };
