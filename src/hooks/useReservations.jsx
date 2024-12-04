@@ -19,7 +19,7 @@ const useReservations = () => {
       const data = await getReservations();
       setReservations(data);
     } catch (err) {
-      setError(err.response || "Unknown error");
+      setError(err.response?.data?.message || "Unknown error")
     } finally {
       setLoading(false);
     }
@@ -31,7 +31,7 @@ const useReservations = () => {
       const data = await getReservationById(id);
       setReservations([data]);
     } catch (err) {
-      setError(err.response || "Unknown error");
+      setError(err.response?.data?.message || "Unknown error")
     } finally {
       setLoading(false);
     }
@@ -44,7 +44,7 @@ const useReservations = () => {
       const data = await getReservationsByUser(email);
       setReservations(data);
     } catch (err) {
-      setError(err.response || "Unknown error");
+      setError(err.response?.data?.message || "Unknown error")
     } finally {
       setLoading(false);
     }
@@ -57,7 +57,7 @@ const useReservations = () => {
       setReservations(data);
       return data;
     } catch (err) {
-      setError(err.response || "Unknown error");
+      setError(err.response?.data?.message || "Unknown error")
       throw err;
     } finally {
       setLoading(false);
@@ -70,7 +70,7 @@ const useReservations = () => {
       const data = await createReservation(reservationData);
       return data;
     } catch (err) {
-      setError(err.response || "Unknown error");
+      setError(err.response?.data?.message || "Unknown error")
       throw err;
     } finally {
       setLoading(false);

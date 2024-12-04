@@ -131,7 +131,6 @@ const ConfirmBooking = ({data}) => {
 
   if (!experience) return <div>Loading...</div>;
   return (
-    <>
     <div className="confirmBooking">
     <ConfirmBookHeader data={experience} />
 
@@ -147,25 +146,35 @@ const ConfirmBooking = ({data}) => {
                 </PrimaryButton>
             </div>
         
-            <div>
-                <div className="bookingProductInfo">
+            <div className="bookingProductInfo">
+                <div className="headerProductInfo">
+                    <div className="containerImg">
                     <img src={experience.images[0]} alt="" />
-                    <div>
+                    </div>
+                    <div className="ProductInfoTitle">
                         <h3>{experience.title}</h3>
-                        <div>
-                            <p>{experience.country}, {experience.ubication}</p>
+                        <div className="productLocation">
+                        <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24"><path fill="currentColor" d="M17.657 5.304c-3.124-3.073-8.189-3.073-11.313 0a7.78 7.78 0 0 0 0 11.13L12 21.999l5.657-5.565a7.78 7.78 0 0 0 0-11.13M12 13.499c-.668 0-1.295-.26-1.768-.732a2.503 2.503 0 0 1 0-3.536c.472-.472 1.1-.732 1.768-.732s1.296.26 1.768.732a2.503 2.503 0 0 1 0 3.536c-.472.472-1.1.732-1.768.732"/></svg>
+                        <p>{experience.country}, {experience.ubication}</p>
+                        </div>
+                        <div className="productDuration">
+                          <p className="subtext">Duration</p>
+                            <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" fillRule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12m10-4a1 1 0 1 0-2 0v5a1 1 0 0 0 1 1h5a1 1 0 1 0 0-2h-4z" clipRule="evenodd"/></svg>
+                            <p>{experience.quantity} {experience.timeUnit.toLowerCase()}</p>
+                            </div>  
                         </div>
                     </div>
                 </div>
 
-                <div>
+                <div className="productProperties">
                     <h4>Characteristics</h4>
-                    <div>
+                    <div className="containerProperties">
                         {experience.properties.map((property, index)=>(
-                            <>
+                            <div>
                             <img src={property.image} alt="" />
                             <p>{property.name}</p>
-                            </>
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -177,9 +186,6 @@ const ConfirmBooking = ({data}) => {
             </div>
         </div>
     </div>
-       
-        
-    </>
   )
 }
 
