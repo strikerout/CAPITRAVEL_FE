@@ -11,8 +11,16 @@ import PrimaryButton from "../components/Buttons/PrimaryButton";
 import PolicyModal from "../components/ProductPolicy/PolicyModal";
 
 const ConfirmBooking = ({data}) => {
+    const { id } = useParams();
     const navigate = useNavigate();
-  const { id } = useParams();
+
+    if (!localStorage.getItem("token")) {
+        localStorage.setItem("currentExperrience", id)
+        navigate("/login");
+   
+      }
+
+   
   const { fetchExperienceByID } = useExperiences();
   const {
     fetchReservationDatesByExperience,
