@@ -74,18 +74,18 @@ const HeaderUserLogin = ({ email, role }) => {
       </div>
       <div className={`${style.dropdownMenu} ${open || style.inactive}`}>
         {role === "ROLE_ADMIN" && (
-          <Link to="/administrator" className={style.menuItem}>
+          <Link to="/administrator" className={style.menuItem} onClick={() => {setOpen(false);}}>
             <img src={adminIcon} alt="admin icon" />
             <p>Admin Panel</p>
           </Link>
         )
         }
-        <Link to="/experiences/favorites" className={style.menuItem}>
+        <Link to="/experiences/favorites" className={style.menuItem} onClick={() => {setOpen(false);}}>
           <img src={heart} alt="My favorites" />
           <p>My favorites</p>
         </Link>
 
-        <Link to="/experiences/reservations" className={style.menuItem}>
+        <Link to="/experiences/reservations" className={style.menuItem} onClick={() => {setOpen(false);}}>
           <img src={reservation} alt="My reservations" />
           <p>My reservations</p>
         </Link>

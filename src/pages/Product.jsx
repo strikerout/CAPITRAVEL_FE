@@ -56,73 +56,13 @@ const Product = () => {
     fetchReservations();
   }, [id]); 
 
-  const handleReservation = async () => {
+  const checkLoggerUser = async () => {
     if (!localStorage.getItem("token")) {
       localStorage.setItem("currentExperrience", id)
       navigate("/login");
       return null;
-    }
-
-    if (!selectedDateTime) {
-      Swal.fire({
-        imageUrl: "/warningCapi.svg",
-        imageWidth: 200,
-        title: "Chek-In",
-        text: "Please select a Check-In date",
-        customClass: {
-          confirmButton: "swalConfirmButton",
-          title: "swalTitle",
-          htmlContainer: "swalHtmlContainer",
-        },
-      });
-      return;
-    }
-
-    try {
-      const reservationData = {
-        checkIn: selectedDateTime,
-        experienceId: experience.id,
-        email: username,
-      };
-      await createNewReservation(reservationData);
-
-      const updatedReservations = await fetchReservationDatesByExperience(
-        experience.id
-      ); 
-      setReservations(updatedReservations);
-      setSelectedDateTime[""];
-      Swal.fire({
-        imageUrl: "/checkCapi.svg",
-        imageWidth: 200,
-        title: "Successfully!",
-        text: "The reservation has been booked.",
-        customClass: {
-          confirmButton: "swalConfirmButton",
-          title: "swalTitle",
-          htmlContainer: "swalHtmlContainer",
-        },
-      }).then((result) => {
-        if (result.isConfirmed) {
-          navigate("/experiences/reservations");
-        }
-      });
-    } catch (err) {
-      console.log("Error creating reservation:", err.response.data.error);
-      Swal.fire({
-        imageUrl: "/errorCapi.svg",
-        imageWidth: 200,
-        title: err.response.data.error,
-        text: "Error: " + err.status,
-        customClass: {
-          confirmButton: "swalConfirmButton",
-          title: "swalTitle",
-          htmlContainer: "swalHtmlContainer",
-        },
-      }).then((result) => {
-        if (result.isConfirmed) {
-          window.location.reload();
-        }
-      });
+    }else{
+      navigate(`/confirmbooking/${experience.id}`)
     }
   };
 
@@ -155,8 +95,8 @@ const Product = () => {
               reservations={reservations}
               onDateTimeSelect={setSelectedDateTime}
             />
-            <PrimaryButton func={handleReservation} disabled={loading}>
-              {loading ? "Booking..." : "Book Now"}
+              <PrimaryButton func={()=>checkLoggerUser() } disabled={loading}>
+              Book Now
             </PrimaryButton>
           </div>
         </div>
