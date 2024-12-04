@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "./experienceDates.module.scss";
 import Calendar from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { FaCalendar } from "react-icons/fa";
 
 const ExperienceDates = ({ data, reservations, onDateTimeSelect }) => {
   const [selectedDate, setSelectedDate] = useState(null);
@@ -132,16 +133,22 @@ const ExperienceDates = ({ data, reservations, onDateTimeSelect }) => {
 
   return (
     <div className={styles.reservationContainer}>
-      <h3 className={styles.reservationContainer}>Add dates to book</h3>
-      <p className={styles.reservationContainer}>
-        Choose the start time of your experience
+      <div>
+      <h3>Add dates to book</h3>
+      <p>Choose the start time of your experience
       </p>
-      <div className={styles.reservationContainer}>
-        <label>Available Time:</label>
+      </div>
+
+      <div>
+        <label className={styles.subtitle}>Available Time</label>
         <p>{data.serviceHours}</p>
       </div>
       <div className={styles.reservationContainer}>
-        <p>Check-In:</p>
+        <div>
+        <FaCalendar className={styles.icon} />
+        <p>Check-In</p>
+        </div>
+
         <Calendar
           popperPlacement="top-start"
           selected={selectedDate}
