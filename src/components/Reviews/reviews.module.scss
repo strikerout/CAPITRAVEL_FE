@@ -12,6 +12,7 @@ h3{
     background-color: $lightBeige;
     padding: 20px;
     border-radius: 10px;
+    margin-bottom: 10px;
 }
 .headerCard{
     display: flex;
@@ -35,6 +36,8 @@ gap: 20px;
 
 .message{
     color: #562110c0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .userAvatar{
