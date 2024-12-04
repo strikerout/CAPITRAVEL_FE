@@ -3,17 +3,21 @@ import { FaWhatsapp } from "react-icons/fa";
 import style from "./contactButton.module.scss" 
 
 const ContactButton = () => {
-  return (
-    <a
-      href="https://wa.me/3133776700" 
-      target="_blank"
-      rel="noopener noreferrer"
-      className={style.contactButton}
-    >
-      <FaWhatsapp className={style.icon} />
-      Contact us
-    </a>
-  );
-};
+    const whatsappNumber = "3133776700"; // Reemplaza con tu número de WhatsApp
+    const defaultMessage = "Hi! I want more information"; // Tu mensaje por defecto en inglés
+    const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(defaultMessage)}`;
+  
+    return (
+      <a
+        href={whatsappLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={style.contactButton}
+      >
+        <FaWhatsapp className={style.icon}/>
+        Contact Us
+      </a>
+    );
+  };
 
 export default ContactButton;

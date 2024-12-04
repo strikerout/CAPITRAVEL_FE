@@ -20,6 +20,11 @@ function App() {
   const location = useLocation();
   const isRegisterOrLogin = location.pathname === '/register' || location.pathname === '/login';
 
+  const isExcludedRoute =
+  location.pathname === '/register' ||
+  location.pathname === '/login' ||
+  location.pathname.startsWith('/administrator');
+
   return (
     <>
     {!isRegisterOrLogin && <Header/>}
@@ -37,7 +42,7 @@ function App() {
 
     </Routes>
     </div>
-     <ContactButton/>
+     {!isExcludedRoute && <ContactButton />}
      {!isRegisterOrLogin && <Footer /> }
     </>
 
