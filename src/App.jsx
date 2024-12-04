@@ -12,12 +12,18 @@ import Login from './pages/Login';
 import Favorites from './pages/Favorites/Favorites';
 import Reservations from './pages/Reservations/Reservations';
 import ConfirmBooking from './pages/ConfirmBooking';
+import ContactButton from './components/Buttons/ContactButton/ContactButton';
 
 
 function App() {
 
   const location = useLocation();
   const isRegisterOrLogin = location.pathname === '/register' || location.pathname === '/login';
+
+  const isExcludedRoute =
+  location.pathname === '/register' ||
+  location.pathname === '/login' ||
+  location.pathname.startsWith('/administrator');
 
   return (
     <>
@@ -36,7 +42,7 @@ function App() {
 
     </Routes>
     </div>
-    
+     {!isExcludedRoute && <ContactButton />}
      {!isRegisterOrLogin && <Footer /> }
     </>
 
