@@ -11,6 +11,7 @@ import { Register } from './pages/Register';
 import Login from './pages/Login';
 import Favorites from './pages/Favorites/Favorites';
 import Reservations from './pages/Reservations/Reservations';
+import ConfirmBooking from './pages/ConfirmBooking';
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
       <Route path='/login' element={<Login/>}/>
       <Route path='/experiences/favorites' element={<Favorites />}/>
       <Route path='/experiences/reservations' element={<Reservations />}/> 
+      <Route path='/confirmbooking/:id' element={<ConfirmBooking/>}/>
 
     </Routes>
     </div>

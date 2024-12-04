@@ -1,0 +1,35 @@
+@use '../../variables' as *; 
+
+p{
+    color: $brown;
+    font-size: 16px;
+}
+
+.confirmBookHeader{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    align-items: center;
+    gap: 20px;
+
+    @media(max-width: 700px){
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .confirmBookTitle{
+        display: flex;
+        flex-direction: column;
+
+        .title{
+            display: flex;
+            align-items: center;
+            margin-bottom:20px;
+        }
+        svg{
+            color: $brown;
+            width: 40px;
+        }
+    }
+}

@@ -473,6 +473,36 @@ body{
         }
     }
 
+    .confirmBooking{
+        @media(min-width: $mobile){
+           width: 90%;
+           margin: 0 auto;
+        }
+
+        .confirmPanels{
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+
+            .bookingContainer{
+                width: 30%;
+                background-color: $white;
+                border-radius: 10px;
+                padding: 10px;
+            }
+            
+            .bookingProductInfo{
+                width: 30%;
+                display: flex;
+                img{
+                    width: 100px;
+                }
+            }
+        }
+
+        
+    }
+
     .largeGallery{
         width: 100%;
         display: flex;

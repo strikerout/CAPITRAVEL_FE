@@ -1,22 +1,17 @@
 import React, { useState, useEffect } from "react";
+import ProductHeader from '../components/ProductHeader/ProductHeader'
+import useExperiences from '../hooks/useExperience'
 import { useNavigate, useParams } from "react-router-dom";
-import ProductGallery from "../components/ProductGallery/ProductGallery";
-import ProductHeader from "../components/ProductHeader/ProductHeader";
-import ProductDescription from "../components/ProductDescription/ProductDescription";
-import PrimaryButton from "../components/Buttons/PrimaryButton";
-import ProductRate from "../components/ProductRate/ProductRate";
-import useExperiences from "../hooks/useExperience";
+import ConfirmBookHeader from "../components/ConfirmBookHeader/ConfirmBookHeader";
+import ConfirmDatesBook from "../components/ConfirmDatesBook/ConfirmDatesBook";
 import useReservations from "../hooks/useReservations";
-import PolicyModal from "../components/ProductPolicy/PolicyModal";
-import ButtonShare from "../components/Buttons/ButtonShare/ButtonShare";
-import Reviews from "../components/Reviews/Reviews";
-import ButtonFavorite from "../components/Buttons/ButtonFavorite/ButtonFavorite";
-import ExperienceDates from "../components/ExperienceDates/ExperienceDates";
-import useAuthLogin from "../hooks/useAuthLogin";
 import Swal from "sweetalert2";
+import useAuthLogin from "../hooks/useAuthLogin";
+import PrimaryButton from "../components/Buttons/PrimaryButton";
+import PolicyModal from "../components/ProductPolicy/PolicyModal";
 
-const Product = () => {
-  const navigate = useNavigate();
+const ConfirmBooking = ({data}) => {
+    const navigate = useNavigate();
   const { id } = useParams();
   const { fetchExperienceByID } = useExperiences();
   const {
@@ -127,45 +122,57 @@ const Product = () => {
   };
 
   if (!experience) return <div>Loading...</div>;
-
   return (
-    <div className="product">
-      <ProductHeader data={experience} />
-      <div className="containerButtonsActions">
-        <div className="containerFavorites">
-        <ButtonFavorite experienceId={experience.id}/>
-        <p>Save in favorites</p>
-        </div>
-        <ButtonShare product={experience}/>
-      </div>
-      <ProductGallery data={experience} />
+    <>
+    <div className="confirmBooking">
+    <ConfirmBookHeader data={experience} />
 
-      <div className="productDescRate">
-        <div>
-        <ProductDescription data={experience}/>
-        <PolicyModal/>
-        <Reviews experienceId={experience.id} />
-        </div>
-    
-        <div className="rateAndBookContainer">
-        <ProductRate rating={experience.reputation} ratingCount={experience.ratingCount}/>
-          <div className="bookinContainer">
-            <ExperienceDates
-              data={experience}
-              reservations={reservations}
-              onDateTimeSelect={setSelectedDateTime}
-            />
-              <PrimaryButton func={()=>navigate(`/confirmbooking/${experience.id}`) } disabled={loading}>
-              Book Now
-            </PrimaryButton>
-          </div>
-        </div>
-      </div>
-      {error && <p>Error: {error}</p>}
+    <div className="confirmPanels">
+        <div className="bookingContainer">
+                <ConfirmDatesBook
+                    data={experience}
+                    reservations={reservations}
+                    onDateTimeSelect={setSelectedDateTime}
+                /> 
+                    <PrimaryButton func={handleReservation} disabled={loading}>
+                {loading ? "Booking..." : "Book Now"}
+                </PrimaryButton>
+            </div>
+        
+            <div>
+                <div className="bookingProductInfo">
+                    <img src={experience.images[0]} alt="" />
+                    <div>
+                        <h3>{experience.title}</h3>
+                        <div>
+                            <p>{experience.country}, {experience.ubication}</p>
+                        </div>
+                    </div>
+                </div>
 
+                <div>
+                    <h4>Characteristics</h4>
+                    <div>
+                        {experience.properties.map((property, index)=>(
+                            <>
+                            <img src={property.image} alt="" />
+                            <p>{property.name}</p>
+                            </>
+                        ))}
+                    </div>
+                </div>
+                
+                <div>
+                    <PolicyModal/>
+                </div>
 
+            </div>
+        </div>
     </div>
-  );
-};
+       
+        
+    </>
+  )
+}
 
-export default Product;
+export default ConfirmBooking

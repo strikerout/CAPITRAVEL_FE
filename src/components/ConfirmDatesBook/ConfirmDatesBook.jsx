@@ -1,11 +1,13 @@
-import React, { useState } from "react";
-import styles from "./experienceDates.module.scss";
+import React, { useState, useEffect } from "react";
+import styles from "./confirmDatesBook.module.scss"
 import Calendar from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { FaCalendar } from "react-icons/fa";
+import PrimaryButton from '../Buttons/PrimaryButton';
 
-const ExperienceDates = ({ data, reservations, onDateTimeSelect }) => {
-  const [selectedDate, setSelectedDate] = useState(null);
+
+const ConfirmDatesBook = ({ data, reservations, onDateTimeSelect }) => {
+    const [selectedDate, setSelectedDate] = useState(null);
   const [checkOut, setCheckOut] = useState(null); // Check-out calculado
   const availableDays = data.availableDays.map((day) => day.toUpperCase());
   const serviceHours = data.serviceHours.split("-");
@@ -134,31 +136,58 @@ const ExperienceDates = ({ data, reservations, onDateTimeSelect }) => {
   };
 
   return (
-    <div className={styles.reservationContainer}>
-      <div>
-      <h3>Add dates to book</h3>
-      <p>Choose the start time of your experience
-      </p>
-      </div>
-
-      <div>
-        <label className={styles.subtitle}>Service hours</label>
-        <p>{data.serviceHours}</p>
-      </div>
-      <div>
-        <label className={styles.subtitle}>Days of service</label>
-        <div className={styles.days}>
-          {data.availableDays.map((day, index) =>(
-           <p key={index}>
-            {day.charAt(0).toUpperCase() + day.slice(1).toLowerCase()}
-            {index < data.availableDays.length - 1 ? ", " : ""}
-          </p>
-          ))}
+    <div>
+       <div className={styles.reservationContainer}>
+        <h3>Add dates to book</h3>
+        <p>Choose the start time of your experience</p>
+        <div>
+        <FaCalendar className={styles.icon} />
+        <p>Check-In</p>
         </div>
-      </div>
-     
-    </div>
-  );
-};
 
-export default ExperienceDates;
+        <Calendar
+          popperPlacement="top-start"
+          selected={selectedDate}
+          onChange={handleDateChange}
+          filterDate={filterDays}
+          filterTime={filterTimes}
+          minDate={today}
+          showTimeSelect
+          timeIntervals={setDurationCalendar(data.timeUnit)}
+          minTime={new Date(`1970-01-01T${serviceHours[0]}:00`)}
+          maxTime={new Date(`1970-01-01T${serviceHours[1]}:00`)}
+          dateFormat="MMMM d, yyyy h:mm aa"
+          placeholderText="Select a weekday"
+        />
+
+
+        {selectedDate && (
+          
+          <div className={styles.reservationDates}>
+              <h4>Overview</h4>
+            <p>
+              <strong>Check-In: </strong>
+              {selectedDate.toLocaleString()}
+            </p>
+            {checkOut && (
+              <p>
+                <strong>Check-Out: </strong>
+                {checkOut.toLocaleString()}
+              </p>
+            )}
+          </div>
+        )}
+
+        <h4>Contact</h4>
+        <p>You will receive an email to confirm your reservation</p>
+
+        <label>Name</label>
+        <p>Carlos Colmenare</p>
+        <label>Email</label>
+        <p>carlosshmx@hotmail.com</p>
+      </div>
+    </div>
+  )
+}
+
+export default ConfirmDatesBook
