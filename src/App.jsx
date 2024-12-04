@@ -12,6 +12,7 @@ import Login from './pages/Login';
 import Favorites from './pages/Favorites/Favorites';
 import Reservations from './pages/Reservations/Reservations';
 import ConfirmBooking from './pages/ConfirmBooking';
+import ContactButton from './components/Buttons/ContactButton/ContactButton';
 
 
 function App() {
@@ -36,7 +37,7 @@ function App() {
 
     </Routes>
     </div>
-    
+     <ContactButton/>
      {!isRegisterOrLogin && <Footer /> }
     </>
 
