@@ -64,7 +64,7 @@ const ProductGallery = ({data}) => {
 
       </Swiper>
 
-      <Link to={'/gallery/'+data.id} className='buttonMoreAction'>
+      <Link to={'/gallery/'+data.id} className='buttonMoreAction space'>
       <FaImage />
         View more
       </Link>

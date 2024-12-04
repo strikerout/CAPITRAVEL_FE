@@ -131,15 +131,24 @@ const Product = () => {
   return (
     <div className="product">
       <ProductHeader data={experience} />
-       <ButtonShare product={experience}/>
-       <ButtonFavorite experienceId={experience.id}/>
+      <div className="containerButtonsActions">
+        <div className="containerFavorites">
+        <ButtonFavorite experienceId={experience.id}/>
+        <p>Save in favorites</p>
+        </div>
+        <ButtonShare product={experience}/>
+      </div>
       <ProductGallery data={experience} />
 
       <div className="productDescRate">
-        <ProductDescription data={experience} />
+        <div>
+        <ProductDescription data={experience}/>
+        <PolicyModal/>
+        <Reviews experienceId={experience.id} />
+        </div>
+    
         <div className="rateAndBookContainer">
-
-          <ProductRate rating={experience.reputation} ratingCount={experience.ratingCount}/>
+        <ProductRate rating={experience.reputation} ratingCount={experience.ratingCount}/>
           <div className="bookinContainer">
             <ExperienceDates
               data={experience}
@@ -153,8 +162,8 @@ const Product = () => {
         </div>
       </div>
       {error && <p>Error: {error}</p>}
-      <PolicyModal />
-      <Reviews experienceId={experience.id} />
+
+
     </div>
   );
 };

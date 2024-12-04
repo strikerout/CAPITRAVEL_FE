@@ -30,7 +30,7 @@ const PolicyModal = () => {
     return (
         <div className={styles.policiesContainer}>
             <div className={styles.policiesContainer1}>
-                <h3 className={styles.policyTitle}>Acceptable Use Policy</h3>
+                <h3>Acceptable Use Policy</h3>
                 <p>Check our policies to ensure a safe and enjoyable experience.</p>
             </div>
             <div className={styles.policiesContainer2}>
