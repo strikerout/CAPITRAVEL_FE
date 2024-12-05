@@ -117,6 +117,15 @@ const handleTimeChange = (startTime, endTime) => {
         categoryIds: [...prevExperience.categoryIds, categoryToAdd.id], 
       }));
       setSelectedCategory([]);
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        category: '', 
+      }));
+    } else {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        category: 'This category has already been added.', 
+      }));
     }
   };
 
@@ -152,6 +161,15 @@ const handleTimeChange = (startTime, endTime) => {
         propertyIds: [...prevExperience.propertyIds, propertyToAdd.id], 
       }));
       setSelectedProperty("");
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        property: '', 
+      }));
+    } else {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        property: 'This property has already been added.', 
+      }));
     }
   };
 
@@ -538,6 +556,7 @@ cancelEdit();
                   Add 
                 </button>
                 </div>
+                {errors.property && <p className="error">{errors.property}</p>}
                 <ul className="containerTag">
                   {selectedProperties.map((property) => (
                     <li key={property.id} className="tag">
@@ -694,6 +713,7 @@ cancelEdit();
                 
                 <div>
                   <svg
+                    className="iconInteractive"
                     onClick={() => enableEditMode(experience.id)}
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -718,6 +738,7 @@ cancelEdit();
                   </svg>
 
                   <svg
+                    className="iconInteractive"
                     onClick={() => handleRemoveExperience(experience.id)}
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 12 12"

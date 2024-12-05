@@ -10,7 +10,7 @@ import useAuthLogin from "../hooks/useAuthLogin";
 import PrimaryButton from "../components/Buttons/PrimaryButton";
 import PolicyModal from "../components/ProductPolicy/PolicyModal";
 
-const ConfirmBooking = ({data}) => {
+const ConfirmBooking = () => {
     const { id } = useParams();
     const navigate = useNavigate();
 
@@ -106,7 +106,7 @@ const ConfirmBooking = ({data}) => {
         },
       }).then((result) => {
         if (result.isConfirmed) {
-          navigate("/experiences/reservations");
+          navigate(`/experiences/reservation/${experience.id}`);
         }
       });
     } catch (err) {

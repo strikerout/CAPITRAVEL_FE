@@ -13,6 +13,7 @@ import Favorites from './pages/Favorites/Favorites';
 import Reservations from './pages/Reservations/Reservations';
 import ConfirmBooking from './pages/ConfirmBooking';
 import ContactButton from './components/Buttons/ContactButton/ContactButton';
+import DetailReservation from './components/DetailReservation/DetailReservation';
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
       <Route path='/login' element={<Login/>}/>
       <Route path='/experiences/favorites' element={<Favorites />}/>
       <Route path='/experiences/reservations' element={<Reservations />}/> 
+      <Route path='/experiences/reservation/:id' element={<DetailReservation/>}/> 
       <Route path='/confirmbooking/:id' element={<ConfirmBooking/>}/>
 
     </Routes>
