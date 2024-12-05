@@ -74,7 +74,6 @@ const Product = () => {
       <div className="containerButtonsActions">
         <div className="containerFavorites">
         <ButtonFavorite experienceId={experience.id}/>
-        <p>Save in favorites</p>
         </div>
         <ButtonShare product={experience}/>
       </div>
