@@ -1,0 +1,119 @@
+@use "../../variables" as *;
+
+.div_search_bar_container {
+  background-color: $white;
+  border-radius: 30px;
+  width: 90%;
+  max-width: 1250px;
+  height: auto;
+  position: relative;
+  top: -28px;
+  display: flex;
+  flex-direction: column;
+  padding: 30px 15px;
+
+  h4 {
+    font-size: 16px;
+    margin-bottom: 10px;
+
+    @media (min-width: 780px) {
+      font-size: 18px;
+      text-align: center;
+    }
+  }
+}
+
+.button_inputs_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: 100%;
+
+  button {
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    padding: 6px;
+    width: 95px;
+  }
+}
+
+.inputs_container {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 18px;
+  margin: 0 auto;
+
+
+  @media (min-width: 1000px) {
+    flex-direction: row;
+    align-items: center;
+    max-width: 95%;
+  }
+}
+
+.input_container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  label,
+  .label_icon_container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+}
+
+select {
+  border: 1px $lightBrown solid;
+  height: 44px;
+  border-radius: 8px;
+  padding: 0 10px;
+  margin-bottom: 5px;
+  color: #7b7c80;
+}
+
+.checkbox_container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  input {
+    height: 20px;
+    border-radius: 50px;
+  }
+}
+
+input, select, .react-datepicker__input-container input {
+    width: 100%; /* Aseguramos que el input ocupe el 100% */
+    padding: 10px; /* Ajustamos el padding si es necesario */
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-sizing: border-box; /* Asegura que el padding no afecte el tamaño total */
+  }
+
+.icon {
+  color: $primary-orange;
+  font-size: 15px;
+}
+
+.icon_location {
+  color: $primary-orange;
+  font-size: 20px;
+}
+
+.resultList {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  padding: 10px;
+
+  @media (min-width: $mobile) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

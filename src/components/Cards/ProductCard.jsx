@@ -2,18 +2,23 @@
 import React from "react";
 import styles from "./ProductCard.module.scss";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import useExperiences from '../../hooks/useExperience'
+import useExperiences from '../../hooks/useExperience';
+import ButtonFavorite from "../Buttons/ButtonFavorite/ButtonFavorite";
+import SkeletonCard from "./SkeletonCard";
 
 const ProductCard = ({data}) => {
   const {loading, error, fetchExperienceByID} = useExperiences();
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <SkeletonCard/>;
   if (error) return <div>Error: {error.message}</div>;
 
   return (
     <>
     {data ? 
+    <>
+    <ButtonFavorite experienceId={data.id}/>
     <Link to={`/product/${data.id}`} className={styles.productCard}>
       <div className={styles.productImg + " productImg"}>
+        
         <img
           src={data.images[0]}
           alt=""
@@ -43,7 +48,7 @@ const ProductCard = ({data}) => {
         </div>
       </div>
       <div className={styles.cardArrow}>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <svg className="iconInteractive" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path
             fill="none"
             stroke="currentColor"
@@ -55,6 +60,7 @@ const ProductCard = ({data}) => {
         </svg>
       </div>
     </Link> 
+    </>
     :
     <p>Data not found</p>}
     </>

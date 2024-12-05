@@ -1,0 +1,29 @@
+@use "../../variables" as *;
+
+
+.reservationContainer {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.reservationDates {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.subtitle{
+  color: $primary-orange;
+}
+
+.icon {
+  color: $primary-orange;
+  font-size: 15px;
+}
+
+.days{
+  display: flex;
+  flex-flow: row wrap;
+  gap: 4px;
+}

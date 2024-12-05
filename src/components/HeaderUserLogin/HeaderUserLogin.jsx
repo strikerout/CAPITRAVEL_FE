@@ -21,6 +21,7 @@ const HeaderUserLogin = ({ email, role }) => {
     const userByEmail = async () => {
       try {
         const response = await getUserByEmail(email);
+        localStorage.setItem("userFavoriteExperienceList", JSON.stringify(response.data.favoriteExperienceIds));
         setUser(response.data);
       } catch (error) {
         console.error("Error al obtener el usuario:", error);
@@ -48,6 +49,7 @@ const HeaderUserLogin = ({ email, role }) => {
 
   const name = user.name ? greeting() : "";
 
+
   const handleLogOut = () => {
     logout();
     navigate("/");
@@ -72,21 +74,21 @@ const HeaderUserLogin = ({ email, role }) => {
       </div>
       <div className={`${style.dropdownMenu} ${open || style.inactive}`}>
         {role === "ROLE_ADMIN" && (
-          <Link to="/administrator" className={style.menuItem}>
-          <img src={adminIcon} alt="admin icon" />
-          <p>Admin Panel</p>
+          <Link to="/administrator" className={style.menuItem} onClick={() => {setOpen(false);}}>
+            <img src={adminIcon} alt="admin icon" />
+            <p>Admin Panel</p>
           </Link>
-         ) 
+        )
         }
-        <div className={style.menuItem}>
-          <img src={heart} alt="" />
+        <Link to="/experiences/favorites" className={style.menuItem} onClick={() => {setOpen(false);}}>
+          <img src={heart} alt="My favorites" />
           <p>My favorites</p>
-        </div>
+        </Link>
 
-        <div className={style.menuItem}>
-          <img src={reservation} alt="" />
+        <Link to="/experiences/reservations" className={style.menuItem} onClick={() => {setOpen(false);}}>
+          <img src={reservation} alt="My reservations" />
           <p>My reservations</p>
-        </div>
+        </Link>
 
         <div className={style.menuItem}>
           <img src={logoutIcon} alt="" />

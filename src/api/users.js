@@ -8,13 +8,13 @@ export const createUser = async (user) => {
 export const getUsers = async () => {
     const token = localStorage.getItem("token");
 
-    const response = await fetch("http://localhost:8080/users", {
-        method: "GET",
+      const response = await api.get(`/users`,{
         headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
         },
-    });
+        }
+    )
     return response;
 }
 

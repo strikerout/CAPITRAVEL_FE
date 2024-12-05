@@ -1,5 +1,68 @@
+@use '../../variables' as *;
+
+@mixin borderSection($color) {
+    border-left: 2.5px solid $color;
+    padding: 10px;
+
+    h5{
+        color: $color;
+        margin-bottom: 8px;
+    }
+  }
+
+  h5{
+    color:$primary-orange;
+    margin-bottom: 8px;
+  }
+
 .experiencesAdmin{
     .adminForm{
         height: 100%;
     }
+}
+
+.div_inputs{
+    background-color: aqua;
+    display: flex;
+}
+
+
+.cardOrange {
+  @include borderSection($primary-orange);
+}
+
+.cardGreen {
+    @include borderSection($green);
+  }
+
+  .cardBlue {
+    @include borderSection(#6DB6AB);
+  }
+
+  .cardBrown {
+    @include borderSection($brown);
+    .containerDuration{
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        > div:first-of-type{
+            width: 30%;
+        }
+        > div:nth-of-type(2){
+            width: 70%;
+        }
+    }
+  }
+
+.sectionTimeContainer{
+  background-color: antiquewhite;
+  display: flex;
+}
+
+.titleButtonExp{
+  margin:  10px 30px;
+  width: 180px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }

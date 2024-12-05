@@ -9,12 +9,20 @@ import CompleteGallery from './pages/CompleteGallery';
 import Loading from './components/Loading';
 import { Register } from './pages/Register';
 import Login from './pages/Login';
-
+import Favorites from './pages/Favorites/Favorites';
+import Reservations from './pages/Reservations/Reservations';
+import ConfirmBooking from './pages/ConfirmBooking';
+import ContactButton from './components/Buttons/ContactButton/ContactButton';
 
 function App() {
 
   const location = useLocation();
   const isRegisterOrLogin = location.pathname === '/register' || location.pathname === '/login';
+
+  const isExcludedRoute =
+  location.pathname === '/register' ||
+  location.pathname === '/login' ||
+  location.pathname.startsWith('/administrator');
 
   return (
     <>
@@ -27,13 +35,14 @@ function App() {
       <Route path='/administrator/*' element={<AdminPanel/>}/>
       <Route path='/register' element={<Register/>}/>
       <Route path='/login' element={<Login/>}/>
-
+      <Route path='/experiences/favorites' element={<Favorites />}/>
+      <Route path='/experiences/reservations' element={<Reservations />}/> 
+      <Route path='/confirmbooking/:id' element={<ConfirmBooking/>}/>
     </Routes>
     </div>
-    
+     {!isExcludedRoute && <ContactButton />}
      {!isRegisterOrLogin && <Footer /> }
     </>
-
   )
 }
 

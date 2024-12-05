@@ -35,24 +35,7 @@ const Login = () => {
         if(response.token){
             localStorage.setItem("token", response.token);
             checkToken();
-             Swal.fire({
-                imageUrl: '/checkCapi.svg',
-                imageWidth: 200,
-                title: "Success login",
-                text: "You are logged in",
-                customClass: {
-                  confirmButton: 'swalConfirmButton',
-                  title: 'swalTitle',
-                  htmlContainer: 'swalHtmlContainer',
-                },
-              }).then((result) => {
-                if (result.isConfirmed) {
-                    cleanForm();
-                    navigate('/'); 
-                }
-              });
-           
-
+                    localStorage.getItem("currentExperrience") ? navigate(`/product/${localStorage.getItem("currentExperrience")}`) : navigate('/');            
         }else if(response.data){
             Swal.fire({
                 imageUrl: '/errorCapi.svg',
