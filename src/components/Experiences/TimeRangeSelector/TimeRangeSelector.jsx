@@ -1,6 +1,5 @@
-import style from './timeRangeSelector.module.scss'
+import style from "./timeRangeSelector.module.scss";
 const TimeRangeSelector = ({ startTime, endTime, onChange }) => {
-
   const generateMilitaryHours = () => {
     const hours = [];
     for (let i = 0; i < 24; i++) {
@@ -17,47 +16,56 @@ const TimeRangeSelector = ({ startTime, endTime, onChange }) => {
 
   const handleStartTimeChange = (e) => {
     const selectedStartTime = e.target.value;
-    onChange(selectedStartTime, endTime); 
+    if (!endTime || selectedStartTime >= endTime) {
+      onChange(selectedStartTime, "");
+    } else {
+      onChange(selectedStartTime, endTime);
+    }
   };
 
   const handleEndTimeChange = (e) => {
     const selectedEndTime = e.target.value;
-    onChange(startTime, selectedEndTime); 
+    if (startTime && selectedEndTime > startTime) {
+      onChange(startTime, selectedEndTime);
+    }
   };
 
   return (
-      <section className={style.containerTime}>
-        <div>
-          <label htmlFor="start-time">Start Time</label>
-          <select
-            id="start-time"
-            value={startTime}
-            onChange={handleStartTimeChange}
-          >
-            <option value="">00:00</option>
-            {militaryHours.map((time) => (
+    <section className={style.containerTime}>
+      <div>
+        <label htmlFor="start-time">Start Time</label>
+        <select
+          id="start-time"
+          value={startTime}
+          onChange={handleStartTimeChange}
+        >
+          <option value="">Select Start Time</option>
+          {militaryHours.map((time) => (
+            <option key={time} value={time}>
+              {time}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div>
+        <label htmlFor="end-time">End Time</label>
+        <select
+          id="end-time"
+          value={endTime}
+          onChange={handleEndTimeChange}
+          disabled={!startTime}
+        >
+          <option value="">Select End Time</option>
+          {militaryHours
+            .filter((time) => !startTime || time > startTime)
+            .map((time) => (
               <option key={time} value={time}>
                 {time}
               </option>
             ))}
-          </select>
-        </div>
-        <div>
-          <label htmlFor="end-time">End Time</label>
-          <select
-            id="end-time"
-            value={endTime}
-            onChange={handleEndTimeChange}
-          >
-            <option value="">00:00</option>
-            {militaryHours.map((time) => (
-              <option key={time} value={time}>
-                {time}
-              </option>
-            ))}
-          </select>
-        </div>
-      </section>
+        </select>
+      </div>
+    </section>
   );
 };
 

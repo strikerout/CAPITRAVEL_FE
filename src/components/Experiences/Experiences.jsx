@@ -53,10 +53,12 @@ const Experiences = () => {
 
 const handleTimeChange = (startTime, endTime) => {
   const formattedServiceHours = `${startTime}-${endTime}`;
-  setNewExperience((prevExperience) => ({
-    ...prevExperience,
-    serviceHours: formattedServiceHours,
-  }));
+  if (startTime) {
+    setNewExperience((prevExperience) => ({
+      ...prevExperience,
+      serviceHours: formattedServiceHours,
+    }));
+ }
 };
 
   const handleDayAvailable = (day) => {
