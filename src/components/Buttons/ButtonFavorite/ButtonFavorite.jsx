@@ -39,6 +39,9 @@ const ButtonFavorite = ({ experienceId }) => {
         src={isFavorite ? selectedFavorite : defaultFavorite}
         alt="Guardar en favoritos"
       />
+      <span className={style.tooltip}>
+        {isFavorite ? "Remove" : "Add to favorites"}
+      </span>
     </div>
   );
 };
