@@ -194,7 +194,7 @@ const Categories = () => {
               placeholder="Enter a description"
               id="description"
               value={newCategory.description}
-              onChange={(e) => handleFieldChange('name', e.target.value)}
+              onChange={(e) => handleFieldChange('description', e.target.value)}
               required
             />
             {errors.description && <p className="error">{errors.description}</p>}
