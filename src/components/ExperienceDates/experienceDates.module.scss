@@ -2,7 +2,7 @@
 
 
 .reservationContainer {
-  margin-top: 5px;
+  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -24,5 +24,6 @@
 
 .days{
   display: flex;
+  flex-flow: row wrap;
   gap: 4px;
 }

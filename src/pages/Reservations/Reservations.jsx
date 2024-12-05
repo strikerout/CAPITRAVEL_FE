@@ -15,19 +15,22 @@ const Reservations = () => {
   const [reviewStatus, setReviewStatus] = useState({});
 
   useEffect(() => {
+    console.log('Username:', username); 
     fetchReservationsByUser(username);
   }, [username]);
 
   useEffect(() => {
     const checkReviewStatuses = async () => {
       const statuses = {};
+      console.log('Reservations:', reservations);
       for (const reservation of reservations) {
         try {
           const reviewed = await isAlreadyReviewed(reservation.experience.id, username);
           if (reviewed !== true && reviewed !== false) {
-            return;
+            statuses[reservation.experience.id] = false;  // Asigna un valor predeterminado en vez de salir
+          } else {
+            statuses[reservation.experience.id] = reviewed || false;
           }
-          statuses[reservation.experience.id] = reviewed || false;
         } catch (error) {
           console.error(`Error checking review status for ${reservation.experience.id}:`, error);
           statuses[reservation.experience.id] = false;
@@ -122,6 +125,7 @@ const Reservations = () => {
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
+  console.log(reservations);
 
   return (
     <section className={style.containerPage}>

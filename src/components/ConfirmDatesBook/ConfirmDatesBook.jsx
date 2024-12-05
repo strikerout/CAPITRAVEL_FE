@@ -3,15 +3,38 @@ import styles from "./confirmDatesBook.module.scss"
 import Calendar from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { FaCalendar } from "react-icons/fa";
-import PrimaryButton from '../Buttons/PrimaryButton';
+import { RiLoginCircleFill } from "react-icons/ri";
+import { RiLogoutCircleFill } from "react-icons/ri";
+import { getUserByEmail } from "../../api/users";
+import useAuthLogin from "../../hooks/useAuthLogin";
 
 
 const ConfirmDatesBook = ({ data, reservations, onDateTimeSelect }) => {
-    const [selectedDate, setSelectedDate] = useState(null);
+  const [user, setUser] = useState({});
+  const [selectedDate, setSelectedDate] = useState(null);
   const [checkOut, setCheckOut] = useState(null); // Check-out calculado
   const availableDays = data.availableDays.map((day) => day.toUpperCase());
   const serviceHours = data.serviceHours.split("-");
   const today = new Date();
+
+  const { username } = useAuthLogin();
+
+  useEffect(() => {
+    const userByEmail = async () => {
+      try {
+        const response = await getUserByEmail(username);
+        setUser(response.data);
+      } catch (error) {
+        console.error("Error al obtener el usuario:", error);
+      }
+    };
+
+    if (username) {
+      userByEmail();
+    }
+  }, [username]);
+
+  
 
   console.log(data)
 
@@ -53,6 +76,7 @@ const ConfirmDatesBook = ({ data, reservations, onDateTimeSelect }) => {
     const checkOutDate = new Date(checkIn.getTime() + experienceDurationMs);
     setCheckOut(checkOutDate);
   };
+
 
   const isDayReserved = (date) => {
     const startOfDay = new Date(date.setHours(0, 0, 0, 0));
@@ -140,7 +164,7 @@ const ConfirmDatesBook = ({ data, reservations, onDateTimeSelect }) => {
        <div className={styles.reservationContainer}>
         <h3>Add dates to book</h3>
         <p>Choose the start time of your experience</p>
-        <div>
+        <div className={styles.labelContainer}>
         <FaCalendar className={styles.icon} />
         <p>Check-In</p>
         </div>
@@ -164,27 +188,40 @@ const ConfirmDatesBook = ({ data, reservations, onDateTimeSelect }) => {
         {selectedDate && (
           
           <div className={styles.reservationDates}>
-              <h4>Overview</h4>
-            <p>
-              <strong>Check-In: </strong>
-              {selectedDate.toLocaleString()}
-            </p>
-            {checkOut && (
-              <p>
-                <strong>Check-Out: </strong>
-                {checkOut.toLocaleString()}
-              </p>
-            )}
+              <p className={styles.subtitle}>Overview</p>
+              <div className={styles.checkInOutContainer}>
+                <div>
+                <div className={styles.checkContainer}>
+                <RiLoginCircleFill className={styles.icon}/>
+                <p className={styles.check_p}>Check-In </p>
+                </div>
+                <p>{selectedDate.toLocaleString()}</p>
+                </div>
+
+                <div>
+                <div className={styles.checkContainer}>
+                <RiLogoutCircleFill className={styles.icon}/>
+                <p className={styles.check_p}>Check-Out </p>
+                </div>
+                {
+                  checkOut && (
+                    <p>
+                    {checkOut.toLocaleString()}
+                    </p>
+                  )
+                }
+                </div>
+              </div>
           </div>
         )}
 
-        <h4>Contact</h4>
+        <h3>Contact</h3>
         <p>You will receive an email to confirm your reservation</p>
 
-        <label>Name</label>
-        <p>Carlos Colmenare</p>
-        <label>Email</label>
-        <p>carlosshmx@hotmail.com</p>
+        <p className={styles.bold}>Name</p>
+        <p>{user.name + " " + user.lastName}</p>
+        <p className={styles.bold}>Email</p>
+        <p>{username}</p>
       </div>
     </div>
   )

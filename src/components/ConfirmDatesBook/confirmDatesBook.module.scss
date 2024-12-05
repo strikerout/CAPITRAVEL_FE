@@ -3,15 +3,46 @@
     margin-top: 5px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 16px;
+    padding: 16px;
+
+    .labelContainer{
+      display: flex;
+      gap: 8px;
+      font-weight: bolder;
+    }
+
+    .icon {
+      color: $brown;
+      font-size: 15px;
+    }
   }
   
   .reservationDates {
     margin-top: 5px;
     margin-bottom: 5px;
+    .checkInOutContainer{
+      display: flex;
+      gap: 20px;
+      .checkContainer{
+        display: flex;
+  
+        .check_p{
+          color: $secundary-orange;
+          font-size: 14px;
+        }
+  
+        .icon{
+          color:$secundary-orange;
+        }
+      }
+    }
+    .subtitle{
+      font-weight: bolder;
+      margin-bottom: 10px;
+    }
   }
 
-  .icon {
-    color: $primary-orange;
-    font-size: 15px;
-  }
+.bold{
+  font-weight: bolder;
+}
