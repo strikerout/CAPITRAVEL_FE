@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Banner from '../components/Banner';
 import Carousel from '../components/Carousel/Carousel';
-import CategoriesHome from '../components/CategoriesHome';
+import CategoriesHome from '../components/Users/CategoriesHome/CategoriesHome';
 import useExperiences from '../hooks/useExperience';
 import ExperiencesList from '../components/Pagination/ExperiencesList';
 import Message from "../components/Message/Message";
