@@ -13,6 +13,8 @@ import Favorites from './pages/Favorites/Favorites';
 import Reservations from './pages/Reservations/Reservations';
 import ConfirmBooking from './pages/ConfirmBooking';
 import ContactButton from './components/Buttons/ContactButton/ContactButton';
+import NotFound from './pages/NotFound/NotFound';
+import { Navigate } from 'react-router-dom';
 
 function App() {
 
@@ -38,6 +40,8 @@ function App() {
       <Route path='/experiences/favorites' element={<Favorites />}/>
       <Route path='/experiences/reservations' element={<Reservations />}/> 
       <Route path='/confirmbooking/:id' element={<ConfirmBooking/>}/>
+      <Route path="/not_found" element={<NotFound />} />
+      <Route path='*' element={<Navigate to="/not_found"/>} />
     </Routes>
     </div>
      {!isExcludedRoute && <ContactButton />}
