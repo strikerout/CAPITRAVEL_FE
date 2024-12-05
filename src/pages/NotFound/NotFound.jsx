@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Message from '../../components/Message/Message';
+import { useNavigate } from 'react-router-dom';
 
 const NotFound = () => {
   const [showIframe, setShowIframe] = useState(false);
@@ -7,6 +8,7 @@ const NotFound = () => {
   const [isMuted, setIsMuted] = useState(false);
   const audioRef = useRef(null);
   const iframeRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleKeyPress = (event) => {
@@ -53,6 +55,19 @@ const NotFound = () => {
 
   return (
     <div className="not-found" style={{ position: 'relative', height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', paddingTop: '50px' }}>
+      <div className={`formNavigate orange`} onClick={() => navigate('/')}>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path
+              fill="none"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="1.5"
+              d="m14 7l-5 5l5 5"
+            />
+          </svg>
+          <h4>Back to home</h4>
+        </div>
       <Message 
         message={"Ups! I couldn't find the page you are looking for"} 
         recommendation={"Why don't take some SPACE to find a new kind of experience?"}
