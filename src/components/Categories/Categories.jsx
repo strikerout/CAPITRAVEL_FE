@@ -14,7 +14,7 @@ const Categories = () => {
 
   const handleFieldChange = (field, value) => {
     setNewCategory((prev) => ({ ...prev, [field]: value }));
-    setIsModified(true); // Marca como modificado cuando cambia un campo
+    setIsModified(true);
   };
 
   const validateFields = () => {
