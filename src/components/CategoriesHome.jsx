@@ -40,28 +40,27 @@ const CategoriesHome = ({ selectedCategories, setSelectedCategories, fetchExperi
 
   return (
     <div className="categoriesHome">
-      <ul className="categories-list">
-        {categories.map((category) => (
-          <li
-            key={category.id}
-            style={{
-              backgroundColor: categoryColors[category.id] ? categoryColors[category.id] : '#000',
-              border: selectedCategories.includes(category.id) ? '2.5px solid #562210' : 'none',
-              boxShadow: categoryColors[category.id]? '0px 2px 0px 0px #562210' : 'none',
-              cursor: 'pointer',
-            }}
-            onClick={() => handleCategoryClick(category.id)}
-          >
-            <p>{category.name}</p>
-          </li>
-        ))}
-        <li 
-          className="clear-filters-btn" 
-          onClick={handleClearFilters}
-        >
-          <FaTimes />
-        </li>
-      </ul>
+      <div className="categories-list-wrapper">
+        <ul className="categories-list">
+          {categories.map((category) => (
+            <li
+              key={category.id}
+              style={{
+                backgroundColor: categoryColors[category.id] ? categoryColors[category.id] : '#000',
+                border: selectedCategories.includes(category.id) ? '2.5px solid #562210' : 'none',
+                boxShadow: categoryColors[category.id]? '0px 2px 0px 0px #562210' : 'none',
+                cursor: 'pointer',
+              }}
+              onClick={() => handleCategoryClick(category.id)}
+            >
+              <p>{category.name}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <button className="clear-filters-btn" onClick={handleClearFilters}>
+        <FaTimes />
+      </button>
     </div>
   );
 };
