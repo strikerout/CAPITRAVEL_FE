@@ -111,7 +111,7 @@ const NotFound = () => {
       <audio
         ref={audioRef}
         loop
-        src="capisong.mp3"
+        src="/capisong.mp3"
         preload="auto"
       ></audio>
 
@@ -119,7 +119,7 @@ const NotFound = () => {
         <div style={{ width: '100%', height: 'calc(100vh - 120px)', marginTop: '20px' }}>
           <iframe
             ref={iframeRef}
-            src="game.html"
+            src="/game.html"
             frameBorder="0"
             scrolling="no"
             width="100%"
