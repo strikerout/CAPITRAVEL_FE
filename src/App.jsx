@@ -13,6 +13,7 @@ import Favorites from './pages/Favorites/Favorites';
 import Reservations from './pages/Reservations/Reservations';
 import ConfirmBooking from './pages/ConfirmBooking';
 import ContactButton from './components/Buttons/ContactButton/ContactButton';
+import NotFound from './pages/NotFound/NotFound';
 
 function App() {
 
@@ -38,6 +39,7 @@ function App() {
       <Route path='/experiences/favorites' element={<Favorites />}/>
       <Route path='/experiences/reservations' element={<Reservations />}/> 
       <Route path='/confirmbooking/:id' element={<ConfirmBooking/>}/>
+      <Route path='*' element={<NotFound />} />
     </Routes>
     </div>
      {!isExcludedRoute && <ContactButton />}
