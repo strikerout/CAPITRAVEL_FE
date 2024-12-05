@@ -106,7 +106,7 @@ const ConfirmBooking = () => {
         },
       }).then((result) => {
         if (result.isConfirmed) {
-          navigate(`/experiences/reservation/${experience.id}`);
+          navigate("/experiences/reservations");
         }
       });
     } catch (err) {
