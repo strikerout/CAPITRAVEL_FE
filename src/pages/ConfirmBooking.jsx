@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ProductHeader from '../components/ProductHeader/ProductHeader'
 import useExperiences from '../hooks/useExperience'
 import { useNavigate, useParams } from "react-router-dom";
-import ConfirmBookHeader from "../components/ConfirmBookHeader/ConfirmBookHeader";
+import PageHeader from "../components/pageHeader/pageHeader";
 import ConfirmDatesBook from "../components/ConfirmDatesBook/ConfirmDatesBook";
 import useReservations from "../hooks/useReservations";
 import Swal from "sweetalert2";
@@ -131,8 +131,8 @@ const ConfirmBooking = () => {
 
   if (!experience) return <div>Loading...</div>;
   return (
-    <div className="confirmBooking">
-    <ConfirmBookHeader data={experience} />
+    <div className="pageContainer">
+    <PageHeader title={"Confirm reservation"} />
 
     <div className="confirmPanels">
         <div className="bookingContainer">
