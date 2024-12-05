@@ -5,15 +5,36 @@ import "react-datepicker/dist/react-datepicker.css";
 import { FaCalendar } from "react-icons/fa";
 import { RiLoginCircleFill } from "react-icons/ri";
 import { RiLogoutCircleFill } from "react-icons/ri";
-import PrimaryButton from '../Buttons/PrimaryButton';
+import { getUserByEmail } from "../../api/users";
+import useAuthLogin from "../../hooks/useAuthLogin";
 
 
 const ConfirmDatesBook = ({ data, reservations, onDateTimeSelect }) => {
-    const [selectedDate, setSelectedDate] = useState(null);
+  const [user, setUser] = useState({});
+  const [selectedDate, setSelectedDate] = useState(null);
   const [checkOut, setCheckOut] = useState(null); // Check-out calculado
   const availableDays = data.availableDays.map((day) => day.toUpperCase());
   const serviceHours = data.serviceHours.split("-");
   const today = new Date();
+
+  const { username } = useAuthLogin();
+
+  useEffect(() => {
+    const userByEmail = async () => {
+      try {
+        const response = await getUserByEmail(username);
+        setUser(response.data);
+      } catch (error) {
+        console.error("Error al obtener el usuario:", error);
+      }
+    };
+
+    if (username) {
+      userByEmail();
+    }
+  }, [username]);
+
+  
 
   console.log(data)
 
@@ -55,6 +76,7 @@ const ConfirmDatesBook = ({ data, reservations, onDateTimeSelect }) => {
     const checkOutDate = new Date(checkIn.getTime() + experienceDurationMs);
     setCheckOut(checkOutDate);
   };
+
 
   const isDayReserved = (date) => {
     const startOfDay = new Date(date.setHours(0, 0, 0, 0));
@@ -197,9 +219,9 @@ const ConfirmDatesBook = ({ data, reservations, onDateTimeSelect }) => {
         <p>You will receive an email to confirm your reservation</p>
 
         <p className={styles.bold}>Name</p>
-        <p>Nombre del usuario aquí</p>
+        <p>{user.name + " " + user.lastName}</p>
         <p className={styles.bold}>Email</p>
-        <p>Correo del ususario aquí</p>
+        <p>{username}</p>
       </div>
     </div>
   )

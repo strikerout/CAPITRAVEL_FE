@@ -12,24 +12,15 @@ import ButtonShare from "../components/Buttons/ButtonShare/ButtonShare";
 import Reviews from "../components/Reviews/Reviews";
 import ButtonFavorite from "../components/Buttons/ButtonFavorite/ButtonFavorite";
 import ExperienceDates from "../components/ExperienceDates/ExperienceDates";
-import useAuthLogin from "../hooks/useAuthLogin";
-import Swal from "sweetalert2";
+
 
 const Product = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { fetchExperienceByID } = useExperiences();
-  const {
-    fetchReservationDatesByExperience,
-    createNewReservation,
-    loading,
-    error,
-  } = useReservations();
-  const { username } = useAuthLogin();
+  const { fetchExperienceByID, loading, error } = useExperiences();
   const [experience, setExperience] = useState(null);
-  const [reservations, setReservations] = useState([]);
   const [errorExperience, setErrorExperience] = useState(null);
-  const [selectedDateTime, setSelectedDateTime] = useState(null);
+
 
   useEffect(() => {
     const getExperience = async () => {
@@ -43,18 +34,6 @@ const Product = () => {
 
     getExperience();
   }, [id]);
-
-  useEffect(() => {
-    const fetchReservations = async () => {
-      try {
-        const data = await fetchReservationDatesByExperience(id);
-        setReservations(data);
-      } catch (err) {
-        console.error("Error fetching reservation dates:", err);
-      }
-    };
-    fetchReservations();
-  }, [id]); 
 
   const checkLoggerUser = async () => {
     if (!localStorage.getItem("token")) {
@@ -92,8 +71,6 @@ const Product = () => {
           <div className="bookinContainer">
             <ExperienceDates
               data={experience}
-              reservations={reservations}
-              onDateTimeSelect={setSelectedDateTime}
             />
               <PrimaryButton func={()=>checkLoggerUser()} disabled={loading}>
               Book Now
