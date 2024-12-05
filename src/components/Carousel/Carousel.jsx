@@ -5,8 +5,6 @@ import { useSwiper } from 'swiper/react';
 import ProductCard from "../Cards/ProductCard";
 import useExperiences from '../../hooks/useExperience'
 
-
-
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -25,16 +23,15 @@ export default function Carousel() {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
-
   return (
     <>
      
       <Swiper
       style={{
-        '--swiper-navigation-color': '#fff',
-        '--swiper-pagination-color': '#fff',
+        '--swiper-navigation-color': '#562210',
+        '--swiper-pagination-color': '#562210',
       }}
-        slidesPerView={2}
+        slidesPerView={1}
         spaceBetween={15}
         autoplay={{ delay: 3000 }}      
         loop={true}
@@ -43,11 +40,11 @@ export default function Carousel() {
         centeredSlides={true}
         breakpoints={{
           640: {
-            slidesPerView: 3,
+            slidesPerView: 2,
             spaceBetween: 20,
           },
           768: {
-            slidesPerView: 5,
+            slidesPerView: 3,
             spaceBetween: 30,
           },
         }}                
