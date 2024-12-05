@@ -6,9 +6,17 @@ const NotFound = () => {
   const [showIframe, setShowIframe] = useState(false);
   const [showInstruction, setShowInstruction] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
+  const [gameHtml, setGameHtml] = useState('');
   const audioRef = useRef(null);
   const iframeRef = useRef(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    fetch('/game.txt')
+      .then((response) => response.text())
+      .then((data) => setGameHtml(data))
+      .catch((error) => console.error('Error loading game.txt:', error));
+  }, []);
 
   useEffect(() => {
     const handleKeyPress = (event) => {
@@ -119,7 +127,7 @@ const NotFound = () => {
         <div style={{ width: '100%', height: 'calc(100vh - 120px)', marginTop: '20px' }}>
           <iframe
             ref={iframeRef}
-            src="/game.html"
+            srcDoc={gameHtml}
             frameBorder="0"
             scrolling="no"
             width="100%"
