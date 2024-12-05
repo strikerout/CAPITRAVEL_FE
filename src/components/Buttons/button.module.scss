@@ -11,6 +11,10 @@
     &:hover{
       background-color: $secundary-orange;
     }
+    &:disabled {
+      cursor: not-allowed; 
+      opacity: 0.5; 
+    }
 }
 
 .secundaryButton{
@@ -25,6 +29,10 @@
     &:hover {
         background-color: #a5dbd3aa;
       }
+    &:disabled {
+        cursor: not-allowed; 
+        opacity: 0.5; 
+    }
 }
 
 .closeButton {
@@ -36,10 +44,13 @@
     font-size: 20px;
     color: $brown;
     cursor: pointer;
-  
     &:hover {
       color: $secundary-orange;
     }
+    &:disabled {
+      cursor: not-allowed; 
+      opacity: 0.5; 
+  }
   }
 
 .ClearButton{
@@ -51,4 +62,8 @@
     height: 38px;
     font-weight: 400;
     background-color: rgba(255, 255, 255, 0);
+    &:disabled {
+      cursor: not-allowed; 
+      opacity: 0.5; 
+  }
 }
