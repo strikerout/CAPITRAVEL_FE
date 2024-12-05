@@ -67,7 +67,7 @@ const Categories = () => {
           Swal.fire({
             imageUrl: '/errorCapi.svg',
             imageWidth: 200,
-            title: "This category can't be deleted because it has associated experiences. You can delete the experiences individually.",
+            title: "This category can't be deleted, delete the experiences first.",
             text: error.data.error,
             customClass: {
               confirmButton: 'swalConfirmButton',
