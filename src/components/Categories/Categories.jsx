@@ -10,6 +10,12 @@ const Categories = () => {
   const [newCategory, setNewCategory] = useState({ name: '', description: ''});
   const [idToEdit, setIdToEdit] = useState('');
   const [errors, setErrors] = useState({ name: '', description: ''});
+  const [isModified, setIsModified] = useState(false);
+
+  const handleFieldChange = (field, value) => {
+    setNewCategory((prev) => ({ ...prev, [field]: value }));
+    setIsModified(true); // Marca como modificado cuando cambia un campo
+  };
 
   const validateFields = () => {
     const newErrors = { name: '', description: ''};
@@ -174,9 +180,8 @@ const Categories = () => {
               placeholder="Enter a name"
               id="name"
               value={newCategory.name}
-              onChange={(e) =>
-                setNewCategory({ ...newCategory, name: e.target.value })
-              }
+              onChange={(e) => handleFieldChange('name', e.target.value)}
+              required
             />
             {errors.name && <p className="error">{errors.name}</p>}
           </div>
@@ -189,20 +194,19 @@ const Categories = () => {
               placeholder="Enter a description"
               id="description"
               value={newCategory.description}
-              onChange={(e) =>
-                setNewCategory({ ...newCategory, description: e.target.value })
-              }
+              onChange={(e) => handleFieldChange('name', e.target.value)}
+              required
             />
             {errors.description && <p className="error">{errors.description}</p>}
           </div>
 
           {idToEdit ? (
             <div className="buttonsContainer">
-              <PrimaryButton type="submit">Save category</PrimaryButton>
+              <PrimaryButton type="submit" disabled={!isModified}>Save category</PrimaryButton>
               <PrimaryButton func={cancelEdit}>Cancel</PrimaryButton>
             </div>
           ) : (
-            <PrimaryButton type="submit">Add Category</PrimaryButton>
+            <PrimaryButton type="submit" disabled={!isModified}>Add Category</PrimaryButton>
           )}
         </form>
 
