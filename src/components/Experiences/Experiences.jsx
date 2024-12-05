@@ -27,6 +27,7 @@ const Experiences = () => {
   const [selectedProperties, setSelectedProperties] = useState([]);
 
   const [idToEdit, setIdToEdit] = useState('');
+  const [isModified, setIsModified] = useState(false);
 
   const [newExperience, setNewExperience] = useState({
     title: "",
@@ -49,6 +50,7 @@ const Experiences = () => {
       ...newExperience,
       timeUnit: e.target.value,
     });
+    setIsModified(true);
   };
 
 const handleTimeChange = (startTime, endTime) => {
@@ -59,6 +61,7 @@ const handleTimeChange = (startTime, endTime) => {
       serviceHours: formattedServiceHours,
     }));
  }
+ setIsModified(true);
 };
 
   const handleDayAvailable = (day) => {
@@ -71,6 +74,7 @@ const handleTimeChange = (startTime, endTime) => {
         availableDays: updatedDays,
       };
     });
+    setIsModified(true);
   };
 
   const scrollToDiv = () => {
@@ -84,6 +88,7 @@ const handleTimeChange = (startTime, endTime) => {
       ...prevExperience,
       images: [...prevExperience.images, ...base64Images], 
     }));
+    setIsModified(true);
   };
 
   const handleRemoveImg = (index) => {
@@ -97,10 +102,12 @@ const handleTimeChange = (startTime, endTime) => {
 
   const handleSelectChange = (event) => {
     setSelectedCategory(event.target.value);
+    setIsModified(true); 
   };
 
   const handleSelectChangeProperty = (event) => {
     setSelectedProperty(event.target.value);
+    setIsModified(true); 
   };
 
   const handleAddCategory = (e) => {
@@ -432,12 +439,13 @@ cancelEdit();
                   placeholder="Enter a title"
                   id="title"
                   value={newExperience.title}
-                  onChange={(e) =>
+                  onChange={(e) => {
                     setNewExperience({
                       ...newExperience,
                       title: e.target.value,
-                    })
-                  }
+                    });
+                    setIsModified(true); 
+                  }}
                 /> {errors.title && <p className="error">{errors.title}</p>}
               </div>
 
@@ -451,12 +459,13 @@ cancelEdit();
                   placeholder="Enter a description"
                   maxLength={500}
                   value={newExperience.description}
-                  onChange={(e) =>
+                  onChange={(e) => {
                     setNewExperience({
                       ...newExperience,
                       description: e.target.value,
-                    })
-                  }
+                    });
+                    setIsModified(true); 
+                  }}
                 />{errors.description && <p className="error">{errors.description}</p>}
               </div>
             </div>
@@ -470,12 +479,13 @@ cancelEdit();
                   placeholder="Enter country name"
                   id="country"
                   value={newExperience.country}
-                  onChange={(e) =>
+                  onChange={(e) => {
                     setNewExperience({
                       ...newExperience,
                       country: e.target.value,
-                    })
-                  }
+                    });
+                    setIsModified(true); 
+                  }}
                 />{errors.country && <p className="error">{errors.country}</p>}
               </div>
               <div>
@@ -485,12 +495,13 @@ cancelEdit();
                   placeholder="City, state/region"
                   id="ubication"
                   value={newExperience.ubication}
-                  onChange={(e) =>
+                  onChange={(e) => {
                     setNewExperience({
                       ...newExperience,
                       ubication: e.target.value,
-                    })
-                  }
+                    });
+                    setIsModified(true); 
+                  }}
                 />{errors.ubication && <p className="error">{errors.ubication}</p>}
               </div>
             </div>
@@ -587,12 +598,13 @@ cancelEdit();
                 placeholder="Type a number"
                 id="quantity"
                 value={newExperience.quantity}
-                onChange={(e) =>
+                onChange={(e) => {
                   setNewExperience({
                     ...newExperience,
                     quantity: e.target.value,
-                  })
-                }
+                  });
+                  setIsModified(true); 
+                }}
               />{errors.quantity && <p className="error">{errors.quantity}</p>}
                 </div>
                 <div>
@@ -626,7 +638,6 @@ cancelEdit();
             <div>
               <h5>Add Images</h5>
               <ImageUploader onImagesAdded={handleImagesAdded} />{" "}
-              {/* Integrar ImageUploader */}
               <div>
                 <h6>Uploaded images:</h6>
                 <ul className="containerTag">
@@ -648,11 +659,11 @@ cancelEdit();
 
             {idToEdit ? (
             <div className="buttonsContainer">
-              <PrimaryButton type="submit">Save</PrimaryButton>
+              <PrimaryButton type="submit" disabled={!isModified}>Save</PrimaryButton>
               <PrimaryButton func={cancelEdit}>Cancel</PrimaryButton>
             </div>
           ) : (
-            <PrimaryButton func={handleSubmit} type="submit">Add Experience</PrimaryButton>
+            <PrimaryButton func={handleSubmit} type="submit" disabled={!isModified}>Add Experience</PrimaryButton>
           )}
           </section>
 
