@@ -12,6 +12,12 @@ const Properties = () => {
   const [newProperty, setNewProperty] = useState({ name: '', description: '', image: '' });
   const [idToEdit, setIdToEdit] = useState('');
   const [errors, setErrors] = useState({ name: '', description: '', image: '' });
+  const [isModified, setIsModified] = useState(false);
+
+  const handleFieldChange = (field, value) => {
+    setNewProperty((prev) => ({ ...prev, [field]: value }));
+    setIsModified(true); // Marca como modificado cuando cambia un campo
+  };
 
   const handleAddProperty = async() => {
     const error = await addProperty(newProperty);
@@ -82,6 +88,7 @@ const Properties = () => {
     const toEdit = await fetchPropertyByID(id);
     setNewProperty({ name: toEdit.name, description: toEdit.description, image: toEdit.image });
     setIdToEdit(id);
+    setIsModified(false);
   };
 
   const handleEditProperty = () => {
@@ -135,6 +142,7 @@ const Properties = () => {
   const cancelEdit = () => {
     setIdToEdit('');
     setNewProperty({ name: '', description: '', image: '' });
+    setIsModified(false);
   };
 
   const handleSubmit = (e) => {
@@ -165,6 +173,7 @@ const Properties = () => {
       ...prevProperty,
       image: base64Images[0],
     }));
+    setIsModified(true);
   };
   
   const handleRemoveImg = () => {
@@ -172,6 +181,7 @@ const Properties = () => {
       ...newProperty,
       image: '',
     })
+    setIsModified(true);
   }
 
 
@@ -189,7 +199,7 @@ const Properties = () => {
             placeholder="Enter a name"
             id='name'
             value={newProperty.name}
-            onChange={(e) => setNewProperty({ ...newProperty, name: e.target.value })}
+            onChange={(e) => handleFieldChange('name', e.target.value)}
             required
           />
           {errors.name && <p className="error">{errors.name}</p>}
@@ -202,7 +212,7 @@ const Properties = () => {
             placeholder="Enter a description"
             id='description'
             value={newProperty.description}
-            onChange={(e) => setNewProperty({ ...newProperty, description: e.target.value })}
+            onChange={(e) => handleFieldChange('description', e.target.value)}
             required
           />
           {errors.description && <p className="error">{errors.description}</p>}
@@ -241,11 +251,11 @@ const Properties = () => {
 
         {idToEdit ? 
           <div className='buttonsContainer'>
-            <PrimaryButton type='submit'>Save Property</PrimaryButton>
+            <PrimaryButton type='submit' disabled={!isModified}>Save Property</PrimaryButton>
             <PrimaryButton func={cancelEdit}>Cancel</PrimaryButton>
           </div>
           : 
-          <PrimaryButton type='submit'>Add Property</PrimaryButton>}
+          <PrimaryButton type='submit' disabled={!isModified}>Add Property</PrimaryButton>}
       </form>
 
       <div className='adminList'>
