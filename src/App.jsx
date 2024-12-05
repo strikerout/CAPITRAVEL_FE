@@ -14,7 +14,6 @@ import Reservations from './pages/Reservations/Reservations';
 import ConfirmBooking from './pages/ConfirmBooking';
 import ContactButton from './components/Buttons/ContactButton/ContactButton';
 
-
 function App() {
 
   const location = useLocation();
@@ -39,13 +38,11 @@ function App() {
       <Route path='/experiences/favorites' element={<Favorites />}/>
       <Route path='/experiences/reservations' element={<Reservations />}/> 
       <Route path='/confirmbooking/:id' element={<ConfirmBooking/>}/>
-
     </Routes>
     </div>
      {!isExcludedRoute && <ContactButton />}
      {!isRegisterOrLogin && <Footer /> }
     </>
-
   )
 }
 
