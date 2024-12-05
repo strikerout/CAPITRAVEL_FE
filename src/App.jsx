@@ -41,6 +41,7 @@ function App() {
       <Route path='/experiences/reservations' element={<Reservations />}/> 
       <Route path='/confirmbooking/:id' element={<ConfirmBooking/>}/>
       <Route path="/not_found" element={<NotFound />} />
+      <Route path="/game.html" element={<Navigate to="/game.html" replace />} />
       <Route path='*' element={<Navigate to="/not_found"/>} />
     </Routes>
     </div>
