@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Message from '../../components/Message/Message';
 import { useNavigate } from 'react-router-dom';
+import gameHtml from '../../assets/game.html';
 
 const NotFound = () => {
   const [showIframe, setShowIframe] = useState(false);
@@ -119,7 +120,7 @@ const NotFound = () => {
         <div style={{ width: '100%', height: 'calc(100vh - 120px)', marginTop: '20px' }}>
           <iframe
             ref={iframeRef}
-            src="/game.html"
+            src={gameHtml}
             frameBorder="0"
             scrolling="no"
             width="100%"
