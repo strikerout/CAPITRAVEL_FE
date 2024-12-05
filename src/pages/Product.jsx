@@ -95,15 +95,13 @@ const Product = () => {
               reservations={reservations}
               onDateTimeSelect={setSelectedDateTime}
             />
-              <PrimaryButton func={()=>checkLoggerUser() } disabled={loading}>
+              <PrimaryButton func={()=>checkLoggerUser()} disabled={loading}>
               Book Now
             </PrimaryButton>
           </div>
         </div>
       </div>
       {error && <p>Error: {error}</p>}
-
-
     </div>
   );
 };

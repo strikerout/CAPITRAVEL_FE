@@ -8,7 +8,9 @@
     color: white;
     border-radius: 50px;
     cursor: pointer;
-
+    &:hover{
+      background-color: $secundary-orange;
+    }
 }
 
 .secundaryButton{

@@ -1135,3 +1135,11 @@ body{
         margin: 20px 0px;
     }
   }
+
+  .iconInteractive{
+    cursor: pointer;
+    transition: transform 0.2s;
+
+    &:hover {
+      transform: scale(1.1);
+    }}
