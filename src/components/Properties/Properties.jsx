@@ -16,7 +16,7 @@ const Properties = () => {
 
   const handleFieldChange = (field, value) => {
     setNewProperty((prev) => ({ ...prev, [field]: value }));
-    setIsModified(true); // Marca como modificado cuando cambia un campo
+    setIsModified(true); 
   };
 
   const handleAddProperty = async() => {
