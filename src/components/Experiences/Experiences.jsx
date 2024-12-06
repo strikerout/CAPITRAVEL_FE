@@ -27,6 +27,14 @@ const Experiences = () => {
   const [selectedProperties, setSelectedProperties] = useState([]);
 
   const [idToEdit, setIdToEdit] = useState('');
+  const [isModified, setIsModified] = useState(false);
+
+  const sortedProperties = properties.sort((a, b) =>
+  a.name.localeCompare(b.name)
+  );
+  const sortedCategories = categories.sort((a, b) =>
+  a.name.localeCompare(b.name)
+  );
 
   const [newExperience, setNewExperience] = useState({
     title: "",
@@ -49,6 +57,7 @@ const Experiences = () => {
       ...newExperience,
       timeUnit: e.target.value,
     });
+    setIsModified(true);
   };
 
 const handleTimeChange = (startTime, endTime) => {
@@ -59,6 +68,7 @@ const handleTimeChange = (startTime, endTime) => {
       serviceHours: formattedServiceHours,
     }));
  }
+ setIsModified(true);
 };
 
   const handleDayAvailable = (day) => {
@@ -71,6 +81,7 @@ const handleTimeChange = (startTime, endTime) => {
         availableDays: updatedDays,
       };
     });
+    setIsModified(true);
   };
 
   const scrollToDiv = () => {
@@ -84,6 +95,7 @@ const handleTimeChange = (startTime, endTime) => {
       ...prevExperience,
       images: [...prevExperience.images, ...base64Images], 
     }));
+    setIsModified(true);
   };
 
   const handleRemoveImg = (index) => {
@@ -97,10 +109,12 @@ const handleTimeChange = (startTime, endTime) => {
 
   const handleSelectChange = (event) => {
     setSelectedCategory(event.target.value);
+    setIsModified(true); 
   };
 
   const handleSelectChangeProperty = (event) => {
     setSelectedProperty(event.target.value);
+    setIsModified(true); 
   };
 
   const handleAddCategory = (e) => {
@@ -350,7 +364,7 @@ cancelEdit();
     if (newExperience.images.length === 0) newErrors.images = "At least one image is required";
     
     if (newExperience.availableDays.length === 0) newErrors.availableDays = "Choose a day of service";
-    if (!newExperience.serviceHours) newErrors.serviceHours = "This fields are required";
+    if (!newExperience.serviceHours) newErrors.serviceHours = "Service time is required";
     if(!newExperience.serviceHours.split("-")[0] === "") newErrors.serviceHours = "Select a start Time";
     if(newExperience.serviceHours.split("-")[1] === "") newErrors.serviceHours ="Select a end time"
  
@@ -432,12 +446,13 @@ cancelEdit();
                   placeholder="Enter a title"
                   id="title"
                   value={newExperience.title}
-                  onChange={(e) =>
+                  onChange={(e) => {
                     setNewExperience({
                       ...newExperience,
                       title: e.target.value,
-                    })
-                  }
+                    });
+                    setIsModified(true); 
+                  }}
                 /> {errors.title && <p className="error">{errors.title}</p>}
               </div>
 
@@ -451,12 +466,13 @@ cancelEdit();
                   placeholder="Enter a description"
                   maxLength={500}
                   value={newExperience.description}
-                  onChange={(e) =>
+                  onChange={(e) => {
                     setNewExperience({
                       ...newExperience,
                       description: e.target.value,
-                    })
-                  }
+                    });
+                    setIsModified(true); 
+                  }}
                 />{errors.description && <p className="error">{errors.description}</p>}
               </div>
             </div>
@@ -470,12 +486,13 @@ cancelEdit();
                   placeholder="Enter country name"
                   id="country"
                   value={newExperience.country}
-                  onChange={(e) =>
+                  onChange={(e) => {
                     setNewExperience({
                       ...newExperience,
                       country: e.target.value,
-                    })
-                  }
+                    });
+                    setIsModified(true); 
+                  }}
                 />{errors.country && <p className="error">{errors.country}</p>}
               </div>
               <div>
@@ -485,12 +502,13 @@ cancelEdit();
                   placeholder="City, state/region"
                   id="ubication"
                   value={newExperience.ubication}
-                  onChange={(e) =>
+                  onChange={(e) => {
                     setNewExperience({
                       ...newExperience,
                       ubication: e.target.value,
-                    })
-                  }
+                    });
+                    setIsModified(true); 
+                  }}
                 />{errors.ubication && <p className="error">{errors.ubication}</p>}
               </div>
             </div>
@@ -510,7 +528,7 @@ cancelEdit();
                   <option value="" disabled>
                     Select Categories
                   </option>
-                  {categories.map((category) => (
+                  {sortedCategories.map((category) => (
                     <option key={category.id} value={category.id}>
                       {category.name}
                     </option>
@@ -548,7 +566,7 @@ cancelEdit();
                   <option value="" disabled>
                     Select Properties
                   </option>
-                  {properties.map((property) => (
+                  {sortedProperties.map((property) => (
                     <option key={property.id} value={property.id}>
                       {property.name}
                     </option>
@@ -587,12 +605,13 @@ cancelEdit();
                 placeholder="Type a number"
                 id="quantity"
                 value={newExperience.quantity}
-                onChange={(e) =>
+                onChange={(e) => {
                   setNewExperience({
                     ...newExperience,
                     quantity: e.target.value,
-                  })
-                }
+                  });
+                  setIsModified(true); 
+                }}
               />{errors.quantity && <p className="error">{errors.quantity}</p>}
                 </div>
                 <div>
@@ -626,7 +645,6 @@ cancelEdit();
             <div>
               <h5>Add Images</h5>
               <ImageUploader onImagesAdded={handleImagesAdded} />{" "}
-              {/* Integrar ImageUploader */}
               <div>
                 <h6>Uploaded images:</h6>
                 <ul className="containerTag">
@@ -648,11 +666,11 @@ cancelEdit();
 
             {idToEdit ? (
             <div className="buttonsContainer">
-              <PrimaryButton type="submit">Save</PrimaryButton>
+              <PrimaryButton type="submit" disabled={!isModified}>Save</PrimaryButton>
               <PrimaryButton func={cancelEdit}>Cancel</PrimaryButton>
             </div>
           ) : (
-            <PrimaryButton func={handleSubmit} type="submit">Add Experience</PrimaryButton>
+            <PrimaryButton func={handleSubmit} type="submit" disabled={!isModified}>Add Experience</PrimaryButton>
           )}
           </section>
 
