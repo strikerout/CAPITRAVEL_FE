@@ -29,6 +29,13 @@ const Experiences = () => {
   const [idToEdit, setIdToEdit] = useState('');
   const [isModified, setIsModified] = useState(false);
 
+  const sortedProperties = properties.sort((a, b) =>
+  a.name.localeCompare(b.name)
+  );
+  const sortedCategories = categories.sort((a, b) =>
+  a.name.localeCompare(b.name)
+  );
+
   const [newExperience, setNewExperience] = useState({
     title: "",
     country: "",
@@ -357,7 +364,7 @@ cancelEdit();
     if (newExperience.images.length === 0) newErrors.images = "At least one image is required";
     
     if (newExperience.availableDays.length === 0) newErrors.availableDays = "Choose a day of service";
-    if (!newExperience.serviceHours) newErrors.serviceHours = "This fields are required";
+    if (!newExperience.serviceHours) newErrors.serviceHours = "Service time is required";
     if(!newExperience.serviceHours.split("-")[0] === "") newErrors.serviceHours = "Select a start Time";
     if(newExperience.serviceHours.split("-")[1] === "") newErrors.serviceHours ="Select a end time"
  
@@ -521,7 +528,7 @@ cancelEdit();
                   <option value="" disabled>
                     Select Categories
                   </option>
-                  {categories.map((category) => (
+                  {sortedCategories.map((category) => (
                     <option key={category.id} value={category.id}>
                       {category.name}
                     </option>
@@ -559,7 +566,7 @@ cancelEdit();
                   <option value="" disabled>
                     Select Properties
                   </option>
-                  {properties.map((property) => (
+                  {sortedProperties.map((property) => (
                     <option key={property.id} value={property.id}>
                       {property.name}
                     </option>
