@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import useCategories from '../hooks/useCategories';
+import useCategories from '../../../hooks/useCategories';
 import { FaTimes } from 'react-icons/fa';
+import styles from './categoriesHome.module.scss'
 
 const CategoriesHome = ({ selectedCategories, setSelectedCategories, fetchExperiences }) => {
   const { categories } = useCategories();
@@ -39,29 +40,26 @@ const CategoriesHome = ({ selectedCategories, setSelectedCategories, fetchExperi
   }
 
   return (
-    <div className="categoriesHome">
-      <ul className="categories-list">
-        {categories.map((category) => (
-          <li
-            key={category.id}
-            style={{
-              backgroundColor: categoryColors[category.id] ? categoryColors[category.id] : '#000',
-              border: selectedCategories.includes(category.id) ? '2.5px solid #562210' : 'none',
-              boxShadow: categoryColors[category.id]? '0px 2px 0px 0px #562210' : 'none',
-              cursor: 'pointer',
-            }}
-            onClick={() => handleCategoryClick(category.id)}
-          >
-            <p>{category.name}</p>
-          </li>
-        ))}
-        <li 
-          className="clear-filters-btn" 
-          onClick={handleClearFilters}
-        >
-          <FaTimes />
-        </li>
-      </ul>
+    <div className={styles.categoriesHome}>
+      <div className={styles.categories_list_wrapper}>
+        <ul className={styles.categories_list}>
+          {categories.map((category) => (
+            <li
+              key={category.id}
+              className={ selectedCategories.includes(category.id) ? styles.selected : ''}
+              style={{
+                backgroundColor: categoryColors[category.id] || '#000',
+              }}
+              onClick={() => handleCategoryClick(category.id)}
+            >
+              <p>{category.name}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <button className={styles.clear_filters_btn}onClick={handleClearFilters}>
+        <FaTimes />
+      </button>
     </div>
   );
 };

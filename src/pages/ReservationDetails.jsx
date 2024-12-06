@@ -5,8 +5,13 @@ import useReservations from '../hooks/useReservations'
 import { useNavigate, useParams } from "react-router-dom";
 import { RiLoginCircleFill } from "react-icons/ri";
 import { RiLogoutCircleFill } from "react-icons/ri";
+import Loading from '../components/Loading';
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
+import { FaFileDownload } from 'react-icons/fa';
 
 const ReservationDetails = () => {
+  const navigate = useNavigate();
   const {fetchReservationById, reservations, loading, error} = useReservations();
   const { id } = useParams();
 
@@ -15,13 +20,14 @@ const ReservationDetails = () => {
 
   useEffect(() => {
       try {
-        fetchReservationById(id)
-        console.log(reservations)
+        fetchReservationById(id) 
+        console.log(reservations);
       } catch (err) { 
         console.log(err); 
       };
   }, [id]); 
 
+ 
   function formatDateTime(datetime) {
     const date = new Date(datetime);
     const day = String(date.getDate()).padStart(2, '0');
@@ -34,20 +40,88 @@ const ReservationDetails = () => {
     return `${day}/${month}/${year} - ${String(hours).padStart(2, '0')}:${minutes} ${ampm}`;
 }
 
+const generatePDF = async () => {
+  const element = document.getElementById("content-to-pdf");
+  if (!element) {
+    console.error("Content not found to generate PDF file.");
+    return;
+  }
 
-  if (!reservations[0]) return <div>Loading...</div>;
+  const elementToExclude = element.querySelector(".exclude-from-pdf");
+  elementToExclude.classList.add("hidden-for-pdf"); 
+
+
+  const margin = 10;
+  const pageWidth = 210; 
+  const pageHeight = 297; 
+  const contentWidth = pageWidth - margin * 2;
+  const contentHeight = pageHeight - margin * 2; 
+
+  try {
+    const canvas = await html2canvas(element, {
+      scale: 2,
+      useCORS: true,
+      scrollY: -window.scrollY,
+    });
+
+    const canvasWidth = canvas.width;
+    const canvasHeight = canvas.height;
+    const pageHeightPx = (canvasWidth / contentWidth) * contentHeight;
+
+    let pdf = new jsPDF("p", "mm", "a4");
+
+    let position = 0;
+    while (position < canvasHeight) {
+      const canvasPart = canvas
+        .getContext("2d")
+        .getImageData(0, position, canvasWidth, pageHeightPx);
+
+      const canvasPartImage = document.createElement("canvas");
+      canvasPartImage.width = canvasWidth;
+      canvasPartImage.height = pageHeightPx;
+      canvasPartImage.getContext("2d").putImageData(canvasPart, 0, 0);
+
+      const imgData = canvasPartImage.toDataURL("image/png");
+
+      pdf.addImage(imgData, "PNG", margin, margin, contentWidth, contentHeight);
+
+      position += pageHeightPx;
+
+      if (position < canvasHeight) {
+        pdf.addPage();
+      }
+    }
+
+    pdf.save(reservations[0].experience.title +" - "+reservations[0].user.email+".pdf");
+
+    elementToExclude.classList.remove("hidden-for-pdf"); 
+  } catch (error) {
+    console.error("Error creating file:", error);
+  }
+};
+
+
+  if (error && !localStorage.getItem("token")) {navigate("/login")}
+  else if(error){navigate("/reservations")}
+
+  if (!reservations[0]) return <Loading/>;
+
+
+  
 
   return (
     <div className="pageContainer">
         <PageHeader title={"Reservation details"}/>
+      
 
-        <div className="bookingProductInfo">
+        <div className="bookingProductInfo" id='content-to-pdf'>
                 <div className="headerProductInfo variantReservationDet">
                     <div className="containerImg">
                     <img src={reservations[0].experience.images[0]} alt="" />
                     </div>
                     <div className="ProductInfoTitle ">
-                        <h3>{reservations[0].experience.title}</h3>
+                      <section>
+                           <h3>{reservations[0].experience.title}</h3>
 
                         <div className='locationDuration'>
                           <div className="productLocation">
@@ -65,7 +139,6 @@ const ReservationDetails = () => {
                         </div>
 
                         <div className='checkInOutContainer'>
-              
                             <div className='checkContainer'>
                               <div>
                                 <RiLoginCircleFill className="icon"/>
@@ -76,7 +149,7 @@ const ReservationDetails = () => {
 
                             <div className='checkContainer'>
                               <div>
-                                <RiLoginCircleFill className="icon"/>
+                                <RiLogoutCircleFill className="icon"/>
                                 <p className="check_p">Check-Out </p>
                               </div>
                               <p>{formatDateTime(reservations[0].checkOut)}</p>
@@ -84,9 +157,25 @@ const ReservationDetails = () => {
                                       
                         </div>
 
+                      </section>
+                      <section className='ownerAndButon'>
+                          <div>
+                            <h4>Reservation owner</h4>
+                            <p>{reservations[0].user.name} {reservations[0].user.lastName}</p>
+                            <p>{reservations[0].user.email}</p>  
+                          </div>  
+                          <button onClick={generatePDF} className={`buttonMoreAction exclude-from-pdf`}>
+                            <FaFileDownload />
+                            Download
+                          </button> 
+                      </section>
+
+                       
+
                        
                     </div>
                 </div>
+
 
                 <div className="productDescription">
                   <h4>What will you do?</h4>  
@@ -94,7 +183,7 @@ const ReservationDetails = () => {
                 </div>
 
                 <div className="productProperties">
-                    <h4>Characteristics</h4>
+                    <h4>Properties</h4>
                     <div className="containerProperties">
                         {reservations[0].experience.properties.map((property, index)=>(
                             <div key={index}>

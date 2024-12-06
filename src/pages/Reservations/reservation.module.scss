@@ -30,7 +30,7 @@
   .adminList {
     .headerList {
       display: grid;
-      grid-template-columns: repeat(8, 1fr);
+      grid-template-columns: repeat(7, 1fr);
       padding: 1rem;
       background-color: var(--accent-color);
       color: #fff;
@@ -41,7 +41,7 @@
     .bodyList {
       li {
         display: grid;
-        grid-template-columns: repeat(8, 1fr);
+        grid-template-columns: repeat(7, 1fr);
         padding: 1rem;
         border-bottom: 1px solid var(--divider-color);
         text-align: center;

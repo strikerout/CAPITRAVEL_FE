@@ -165,32 +165,6 @@ body{
         }
     }
 
-    .categoriesHome{
-        width: 60%;
-        margin: 0 auto;
-        margin-top: 10px;
-
-         @media(max-width: $mobile){
-           width: 100%;
-        }
-        ul{
-            display: flex;
-            flex-flow: row wrap;
-            justify-content: center;
-            align-items: center;
-            list-style: none;
-            gap: 10px;
-            li{ 
-                border-radius: 10px;
-                p{
-                    border-radius: 10px;
-                    color: $brown;
-                    padding: 7px 15px;
-                    background-color: rgba(255, 255, 255, 0.555);
-                }
-            }
-        }
-    }
     // search bar
     .section_banner{
         position: relative;
@@ -564,6 +538,17 @@ body{
             .variantReservationDet{
                 .locationDuration{
                     display: flex;
+                    gap: 20px;
+                }
+                .ProductInfoTitle{
+                    display: flex;
+                    justify-content: space-between;
+                    width: 80%;
+                }
+                .ownerAndButon{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-end;
                     gap: 20px;
                 }
                 .checkInOutContainer{
@@ -1127,26 +1112,6 @@ body{
     }
 }
 
-  .clear-filters-btn {
-    background-color: $white;
-    color: $primary-orange;
-    border-radius: 50%;
-
-    cursor: pointer;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 40px;
-    width: 40px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .clear-filters-btn:hover {
-    background-color: $primary-orange;
-    color: $white;
-  }
-
   .buttonMoreAction{
         font-size: 1rem;
         cursor: pointer;
@@ -1182,3 +1147,7 @@ body{
     &:hover {
       transform: scale(1.1);
     }}
+
+    .hidden-for-pdf {
+        display: none !important;
+      }
