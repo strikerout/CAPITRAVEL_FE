@@ -19,7 +19,7 @@ const ProductDescription = ({data}) => {
       </div>
 
       <div className={style.productProperties}>
-        <h3>Characteristics</h3>
+        <h3>Properties</h3>
         <div className={style.propertyContainer}>
             {data.properties.map(property => (
               <div key={property.id} className={style.property}>

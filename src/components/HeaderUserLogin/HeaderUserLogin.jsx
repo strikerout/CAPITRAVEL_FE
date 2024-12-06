@@ -85,7 +85,7 @@ const HeaderUserLogin = ({ email, role }) => {
           <p>My favorites</p>
         </Link>
 
-        <Link to="/experiences/reservations" className={style.menuItem} onClick={() => {setOpen(false);}}>
+        <Link to="/reservations" className={style.menuItem} onClick={() => {setOpen(false);}}>
           <img src={reservation} alt="My reservations" />
           <p>My reservations</p>
         </Link>

@@ -3,7 +3,7 @@ import useReservations from '../../hooks/useReservations';
 import Swal from 'sweetalert2';
 import useAuthLogin from '../../hooks/useAuthLogin';
 import style from './reservation.module.scss';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import RatingForm from '../../components/RatingForm/RatingForm';
 import useExperiences from '../../hooks/useExperience';
 
@@ -162,10 +162,9 @@ const Reservations = () => {
         <div className={style.adminList}>
           <div className={`${style.headerList} ${style.reservationsList}`}>
             <h4>ID</h4>
-            <h4>Experience</h4>
+            <h4>Reservation</h4>
             <h4>Check-In</h4>
             <h4>Check-Out</h4>
-            <h4>Name</h4>
             <h4>Status</h4>
             <h4>Action</h4>
             <h4>Review</h4>
@@ -174,16 +173,16 @@ const Reservations = () => {
             {reservations.map((reservation) => (
               <li key={reservation.id} className={style.row}>
                 <p>{reservation.id}</p>
-                <a href={`/product/${reservation.experience.id}`} className={style.experienceLink}>
+                <Link to={`/reservation/details/${reservation.id}`} className={style.experienceLink}>
                   <span className={style.experienceText}>{reservation.experience.title}</span>
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="18px" fill="#5f6368" className={style.icon}>
                     <path d="M440-280H280q-83 0-141.5-58.5T80-480q0-83 58.5-141.5T280-680h160v80H280q-50 0-85 35t-35 85q0 50 35 85t85 35h160v80ZM320-440v-80h320v80H320Zm200 160v-80h160q50 0 85-35t35-85q0-50-35-85t-85-35H520v-80h160q83 0 141.5 58.5T880-480q0 83-58.5 141.5T680-280H520Z" />
                   </svg>
-                </a>
+                </Link>
 
                 <p>{new Date(reservation.checkIn).toLocaleString()}</p>
                 <p>{new Date(reservation.checkOut).toLocaleString()}</p>
-                <p>{`${reservation.user.name} ${reservation.user.lastName}`}</p>
+         
                 <p className={
                   getReservationStatus(reservation.checkIn, reservation.checkOut) === 'Past'
                     ? style.past

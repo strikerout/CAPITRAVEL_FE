@@ -447,7 +447,7 @@ body{
         }
     }
 
-    .confirmBooking{
+    .pageContainer{
         @media(min-width: $mobile){
            width: 90%;
            margin: 0 auto;
@@ -461,8 +461,9 @@ body{
             @media(min-width:900px){
                 flex-direction: row;
             }
+        }
 
-            .bookingContainer{
+        .bookingContainer{
                 background-color: $white;
                 border-radius: 10px;
                 padding: 10px;
@@ -472,14 +473,14 @@ body{
                 }
             }
             
-            .bookingProductInfo{
+        .bookingProductInfo{
                 display: flex;
                 flex-direction: column;
                 @media(max-width:762px){
                     margin: 16px;
                 }
 
-                .headerProductInfo{
+            .headerProductInfo{
                     display: flex;
                     align-items: center;
                     gap: 20px;
@@ -533,6 +534,56 @@ body{
                         }
                     }
                 }
+
+            .variantReservationDet{
+                .locationDuration{
+                    display: flex;
+                    gap: 20px;
+                }
+                .ProductInfoTitle{
+                    display: flex;
+                    justify-content: space-between;
+                    width: 80%;
+                }
+                .ownerAndButon{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-end;
+                    gap: 20px;
+                }
+                .checkInOutContainer{
+                    display: flex;
+                    flex-direction: row;
+                    gap: 30px;
+                    .checkContainer{
+                        display: flex;
+                        flex-direction: column;
+                        gap: 5px;
+                        div{
+                            display: flex;
+                            gap: 5px;
+                            align-items: center;
+                            .check_p{
+                                color: $primary-orange;
+                            }
+                            .icon {
+                                color: $primary-orange;
+                                font-size: 15px;
+                              }
+                        }
+                        
+                    }
+                }
+                
+                
+            }
+
+            .productDescription{
+                padding-bottom: 25px;
+                border-bottom: 1px solid #BBA79F;
+                margin-bottom: 20px;
+
+            }
                 .productProperties{
                     border-bottom: 1px solid #BBA79F;
                     margin-bottom: 20px;       
@@ -546,7 +597,6 @@ body{
 
                 }
             }
-        }
 
         
     }
@@ -1097,3 +1147,7 @@ body{
     &:hover {
       transform: scale(1.1);
     }}
+
+    .hidden-for-pdf {
+        display: none !important;
+      }

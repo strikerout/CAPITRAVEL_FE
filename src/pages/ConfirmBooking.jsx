@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import ProductHeader from '../components/ProductHeader/ProductHeader'
 import useExperiences from '../hooks/useExperience'
 import { useNavigate, useParams } from "react-router-dom";
-import ConfirmBookHeader from "../components/ConfirmBookHeader/ConfirmBookHeader";
+import PageHeader from "../components/pageHeader/pageHeader";
 import ConfirmDatesBook from "../components/ConfirmDatesBook/ConfirmDatesBook";
 import useReservations from "../hooks/useReservations";
 import Swal from "sweetalert2";
 import useAuthLogin from "../hooks/useAuthLogin";
 import PrimaryButton from "../components/Buttons/PrimaryButton";
 import PolicyModal from "../components/ProductPolicy/PolicyModal";
+import Loading from "../components/Loading";
 
 const ConfirmBooking = () => {
     const { id } = useParams();
@@ -33,6 +34,7 @@ const ConfirmBooking = () => {
   const [reservations, setReservations] = useState([]);
   const [errorExperience, setErrorExperience] = useState(null);
   const [selectedDateTime, setSelectedDateTime] = useState(null);
+  const [reservationBooked, setReservationBooked] = useState([])
 
   useEffect(() => {
     const getExperience = async () => {
@@ -87,7 +89,8 @@ const ConfirmBooking = () => {
         experienceId: experience.id,
         email: username,
       };
-      await createNewReservation(reservationData);
+      const newReservation = await createNewReservation(reservationData);
+      setReservationBooked(newReservation);
 
       const updatedReservations = await fetchReservationDatesByExperience(
         experience.id
@@ -106,7 +109,8 @@ const ConfirmBooking = () => {
         },
       }).then((result) => {
         if (result.isConfirmed) {
-          navigate("/experiences/reservations");
+          console.log(reservationBooked);
+          navigate(`/reservation/details/${newReservation.id}`);
         }
       });
     } catch (err) {
@@ -129,10 +133,10 @@ const ConfirmBooking = () => {
     }
   };
 
-  if (!experience) return <div>Loading...</div>;
+  if (!experience) return <Loading/>;
   return (
-    <div className="confirmBooking">
-    <ConfirmBookHeader data={experience} />
+    <div className="pageContainer">
+    <PageHeader title={"Confirm reservation"} />
 
     <div className="confirmPanels">
         <div className="bookingContainer">
@@ -168,7 +172,7 @@ const ConfirmBooking = () => {
                 </div>
 
                 <div className="productProperties">
-                    <h4>Characteristics</h4>
+                    <h4>Properties</h4>
                     <div className="containerProperties">
                         {experience.properties.map((property, index)=>(
                             <div>
