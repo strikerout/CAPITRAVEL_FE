@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import PageHeader from '../components/pageHeader/pageHeader'
+import PageHeader from '../components/PageHeader/PageHeader'
 import PolicyModal from '../components/ProductPolicy/PolicyModal'
 import useReservations from '../hooks/useReservations'
 import { useNavigate, useParams } from "react-router-dom";
