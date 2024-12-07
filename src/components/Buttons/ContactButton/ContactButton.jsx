@@ -5,7 +5,7 @@ import style from "./contactButton.module.scss"
 const ContactButton = () => {
     const whatsappNumber = "3133776700"; // Reemplaza con tu número de WhatsApp
     const defaultMessage = "Hi! I want more information"; // Tu mensaje por defecto en inglés
-    const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(defaultMessage)}`;
+    const whatsappLink = `https://wa.me/$57{whatsappNumber}?text=${encodeURIComponent(defaultMessage)}`;
   
     return (
       <a
