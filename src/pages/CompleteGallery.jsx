@@ -36,7 +36,9 @@ const CompleteGallery = () => {
         
         {experience.images && Array.isArray(experience.images) ?
           experience.images.map((image, index)=>(
+            <div className='imgContainer'>
               <img key={index} src={image} alt="" />
+            </div>
           ))
         : null
     }
