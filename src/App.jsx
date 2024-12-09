@@ -27,6 +27,11 @@ function App() {
   location.pathname === '/login' ||
   location.pathname.startsWith('/administrator');
 
+  const PublicRoute =({ children })=>{
+    const token = localStorage.getItem('token'); 
+    return token ? <Navigate to="/" /> : children;
+  }
+
   return (
     <>
     {!isRegisterOrLogin && <Header/>}
@@ -36,8 +41,20 @@ function App() {
       <Route path='/product/:id' element={<Product/>}/>
       <Route path='/gallery/:id' element={<CompleteGallery/>}/>
       <Route path='/administrator/*' element={<AdminPanel/>}/>
-      <Route path='/register' element={<Register/>}/>
-      <Route path='/login' element={<Login/>}/>
+      <Route path="/register" 
+             element={
+              <PublicRoute>
+                <Register />
+              </PublicRoute>
+            }
+      />
+      <Route path="/login"
+             element={
+              <PublicRoute>
+                <Login />
+              </PublicRoute>
+            }
+      />
       <Route path='/experiences/favorites' element={<Favorites />}/>
       <Route path='/reservations' element={<Reservations />}/> 
       <Route path='/confirmbooking/:id' element={<ConfirmBooking/>}/>
