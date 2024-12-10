@@ -943,7 +943,8 @@ body{
     .content-general{
         padding: 20px;
         display: grid;
-        grid-template-columns: 1fr 2fr  ;
+        grid-template-columns: 1fr 2fr;
+        align-items: flex-start;
     }
     .error {
       color: $secundary-orange !important;
@@ -1058,7 +1059,10 @@ body{
     }
 
     .beige{
+        color: $brown;
+        @media(min-width:768px){
         color: $beige !important;
+        }
     }
 
     .registerLoginForm{

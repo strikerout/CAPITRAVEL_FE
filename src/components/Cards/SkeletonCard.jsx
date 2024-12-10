@@ -30,7 +30,7 @@ const SkeletonCard = () => {
         <h4>
             <ContentLoader 
                 speed={1}
-                width={400}
+                width={300}
                 height={160}
                 viewBox="0 0 400 160"
                 backgroundColor="#bdbdbd"
@@ -40,7 +40,6 @@ const SkeletonCard = () => {
                 <rect x="5" y="40" rx="3" ry="3" width="150" height="12" /> 
             </ContentLoader>
         </h4>
-        {/* <h4><Skeleton /></h4> */}
         <div className={styles.cardProperties + " cardProperties"}>
           <div className="property">
 
