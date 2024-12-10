@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import useCategories from '../../../hooks/useCategories';
-import { FaTimes } from 'react-icons/fa';
-import styles from './categoriesHome.module.scss'
+import React, { useState, useEffect } from "react";
+import useCategories from "../../../hooks/useCategories";
+import styles from "./categoriesHome.module.scss";
 
-const CategoriesHome = ({ selectedCategories, setSelectedCategories, fetchExperiences }) => {
+const CategoriesHome = ({
+  selectedCategories,
+  setSelectedCategories,
+  fetchExperiences,
+}) => {
   const { categories } = useCategories();
   const [categoryColors, setCategoryColors] = useState({});
 
@@ -18,7 +21,7 @@ const CategoriesHome = ({ selectedCategories, setSelectedCategories, fetchExperi
   const handleCategoryClick = (categoryId) => {
     setSelectedCategories((prevSelectedCategories) => {
       if (prevSelectedCategories.includes(categoryId)) {
-        return prevSelectedCategories.filter(id => id !== categoryId);
+        return prevSelectedCategories.filter((id) => id !== categoryId);
       } else {
         return [...prevSelectedCategories, categoryId];
       }
@@ -31,8 +34,8 @@ const CategoriesHome = ({ selectedCategories, setSelectedCategories, fetchExperi
   };
 
   function getRandomColor() {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
+    const letters = "0123456789ABCDEF";
+    let color = "#";
     for (let i = 0; i < 6; i++) {
       color += letters[Math.floor(Math.random() * 16)];
     }
@@ -46,9 +49,11 @@ const CategoriesHome = ({ selectedCategories, setSelectedCategories, fetchExperi
           {categories.map((category) => (
             <li
               key={category.id}
-              className={ selectedCategories.includes(category.id) ? styles.selected : ''}
+              className={
+                selectedCategories.includes(category.id) ? styles.selected : ""
+              }
               style={{
-                backgroundColor: categoryColors[category.id] || '#000',
+                backgroundColor: categoryColors[category.id] || "#000",
               }}
               onClick={() => handleCategoryClick(category.id)}
             >
@@ -57,9 +62,14 @@ const CategoriesHome = ({ selectedCategories, setSelectedCategories, fetchExperi
           ))}
         </ul>
       </div>
-      <button className={styles.clear_filters_btn}onClick={handleClearFilters}>
-        <FaTimes />
-      </button>
+      {selectedCategories.length > 0 && (
+        <button
+          className={styles.clear_filters_btn}
+          onClick={handleClearFilters}
+        >
+          Clean filters
+        </button>
+      )}
     </div>
   );
 };
