@@ -27,7 +27,7 @@ const ImageUploader = ({ onImagesAdded }) => {
           );
           return response.data.secure_url; // Retorna la URL segura de la imagen subida
         } catch (err) {
-          console.error('Error al subir la imagen:', err);
+          console.error('Error uploading image:', err);
           throw err;
         }
       });
@@ -36,7 +36,7 @@ const ImageUploader = ({ onImagesAdded }) => {
         const uploadedUrls = await Promise.all(uploadPromises); // Esperar que todas las imágenes sean subidas
         onImagesAdded(uploadedUrls); // Pasar las URLs al componente padre
       } catch (err) {
-        setError('Error al subir una o más imágenes. Intenta de nuevo.');
+        setError('Error uploading one or more images. Please try again.');
       } finally {
         setLoading(false);
       }
@@ -57,7 +57,7 @@ const ImageUploader = ({ onImagesAdded }) => {
         <input {...getInputProps()} />
         <p>Drag some images here, or click to select images.</p>
       </div>
-      {loading && <p>Subiendo imágenes...</p>}
+      {loading && <p>Loading images...</p>}
       {error && <p style={{ color: 'red' }}>{error}</p>}
     </div>
   );
