@@ -132,19 +132,6 @@ const Reservations = () => {
     <section className={style.containerPage}>
       <div className={style.titleSection}>
         <PageHeader title={"Back"}/>
-        {/* <div className={`formNavigate orange`} onClick={() => navigate('/')}>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <path
-              fill="none"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="1.5"
-              d="m14 7l-5 5l5 5"
-            />
-          </svg>
-          <h4>Back to home</h4>
-        </div> */}
         <div className={style.containerText}>
           <div>
             <h2>
