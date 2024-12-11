@@ -33,6 +33,10 @@ const Reviews = ({ experienceId }) => {
   if (loading) return <div>Loading reviews...</div>;
   if (error) return <div>Error: {error}</div>;
 
+  const cleanMessage = (message) => {
+    return message.replace(/^"|"$/g, ""); // Elimina las comillas dobles al inicio y final del string
+  };
+
   return (
     <section className={style.containerReview}>
       <h3>Reviews, what do users say?</h3>
@@ -53,7 +57,7 @@ const Reviews = ({ experienceId }) => {
               </div>
               <p><FaStar /> {review.rating}</p>
             </div>
-            <p className={style.message}>{review.reviewMessage.trim()}
+            <p className={style.message}>{cleanMessage(review.reviewMessage.trim())}
             </p>
           </div>
         ))
