@@ -256,20 +256,33 @@ const handleTimeChange = (startTime, endTime) => {
     console.log(newExperience)
      const error = await addExperience(newExperience);
      if (error) {
-  Swal.fire({
-    imageUrl: '/errorCapi.svg',
-    imageWidth: 200,
-    title: error.data.error,
-    text: "Error: " + error.status,
-    customClass: {
-      confirmButton: 'swalConfirmButton',
-      title: 'swalTitle',
-      htmlContainer: 'swalHtmlContainer',
+      Swal.fire({
+        imageUrl: '/errorCapi.svg',
+        imageWidth: 200,
+        title: error.data.error,
+        text: "Error: " + error.status,
+        customClass: {
+          confirmButton: 'swalConfirmButton',
+          title: 'swalTitle',
+          htmlContainer: 'swalHtmlContainer',
+        }
+      });
+    }else{
+      Swal.fire({
+        imageUrl: '/checkCapi.svg',
+        imageWidth: 200,
+        title: "Saved!",
+        text: "The experience has been created.",
+        customClass: {
+          confirmButton: 'swalConfirmButton',
+          title: 'swalTitle',
+          htmlContainer: 'swalHtmlContainer',
+        }
+      });
+      cancelEdit()
     }
-  });
-}
-cancelEdit();
-  };
+   
+      };
 
   const handleEditExperience = () =>{
       Swal.fire({
@@ -306,7 +319,7 @@ cancelEdit();
               imageUrl: '/checkCapi.svg',
               imageWidth: 200,
               title: "Saved!",
-              text: "The experience has been saved.",
+              text: "The experience has been modified.",
               customClass: {
                 confirmButton: 'swalConfirmButton',
                 title: 'swalTitle',
@@ -376,7 +389,6 @@ cancelEdit();
     e.preventDefault(); 
     if (validate()) {
       idToEdit ? handleEditExperience() : handleAddExperience(e);
-      cancelEdit();
     }
   };
 
