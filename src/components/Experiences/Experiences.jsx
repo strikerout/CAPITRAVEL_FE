@@ -93,7 +93,7 @@ const handleTimeChange = (startTime, endTime) => {
   const handleImagesAdded = (base64Images) => {
     setNewExperience((prevExperience) => ({
       ...prevExperience,
-      images: [...prevExperience.images, ...base64Images], 
+      images: [...prevExperience.images, ...base64Images].slice(0,10), 
     }));
     setIsModified(true);
   };
@@ -519,6 +519,7 @@ cancelEdit();
               <h5>Specifications</h5>
               <div>
                 <label htmlFor="categorySelect">Category</label>
+                <p className={style.mg}>Choose a maximum of 5 categories</p>
                 <div className="container-select">
                 <select
                   id="categorySelect"
@@ -534,7 +535,7 @@ cancelEdit();
                     </option>
                   ))}
                 </select>
-                <button className="buttonAdd" type="button" onClick={handleAddCategory}>
+                <button className={style.buttonAdd} type="button" onClick={handleAddCategory} disabled={newExperience.categoryIds.length >= 5}>
                   Add 
                 </button>
                 </div>
@@ -572,7 +573,7 @@ cancelEdit();
                     </option>
                   ))}
                 </select>
-                <button className="buttonAdd" type="button" onClick={handleAddProperty}>
+                <button className={style.buttonAdd}  type="button" onClick={handleAddProperty}>
                   Add 
                 </button>
                 </div>
@@ -644,9 +645,10 @@ cancelEdit();
           <section>
             <div>
               <h5>Add Images</h5>
+              <p className={style.mg}>{newExperience.images.length} / 10 images uploaded. You can upload fewer if you want.</p>
               <ImageUploader onImagesAdded={handleImagesAdded} />{" "}
               <div>
-                <h6>Uploaded images:</h6>
+                <h6 className={style.mg}>Uploaded images:</h6>
                 <ul className="containerTag">
                   {newExperience.images ? newExperience.images.map((image, index) => (
                     <li key={index} className="imgExperienceForm">
@@ -655,8 +657,7 @@ cancelEdit();
                         alt={`Imagen ${index + 1}`}
                         style={{ width: "100px", height: "auto" }}
                       />
-                      <svg onClick={()=>(handleRemoveImg(index))} xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24"><path d="m8.4 17l3.6-3.6l3.6 3.6l1.4-1.4l-3.6-3.6L17 8.4L15.6 7L12 10.6L8.4 7L7 8.4l3.6 3.6L7 15.6zm3.6 5q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22"/></svg>
-
+                      <svg className={style.deleteIcon} onClick={()=>(handleRemoveImg(index))} xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24"><path d="m8.4 17l3.6-3.6l3.6 3.6l1.4-1.4l-3.6-3.6L17 8.4L15.6 7L12 10.6L8.4 7L7 8.4l3.6 3.6L7 15.6zm3.6 5q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22"/></svg>
                     </li>
                   )):null}
                 </ul> 
