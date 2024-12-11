@@ -296,53 +296,7 @@ const Experiences = () => {
       });
       cancelEdit()
     }
-      };
-
-  // const handleEditExperience = () =>{
-  //     Swal.fire({
-  //       imageUrl: "/errorCapi.svg",
-  //       imageWidth: 200,
-  //       title: error.data.error,
-  //       text: "Error: " + error.status,
-  //       customClass: {
-  //         confirmButton: 'swalConfirmButton',
-  //         cancelButton: 'swalCancelButton',
-  //         title: 'swalTitle',
-  //         htmlContainer: 'swalHtmlContainer',
-  //       }
-  //     }).then( async (result) => {
-  //       if (result.isConfirmed) {
-  //         const error = await editExperience(idToEdit, newExperience);
-  //         if(error){
-  //           Swal.fire({
-  //             imageUrl: '/errorCapi.svg',
-  //             imageWidth: 200,
-  //             title: error.data.error,
-  //             text: "Error: " + error.status,
-  //             customClass: {
-  //               confirmButton: 'swalConfirmButton',
-  //               title: 'swalTitle',
-  //               htmlContainer: 'swalHtmlContainer',
-  //             }
-  //           });
-  //         }else{
-  //           cancelEdit()
-  //           Swal.fire({
-  //             imageUrl: '/checkCapi.svg',
-  //             imageWidth: 200,
-  //             title: "Saved!",
-  //             text: "The experience has been modified.",
-  //             customClass: {
-  //               confirmButton: 'swalConfirmButton',
-  //               title: 'swalTitle',
-  //               htmlContainer: 'swalHtmlContainer',
-  //             }
-  //           });
-  //         }
-  //       }
-  //     });
-  //   }
-  //   cancelEdit();
+  };
 
   const handleEditExperience = () => {
     Swal.fire({
