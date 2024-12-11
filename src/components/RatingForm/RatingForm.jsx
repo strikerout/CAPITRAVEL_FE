@@ -73,7 +73,6 @@ const RatingForm = ({ experience }) => {
               rows="4"
               className={style.textarea}
             />
-            {error && <p className="error">{error}</p>}
             <PrimaryButton type="submit" disabled={rating === 0}>Send Review</PrimaryButton>
           </form>
         </div>
