@@ -11,6 +11,9 @@ const RatingForm = ({ experience }) => {
   const [openModal, setOpenModal] = useState(false);
   const { username } = useAuthLogin();
 
+  const [rating, setRating] = useState(0);
+  const [description, setDescription] = useState("");
+
   const handleShare = () => {
     setOpenModal(true);
   };
@@ -18,8 +21,6 @@ const RatingForm = ({ experience }) => {
   const handleCloseModal = () => {
     setOpenModal(false);
   };
-  const [rating, setRating] = useState(0);
-  const [description, setDescription] = useState("");
 
   const handleRating = (value) => {
     setRating(value);
@@ -27,9 +28,9 @@ const RatingForm = ({ experience }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await createReview(experience.id, username, rating, description);
-    setOpenModal(false);
-    window.location.reload();
+      await createReview(experience.id, username, rating, description.trim());
+      setOpenModal(false);
+      window.location.reload();
   };
 
   return (
@@ -56,11 +57,8 @@ const RatingForm = ({ experience }) => {
                   type="button"
                   key={star}
                   onClick={() => handleRating(star)}
+                  className={style.star}
                   style={{
-                    background: "none",
-                    border: "none",
-                    fontSize: "40px",
-                    cursor: "pointer",
                     color: star <= rating ? "#EB5436" : "#ccc",
                   }}
                 >
@@ -75,12 +73,12 @@ const RatingForm = ({ experience }) => {
               rows="4"
               className={style.textarea}
             />
-            <PrimaryButton type="submit">Send Review</PrimaryButton>
+            {error && <p className="error">{error}</p>}
+            <PrimaryButton type="submit" disabled={rating === 0}>Send Review</PrimaryButton>
           </form>
         </div>
       )}
     </>
   );
-};
-
+}
 export default RatingForm;
