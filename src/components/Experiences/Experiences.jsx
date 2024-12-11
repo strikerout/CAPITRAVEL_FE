@@ -9,8 +9,6 @@ import Swal from "sweetalert2";
 import Loading from "../Loading";
 import TimeRangeSelector from "./TimeRangeSelector/TimeRangeSelector";
 import DaysOfService from "./DaysOfService/DaysOfService";
-
-import SecundaryButton from "../Buttons/SecundaryButton";
 import ClearButton from "../Buttons/ClearButton"
 
 const Experiences = () => {
@@ -114,6 +112,7 @@ const Experiences = () => {
       ...newExperience,
       images: updatedImages,
     });
+    setIsModified(true);
   };
 
   const handleSelectChange = (event) => {
@@ -170,6 +169,7 @@ const Experiences = () => {
       ...newExperience,
       categoryIds: idUpdatedCategories,
     });
+    setIsModified(true);
   };
 
   const handleAddProperty = (e) => {
@@ -217,6 +217,7 @@ const Experiences = () => {
       ...newExperience,
       propertyIds: idUpdatedProperties,
     });
+    setIsModified(true);
   };
 
   const handleRemoveExperience = (id) => {
@@ -295,55 +296,53 @@ const Experiences = () => {
       });
       cancelEdit()
     }
-   
       };
 
-  const handleEditExperience = () =>{
-      Swal.fire({
-        imageUrl: "/errorCapi.svg",
-        imageWidth: 200,
-        title: error.data.error,
-        text: "Error: " + error.status,
-        customClass: {
-          confirmButton: 'swalConfirmButton',
-          cancelButton: 'swalCancelButton',
-          title: 'swalTitle',
-          htmlContainer: 'swalHtmlContainer',
-        }
-      }).then( async (result) => {
-        if (result.isConfirmed) {
-          const error = await editExperience(idToEdit, newExperience);
-          if(error){
-            Swal.fire({
-              imageUrl: '/errorCapi.svg',
-              imageWidth: 200,
-              title: error.data.error,
-              text: "Error: " + error.status,
-              customClass: {
-                confirmButton: 'swalConfirmButton',
-                title: 'swalTitle',
-                htmlContainer: 'swalHtmlContainer',
-              }
-            });
-          }else{
-            cancelEdit()
-            Swal.fire({
-              imageUrl: '/checkCapi.svg',
-              imageWidth: 200,
-              title: "Saved!",
-              text: "The experience has been modified.",
-              customClass: {
-                confirmButton: 'swalConfirmButton',
-                title: 'swalTitle',
-                htmlContainer: 'swalHtmlContainer',
-              }
-            });
-          }
-        }
-      });
-    }
-    cancelEdit();
-  };
+  // const handleEditExperience = () =>{
+  //     Swal.fire({
+  //       imageUrl: "/errorCapi.svg",
+  //       imageWidth: 200,
+  //       title: error.data.error,
+  //       text: "Error: " + error.status,
+  //       customClass: {
+  //         confirmButton: 'swalConfirmButton',
+  //         cancelButton: 'swalCancelButton',
+  //         title: 'swalTitle',
+  //         htmlContainer: 'swalHtmlContainer',
+  //       }
+  //     }).then( async (result) => {
+  //       if (result.isConfirmed) {
+  //         const error = await editExperience(idToEdit, newExperience);
+  //         if(error){
+  //           Swal.fire({
+  //             imageUrl: '/errorCapi.svg',
+  //             imageWidth: 200,
+  //             title: error.data.error,
+  //             text: "Error: " + error.status,
+  //             customClass: {
+  //               confirmButton: 'swalConfirmButton',
+  //               title: 'swalTitle',
+  //               htmlContainer: 'swalHtmlContainer',
+  //             }
+  //           });
+  //         }else{
+  //           cancelEdit()
+  //           Swal.fire({
+  //             imageUrl: '/checkCapi.svg',
+  //             imageWidth: 200,
+  //             title: "Saved!",
+  //             text: "The experience has been modified.",
+  //             customClass: {
+  //               confirmButton: 'swalConfirmButton',
+  //               title: 'swalTitle',
+  //               htmlContainer: 'swalHtmlContainer',
+  //             }
+  //           });
+  //         }
+  //       }
+  //     });
+  //   }
+  //   cancelEdit();
 
   const handleEditExperience = () => {
     Swal.fire({
