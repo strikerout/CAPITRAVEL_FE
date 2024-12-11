@@ -5,6 +5,11 @@
     color: var(--text-color);
     min-height: 100vh;
     padding: 2rem 0;
+    width: 100%;
+    margin: 0 auto;
+    @media(min-width: $mobile){
+      width: 90%;
+    }
   }
   
   .titleSection{
@@ -97,28 +102,36 @@
           }
         }
 
-        .deleteDiv{
+        .actionDiv{
           display: flex;
           justify-content: flex-end;
-          gap: 10px;
+          flex-direction: column;
+          gap: 115px;
           position: absolute;
           bottom: 15px;
           right: 15px;
           @media (min-width: $mobile){
             position: static;
             justify-content: center;
+            align-items: center;
+            flex-direction: row;
+            gap: 10px;
           }
           svg{
-            width: 40px;
+            width: 30px;
             color: $primary-orange;
             @media (min-width: $mobile){
               width: 28px;
             }
           }
           .eyeIcon{
-            display: none;
+    
+            svg{
+              color: $brown;
+            }
             @media (min-width: $mobile){
-              display: inline;
+              display: flex;
+              align-items: center;
             }
           }
         }

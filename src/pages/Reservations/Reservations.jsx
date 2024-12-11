@@ -131,7 +131,8 @@ const Reservations = () => {
   return (
     <section className={style.containerPage}>
       <div className={style.titleSection}>
-        <div className={`formNavigate orange`} onClick={() => navigate('/')}>
+        <PageHeader title={"Back"}/>
+        {/* <div className={`formNavigate orange`} onClick={() => navigate('/')}>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path
               fill="none"
@@ -143,7 +144,7 @@ const Reservations = () => {
             />
           </svg>
           <h4>Back to home</h4>
-        </div>
+        </div> */}
         <div className={style.containerText}>
           <div>
             <h2>
@@ -163,12 +164,12 @@ const Reservations = () => {
         <div className={style.adminList}>
           <div className={`${style.headerList} ${style.reservationsList}`}>
             <h4>ID</h4>
-            <h4>Reservation</h4>
+            <h4>Experience</h4>
             <h4>Check-In</h4>
             <h4>Check-Out</h4>
             <h4>Status</h4>
             <h4>Review</h4>
-            <h4>Action</h4>    
+  
           </div>
           <ul className={`${style.bodyList} ${style.reservationsBody}`}>
             {reservations.map((reservation) => (
@@ -178,7 +179,7 @@ const Reservations = () => {
                 </div>
 
                 <div className={style.infoDiv}>
-                  <h4>Reservation: </h4><Link to={`/reservation/details/${reservation.id}`} className={style.experienceLink}>
+                  <h4>Experience: </h4><Link to={`/product/${reservation.experience.id}`} className={style.experienceLink}>
                     <span className={style.experienceText}>{reservation.experience.title}</span>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="18px" fill="#5f6368" className={style.icon}>
                       <path d="M440-280H280q-83 0-141.5-58.5T80-480q0-83 58.5-141.5T280-680h160v80H280q-50 0-85 35t-35 85q0 50 35 85t85 35h160v80ZM320-440v-80h320v80H320Zm200 160v-80h160q50 0 85-35t35-85q0-50-35-85t-85-35H520v-80h160q83 0 141.5 58.5T880-480q0 83-58.5 141.5T680-280H520Z" />
@@ -219,7 +220,7 @@ const Reservations = () => {
                   }
               </div>
 
-              <div className={style.deleteDiv}>
+              <div className={style.actionDiv}>
                 <Link  to={`/reservation/details/${reservation.id}`} className={style.eyeIcon}>
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M12 9a3 3 0 0 0-3 3a3 3 0 0 0 3 3a3 3 0 0 0 3-3a3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5a5 5 0 0 1 5-5a5 5 0 0 1 5 5a5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5"/>
                   </svg>
