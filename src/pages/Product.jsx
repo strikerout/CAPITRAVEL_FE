@@ -12,9 +12,12 @@ import ButtonShare from "../components/Buttons/ButtonShare/ButtonShare";
 import Reviews from "../components/Reviews/Reviews";
 import ButtonFavorite from "../components/Buttons/ButtonFavorite/ButtonFavorite";
 import ExperienceDates from "../components/ExperienceDates/ExperienceDates";
+import useAuthLogin from "../hooks/useAuthLogin";
+import Swal from 'sweetalert2'
 
 
 const Product = () => {
+  const { username } = useAuthLogin();
   const navigate = useNavigate();
   const { id } = useParams();
   const { fetchExperienceByID, loading, error } = useExperiences();
@@ -24,6 +27,7 @@ const Product = () => {
 
   useEffect(() => {
     const getExperience = async () => {
+      localStorage.setItem("currentExperrience", id)
       try {
         const data = await fetchExperienceByID(id);
         setExperience(data);
@@ -36,10 +40,26 @@ const Product = () => {
   }, [id]);
 
   const checkLoggerUser = async () => {
-    if (!localStorage.getItem("token")) {
-      localStorage.setItem("currentExperrience", id)
-      navigate("/login");
-      return null;
+    if (!username) {
+      Swal.fire({
+        imageUrl: '/warningCapi.svg',
+        imageWidth: 200,
+        title: "You are not logged in",
+        text: "Please log in to book an experience",
+        showCancelButton: true,
+        confirmButtonText: "Log in",
+        customClass: {
+          confirmButton: 'swalConfirmButton',
+          cancelButton: 'swalCancelButton',
+          title: 'swalTitle',
+          htmlContainer: 'swalHtmlContainer',
+        }
+      }).then( async (result) => {
+        if (result.isConfirmed) {
+          navigate("/login");
+        }
+      });
+      return;
     }else{
       navigate(`/confirmbooking/${experience.id}`)
     }

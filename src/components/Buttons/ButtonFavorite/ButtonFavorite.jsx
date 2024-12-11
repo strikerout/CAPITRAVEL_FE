@@ -5,6 +5,7 @@ import selectedFavorite from "../../../../public/selectedFavorite.svg";
 import { useFavorites } from "../../../context/Contex";
 import useAuthLogin from "../../../hooks/useAuthLogin";
 import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2'
 
 const ButtonFavorite = ({ experienceId }) => {
   let { handleToggleFavorite, favoriteExperienceIds, fetchFavorites } = useFavorites();
@@ -26,7 +27,24 @@ const ButtonFavorite = ({ experienceId }) => {
   const handleClick = () => {
     if (!username) {
       console.warn("User is not logged in. Cannot toggle favorite.");
-      navigate("/login");
+      Swal.fire({
+        imageUrl: '/warningCapi.svg',
+        imageWidth: 200,
+        title: "You are not logged in",
+        text: "Please log in to add favorites",
+        showCancelButton: true,
+        confirmButtonText: "Log in",
+        customClass: {
+          confirmButton: 'swalConfirmButton',
+          cancelButton: 'swalCancelButton',
+          title: 'swalTitle',
+          htmlContainer: 'swalHtmlContainer',
+        }
+      }).then( async (result) => {
+        if (result.isConfirmed) {
+          navigate("/login");
+        }
+      });
       return;
     }
 

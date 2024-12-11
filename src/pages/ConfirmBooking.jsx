@@ -18,7 +18,6 @@ const ConfirmBooking = () => {
     if (!localStorage.getItem("token")) {
         localStorage.setItem("currentExperrience", id)
         navigate("/login");
-   
       }
 
    

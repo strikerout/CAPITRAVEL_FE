@@ -483,14 +483,14 @@ body{
             .headerProductInfo{
                     display: flex;
                     align-items: center;
-                    justify-content: space-between;
-                    flex-wrap: wrap;
+             
                     padding-bottom: 25px;
                     border-bottom: 1px solid #BBA79F;
                     margin-bottom: 20px;
                     gap: 10px;
                     .imgAndInfo{
                         display: flex;
+                        gap: 10px;
                     }
 
                     .containerImg{
@@ -508,9 +508,11 @@ body{
                     }
 
                     .ProductInfoTitle{
-                        padding: 10px;
+                        padding: 1px;
                         display: flex;
-                        align-items: center;
+                        flex-direction: column;
+                        align-items: flex-start;
+
                         h3{
                             margin-bottom: 10px;
                         }
@@ -544,6 +546,8 @@ body{
                 }
 
             .variantReservationDet{
+                justify-content: space-between;
+                flex-wrap: wrap;
                 .locationDuration{
                     display: flex;
                     gap: 20px;
@@ -558,6 +562,21 @@ body{
                         justify-content: space-between;
                       }
                 }
+
+                .containerImg{
+                    width: 180px;
+                    height: 200px;
+                    overflow: hidden;
+                    border-radius: 10px;
+                
+       
+                    img{
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
+                }
+
                 .ownerAndButon{
                     display: flex;
                     flex-direction: column;
