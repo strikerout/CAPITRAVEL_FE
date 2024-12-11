@@ -1,4 +1,4 @@
-import React, { useState, useRef  } from "react";
+import React, { useState, useRef, useEffect  } from "react";
 import useCategories from "../../hooks/useCategories";
 import useProperties from "../../hooks/useProperties";
 import useExperiences from "../../hooks/useExperience";
@@ -9,6 +9,8 @@ import Swal from 'sweetalert2'
 import Loading from '../Loading';
 import TimeRangeSelector from "./TimeRangeSelector/TimeRangeSelector";
 import DaysOfService from "./DaysOfService/DaysOfService";
+import SecundaryButton from "../Buttons/SecundaryButton";
+import ClearButton from "../Buttons/ClearButton"
 
 const Experiences = () => {
   const divRef = useRef(null);
@@ -256,20 +258,33 @@ const handleTimeChange = (startTime, endTime) => {
     console.log(newExperience)
      const error = await addExperience(newExperience);
      if (error) {
-  Swal.fire({
-    imageUrl: '/errorCapi.svg',
-    imageWidth: 200,
-    title: error.data.error,
-    text: "Error: " + error.status,
-    customClass: {
-      confirmButton: 'swalConfirmButton',
-      title: 'swalTitle',
-      htmlContainer: 'swalHtmlContainer',
+      Swal.fire({
+        imageUrl: '/errorCapi.svg',
+        imageWidth: 200,
+        title: error.data.error,
+        text: "Error: " + error.status,
+        customClass: {
+          confirmButton: 'swalConfirmButton',
+          title: 'swalTitle',
+          htmlContainer: 'swalHtmlContainer',
+        }
+      });
+    }else{
+      Swal.fire({
+        imageUrl: '/checkCapi.svg',
+        imageWidth: 200,
+        title: "Saved!",
+        text: "The experience has been created.",
+        customClass: {
+          confirmButton: 'swalConfirmButton',
+          title: 'swalTitle',
+          htmlContainer: 'swalHtmlContainer',
+        }
+      });
+      cancelEdit()
     }
-  });
-}
-cancelEdit();
-  };
+   
+      };
 
   const handleEditExperience = () =>{
       Swal.fire({
@@ -306,7 +321,7 @@ cancelEdit();
               imageUrl: '/checkCapi.svg',
               imageWidth: 200,
               title: "Saved!",
-              text: "The experience has been saved.",
+              text: "The experience has been modified.",
               customClass: {
                 confirmButton: 'swalConfirmButton',
                 title: 'swalTitle',
@@ -336,6 +351,7 @@ cancelEdit();
     }); 
     setSelectedCategories([])
     setSelectedProperties([])
+    setIsModified(false)
   };
 
   const validate = () => {
@@ -376,7 +392,6 @@ cancelEdit();
     e.preventDefault(); 
     if (validate()) {
       idToEdit ? handleEditExperience() : handleAddExperience(e);
-      cancelEdit();
     }
   };
 
@@ -422,8 +437,60 @@ cancelEdit();
     setIdToEdit(id);
   };
 
+  const isModifiedRef = useRef(idToEdit);
+
+  useEffect(() => {
+    isModifiedRef.current = isModified;
+  }, [isModified]);
+
+  const idToEditRef = useRef(idToEdit);
+  
+  useEffect(() => {
+    idToEditRef.current = idToEdit;
+  }, [idToEdit]);
+
   function ToggleButton() {
-    setIsActive(!isActive); 
+      if(isModifiedRef.current){
+        Swal.fire({
+          imageUrl: '/warningCapi.svg',
+          imageWidth: 200,
+          title: "Exit without saving?",
+          text: "Your changes will be discard",
+          showCancelButton: true,
+          confirmButtonText: "Yes",
+          customClass: {
+            confirmButton: 'swalConfirmButton',
+            cancelButton: 'swalCancelButton',
+            title: 'swalTitle',
+            htmlContainer: 'swalHtmlContainer',
+          }
+        }).then( (result) => {
+            if (result.isConfirmed) {
+              setIdToEdit('');
+              setNewExperience({
+              title: "",
+              country: "",
+              ubication: "",
+              description: "",
+              quantity: 0,
+              timeUnit: "",
+              images: [],
+              categoryIds: [],
+              propertyIds: [],
+              serviceHours: "",
+              availableDays:[]
+            }); 
+            setSelectedCategories([])
+            setSelectedProperties([])
+            }
+          });
+        }else{
+          setIsActive(!isActive);
+    }
+
+    if(!isActive){
+      cancelEdit()
+    }
 }
 
   return (
@@ -668,10 +735,14 @@ cancelEdit();
             {idToEdit ? (
             <div className="buttonsContainer">
               <PrimaryButton type="submit" disabled={!isModified}>Save</PrimaryButton>
-              <PrimaryButton func={cancelEdit}>Cancel</PrimaryButton>
+              <ClearButton func={cancelEdit}>Cancel</ClearButton>
             </div>
           ) : (
-            <PrimaryButton func={handleSubmit} type="submit" disabled={!isModified}>Add Experience</PrimaryButton>
+            <div className="buttonsContainer">
+              <PrimaryButton func={handleSubmit} type="submit" disabled={!isModified}>Create</PrimaryButton>
+              <ClearButton func={cancelEdit}>Cancel</ClearButton>
+            </div>
+            
           )}
           </section>
 
