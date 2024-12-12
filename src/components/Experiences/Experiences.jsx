@@ -442,7 +442,7 @@ const Experiences = () => {
     if (isActive == false) {
       setIsActive(!isActive);
     }
-
+    setErrors({})
     scrollToDiv();
 
     const toEdit = await fetchExperienceByID(id);
