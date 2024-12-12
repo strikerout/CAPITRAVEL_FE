@@ -248,7 +248,7 @@ body{
 
             .banner-capi-img{
                 width: 120px;
-                z-index: 200;
+                z-index: 1;
                 display: inline;
                 @media(max-width: $mobile){
                     display: none;
