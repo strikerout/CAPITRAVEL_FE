@@ -89,6 +89,7 @@ const Properties = () => {
     setNewProperty({ name: toEdit.name, description: toEdit.description, image: toEdit.image });
     setIdToEdit(id);
     setIsModified(false);
+    setErrors({});
   };
 
   const handleEditProperty = () => {
@@ -143,6 +144,7 @@ const Properties = () => {
     setIdToEdit('');
     setNewProperty({ name: '', description: '', image: '' });
     setIsModified(false);
+    setErrors({});
   };
 
   const handleSubmit = (e) => {

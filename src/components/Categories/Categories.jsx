@@ -100,6 +100,7 @@ const Categories = () => {
   };
 
   const enableEditMode = async (id) => {
+    setErrors({})
     const toEdit = await fetchCategoryByID(id);
     setNewCategory({name: toEdit.name, description: toEdit.description});
     setIdToEdit(id);
@@ -156,6 +157,7 @@ const Categories = () => {
   const cancelEdit = () => {
     setIdToEdit('');
     setNewCategory({ name: '', description: ''});
+    setErrors({})
   };
 
   const handleSubmit = (e) => {
