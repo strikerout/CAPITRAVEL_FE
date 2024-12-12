@@ -364,6 +364,7 @@ const Experiences = () => {
     setSelectedCategories([]);
     setSelectedProperties([]);
     setIsModified(false)
+    setErrors({})
   };
 
   const deleteError = (parameter) => {
@@ -441,7 +442,7 @@ const Experiences = () => {
     if (isActive == false) {
       setIsActive(!isActive);
     }
-
+    setErrors({})
     scrollToDiv();
 
     const toEdit = await fetchExperienceByID(id);
@@ -493,12 +494,34 @@ const Experiences = () => {
     idToEditRef.current = idToEdit;
   }, [idToEdit]);
 
+  const cleanInputs = () => {
+    setIdToEdit('');
+    setNewExperience({
+    title: "",
+    country: "",
+    ubication: "",
+    description: "",
+    quantity: 0,
+    timeUnit: "",
+    images: [],
+    categoryIds: [],
+    propertyIds: [],
+    serviceHours: "",
+    availableDays:[]
+  }); 
+
+  setSelectedCategories([]);
+  setSelectedProperties([]);
+  setErrors({});
+  setIsModified(false);
+  }
+
   function ToggleButton() {
       if(isModifiedRef.current){
         Swal.fire({
           imageUrl: '/warningCapi.svg',
           imageWidth: 200,
-          title: "Exit without saving?",
+          title: "Continue without saving?",
           text: "Your changes will be discard",
           showCancelButton: true,
           confirmButtonText: "Yes",
@@ -510,25 +533,13 @@ const Experiences = () => {
           }
         }).then( (result) => {
             if (result.isConfirmed) {
-              setIdToEdit('');
-              setNewExperience({
-              title: "",
-              country: "",
-              ubication: "",
-              description: "",
-              quantity: 0,
-              timeUnit: "",
-              images: [],
-              categoryIds: [],
-              propertyIds: [],
-              serviceHours: "",
-              availableDays:[]
-            }); 
-            setSelectedCategories([])
-            setSelectedProperties([])
+             cleanInputs();
             }
           });
+        }else if(idToEditRef.current && !isModifiedRef.current){
+          cleanInputs()
         }else{
+          setErrors({});
           setIsActive(!isActive);
     }
 
@@ -542,7 +553,7 @@ const Experiences = () => {
       {loading ? <Loading /> : null}
       <div className={style.titleButtonExp}>
         <h3 ref={divRef}>List Experiences</h3>
-        <PrimaryButton func={ToggleButton}>Create Experience</PrimaryButton>
+        <PrimaryButton func={ToggleButton}>Create new experience</PrimaryButton>
       </div>
 
       <section className="content-general-experience">
