@@ -6,7 +6,6 @@ import {Routes, Route, useLocation } from 'react-router-dom';
 import Product from './pages/Product';
 import AdminPanel from './pages/AdminPanel';
 import CompleteGallery from './pages/CompleteGallery';
-import Loading from './components/Loading';
 import { Register } from './pages/Register';
 import Login from './pages/Login';
 import Favorites from './pages/Favorites/Favorites';

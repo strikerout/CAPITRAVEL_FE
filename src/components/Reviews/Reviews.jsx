@@ -34,7 +34,7 @@ const Reviews = ({ experienceId }) => {
   if (error) return <div>Error: {error}</div>;
 
   const cleanMessage = (message) => {
-    return message.replace(/^"|"$/g, ""); // Elimina las comillas dobles al inicio y final del string
+    return message.replace(/^"|"$/g, ""); 
   };
 
   return (

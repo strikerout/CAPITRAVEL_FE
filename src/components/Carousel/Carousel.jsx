@@ -1,11 +1,8 @@
-import React, { useRef, useState, useEffect } from 'react';
-// Import Swiper React components
+import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { useSwiper } from 'swiper/react';
 import ProductCard from "../Cards/ProductCard";
 import useExperiences from '../../hooks/useExperience'
 
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -13,11 +10,9 @@ import 'swiper/css/scrollbar';
 import 'swiper/css/autoplay';
 import './CarouselMod.scss'
 
-// import required modules
 import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper/modules';
 
 export default function Carousel() {
-  const swiper = useSwiper();
   const {experiences, error, loading} = useExperiences();
 
   if (loading) return <div>Loading...</div>;
@@ -25,7 +20,6 @@ export default function Carousel() {
 
   return (
     <>
-     
       <Swiper
       style={{
         '--swiper-navigation-color': '#562210',

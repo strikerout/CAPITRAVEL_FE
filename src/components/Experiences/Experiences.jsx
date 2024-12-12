@@ -268,7 +268,6 @@ const Experiences = () => {
 
   const handleAddExperience = async (e) => {
     e.preventDefault();
-    console.log(newExperience)
      const error = await addExperience(newExperience);
      if (error) {
       Swal.fire({

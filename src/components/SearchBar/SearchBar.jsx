@@ -8,9 +8,8 @@ import PrimaryButton from "../Buttons/PrimaryButton";
 import useExperiences from "../../hooks/useExperience";
 import ClearButton from "../Buttons/ClearButton";
 
-const SearchBar = ({ search, setSearch }) => {
-  const { loading, countries, findExperiences, setFoundExperiences } =
-    useExperiences();
+const SearchBar = ({ setSearch }) => {
+  const { countries } = useExperiences();
 
   const [keywords, setKeywords] = useState("");
   const [country, setCounty] = useState("");
@@ -22,7 +21,6 @@ const SearchBar = ({ search, setSearch }) => {
 
   const [isMobileExpanded, setIsMobileExpanded] = useState(false);
 
-    // Detectar el tamaño de la ventana y actualizar el estado isMobileExpanded
     useEffect(() => {
       const handleResize = () => {
         if (window.innerWidth >= 1000) { 
@@ -31,11 +29,8 @@ const SearchBar = ({ search, setSearch }) => {
           setIsMobileExpanded(false); 
         }
       };
-    
       handleResize(); 
-    
       window.addEventListener("resize", handleResize); 
-    
       return () => window.removeEventListener("resize", handleResize);
     }, []);
 
@@ -51,7 +46,7 @@ const SearchBar = ({ search, setSearch }) => {
       const formattedDate = date.toISOString().split("T")[0];
       setStringEndDate(formattedDate);
     } else {
-      alert("La fecha de check-out debe ser posterior al check-in.");
+      alert("The check-out date must be after the check-in date.");
     }
   };
 
@@ -126,7 +121,6 @@ const SearchBar = ({ search, setSearch }) => {
                   onChange={(date) => {
                     if (date) {
                       setCheckInDate(date);
-                      // Convertir la fecha al formato yyyy/mm/dd
                       const formattedDate = date.toISOString().split("T")[0];
                       setStringStartDate(formattedDate);
                     } else {

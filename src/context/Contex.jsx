@@ -34,7 +34,6 @@ export const FavoritesProvider = ({ children }) => {
     }
   };
 
-  // Cargar los favoritos desde la API
   const fetchFavorites = useCallback(async (experienceIds = favoriteExperienceIds) => {
     if (!experienceIds || experienceIds.length === 0) {
       if (username) {
@@ -59,7 +58,7 @@ export const FavoritesProvider = ({ children }) => {
   }, [favoriteExperienceIds]);
 
   const handleToggleFavorite = async (email, experienceId) => {
-    const result = await toggleFavorite(email, experienceId); // Suponiendo que esta función realiza la actualización en el servidor
+    const result = await toggleFavorite(email, experienceId); 
 
     if (result.success) {
       setFavoriteExperienceIds((prev) => {

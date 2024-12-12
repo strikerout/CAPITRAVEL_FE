@@ -13,19 +13,18 @@ const ImageUploader = ({ onImagesAdded }) => {
       setLoading(true);
       setError(null);
 
-      // Crear una lista de promesas para subir las imágenes a Cloudinary
       const uploadPromises = acceptedFiles.map(async (file) => {
         const formData = new FormData();
         formData.append('file', file);
-        formData.append('upload_preset', 'unsigned_preset'); // Cambia por tu Upload Preset
-        formData.append('cloud_name', 'dvximkuzi'); // Cambia por tu Cloud Name
+        formData.append('upload_preset', 'unsigned_preset'); 
+        formData.append('cloud_name', 'dvximkuzi'); 
 
         try {
           const response = await axios.post(
             `https://api.cloudinary.com/v1_1/dvximkuzi/image/upload`,
             formData
           );
-          return response.data.secure_url; // Retorna la URL segura de la imagen subida
+          return response.data.secure_url; 
         } catch (err) {
           console.error('Error uploading image:', err);
           throw err;
@@ -33,8 +32,8 @@ const ImageUploader = ({ onImagesAdded }) => {
       });
 
       try {
-        const uploadedUrls = await Promise.all(uploadPromises); // Esperar que todas las imágenes sean subidas
-        onImagesAdded(uploadedUrls); // Pasar las URLs al componente padre
+        const uploadedUrls = await Promise.all(uploadPromises); 
+        onImagesAdded(uploadedUrls);
       } catch (err) {
         setError('Error uploading one or more images. Please try again.');
       } finally {

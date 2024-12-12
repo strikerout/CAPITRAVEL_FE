@@ -18,7 +18,6 @@ const MenuMobile = () => {
         <button className='secundary-button' onClick={() => navigate('/register')}>Create Account</button>
             <button className='primary-button' onClick={() => navigate('/login')}>Log In</button>
         </div>
-        
         </div>
   )
 }

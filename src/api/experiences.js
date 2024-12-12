@@ -1,6 +1,5 @@
 import api from './api';
 
-// Obtener todas las experiencias
 export const getExperiences = async (categoryIds = []) => {
     let url = '/experiences';
     if (categoryIds.length > 0) {
@@ -10,25 +9,21 @@ export const getExperiences = async (categoryIds = []) => {
     return response.data;
 };
 
-// Obtener una experiencia por ID
 export const getExperienceByID = async (id) => {
     const response = await api.get(`/experiences/${id}`);
     return response.data;
 };
 
-// Obtener listado de paises de experiencias
 export const getExperiencesCountries = async () => {
     const response = await api.get(`/experiences/countries`);
     return response.data;
 };
 
-// Buscar experiencias
 export const searchExperiences = async (country, keywords, startDate, endDate) =>{
     const response = await api.get(`/experiences?country=${country}&keywords=${keywords}&startDate=${startDate}&endDate=${endDate}`);
     return response.data;
 }
 
-// Crear una nueva experiencia
 export const createExperience = async (experience) => {
     const token = localStorage.getItem("token");
     const response = await api.post('/experiences', experience,  
@@ -40,7 +35,6 @@ export const createExperience = async (experience) => {
     return response.data;
 };
 
-// Actualizar una experiencia existente
 export const updateExperience = async (id, updatedExperience) => {
     const token = localStorage.getItem("token");
     const response = await api.put(`/experiences/${id}`, updatedExperience, {headers: {
@@ -51,7 +45,6 @@ export const updateExperience = async (id, updatedExperience) => {
     return response.data;
 };
 
-// Eliminar una experiencia
 export const deleteExperience = async (id) => {
     const token = localStorage.getItem("token");
     const response = await api.delete(`/experiences/${id}`, {headers: {

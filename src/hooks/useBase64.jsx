@@ -8,8 +8,8 @@
        const reader = new FileReader();
        reader.readAsDataURL(file);
        reader.onloadend = () => {
-         setBase64Image(reader.result);  //Guardar en el estado
-         resolve(reader.result);  //Retornar el resultado
+         setBase64Image(reader.result);  
+         resolve(reader.result); 
        };
        reader.onerror = reject;
      });

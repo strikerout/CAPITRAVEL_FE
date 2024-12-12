@@ -11,7 +11,6 @@ const DaysOfService = ({ selectedDays, fun }) => {
     { short: "Sun", full: "SUNDAY" },
   ];
 
-
   const handleDayClick = (e, day) => {
     e.preventDefault();
     fun(day.full);

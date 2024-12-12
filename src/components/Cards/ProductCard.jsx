@@ -1,13 +1,13 @@
 
 import React from "react";
 import styles from "./ProductCard.module.scss";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useExperiences from '../../hooks/useExperience';
 import ButtonFavorite from "../Buttons/ButtonFavorite/ButtonFavorite";
 import SkeletonCard from "./SkeletonCard";
 
 const ProductCard = ({data}) => {
-  const {loading, error, fetchExperienceByID} = useExperiences();
+  const {loading, error} = useExperiences();
   if (loading) return <SkeletonCard/>;
   if (error) return <div>Error: {error.message}</div>;
 
@@ -66,6 +66,5 @@ const ProductCard = ({data}) => {
     </>
   );
 };
-
 
 export default ProductCard;

@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styles from "./confirmDatesBook.module.scss"
 import Calendar from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import { FaCalendar } from "react-icons/fa";
 import { RiLoginCircleFill } from "react-icons/ri";
-import { RiLogoutCircleFill } from "react-icons/ri";
 import { getUserByEmail } from "../../api/users";
 import useAuthLogin from "../../hooks/useAuthLogin";
 
@@ -12,7 +10,7 @@ import useAuthLogin from "../../hooks/useAuthLogin";
 const ConfirmDatesBook = ({ data, reservations, onDateTimeSelect }) => {
   const [user, setUser] = useState({});
   const [selectedDate, setSelectedDate] = useState(null);
-  const [checkOut, setCheckOut] = useState(null); // Check-out calculado
+  const [checkOut, setCheckOut] = useState(null); 
   const availableDays = data.availableDays.map((day) => day.toUpperCase());
   const serviceHours = data.serviceHours.split("-");
   const today = new Date();
@@ -33,10 +31,6 @@ const ConfirmDatesBook = ({ data, reservations, onDateTimeSelect }) => {
       userByEmail();
     }
   }, [username]);
-
-  
-
-  console.log(data)
 
   const mapDayToNumber = (day) => {
     const daysMap = {
@@ -186,7 +180,6 @@ const ConfirmDatesBook = ({ data, reservations, onDateTimeSelect }) => {
 
 
         {selectedDate && (
-          
           <div className={styles.reservationDates}>
               <p className={styles.subtitle}>Overview</p>
               <div className={styles.checkInOutContainer}>
@@ -217,7 +210,6 @@ const ConfirmDatesBook = ({ data, reservations, onDateTimeSelect }) => {
 
         <h3>Contact</h3>
         <p>You will receive an email to confirm your reservation</p>
-
         <p className={styles.bold}>Name</p>
         <p>{user.name + " " + user.lastName}</p>
         <p className={styles.bold}>Email</p>

@@ -1,9 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./experienceDates.module.scss";
-import Calendar from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { FaCalendar } from "react-icons/fa";
-
 const ExperienceDates = ({ data }) => {
 
   return (
@@ -13,7 +9,6 @@ const ExperienceDates = ({ data }) => {
       <p>Choose the start time of your experience
       </p>
       </div>
-
       <div>
         <label className={styles.subtitle}>Service hours</label>
         <p>{data.serviceHours}</p>
