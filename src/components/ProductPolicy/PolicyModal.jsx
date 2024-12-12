@@ -6,8 +6,6 @@ import SecundaryButton from "../Buttons/SecundaryButton";
 const PolicyModal = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-
-    // Políticas de uso
     const policies = [
         "1. Acceptance of Terms: By booking or participating in an experience, you agree to these Use Policy.",
         "2. Punctuality: Users are required to arrive at the designated start time and location of the experience. Late arrivals may result in forfeiting the booking.",
@@ -44,7 +42,7 @@ const PolicyModal = () => {
                         <h3 className={styles.policyTitle}>Acceptable Use Policy</h3>
                         <div className={styles.policiesGrid}>
                             {policies.map((policy, index) => {
-                                const [title, description] = policy.split(":"); // Dividir en título y descripción
+                                const [title, description] = policy.split(":"); 
                                 return (
                                     <div key={index} className={styles.policyItem}>
                                         <strong>{title}:</strong> {description}

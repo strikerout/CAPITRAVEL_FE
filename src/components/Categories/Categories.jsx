@@ -167,7 +167,6 @@ const Categories = () => {
     }
   };
 
-
   return ( 
     <>
       {loading ? <Loading/> : null}

@@ -6,12 +6,12 @@ import MenuMobile from './MenuMobile/MenuMobile';
 import ClearButton from './Buttons/ClearButton';
 import PrimaryButton from './Buttons/PrimaryButton';
 
-const Header = ({id}) => {
+const Header = () => {
   const navigate = useNavigate();
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 769); 
-  const {checkToken, role, username, isTokenExpired} = useAuthLogin();
+  const {checkToken, role, username} = useAuthLogin();
 
   useEffect(() => {
     checkToken();
@@ -63,7 +63,6 @@ const Header = ({id}) => {
         </>
         }
 
-        {/* Menú móvil */}
         {isMobileMenuOpen && isMobile &&(
          <MenuMobile/>
         )}

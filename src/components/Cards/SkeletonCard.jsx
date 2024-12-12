@@ -1,9 +1,7 @@
 import React from 'react'
 import styles from "./ProductCard.module.scss";
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css'
 import ContentLoader from "react-content-loader"
-import Loading from "../Loading"
 import { ColorRing } from 'react-loader-spinner'
 
 const SkeletonCard = () => {

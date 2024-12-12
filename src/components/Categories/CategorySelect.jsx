@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import useCategories from '../../hooks/useCategories';
 

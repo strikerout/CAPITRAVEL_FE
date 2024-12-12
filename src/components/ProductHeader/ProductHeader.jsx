@@ -1,6 +1,6 @@
 import React from 'react'
 import style from './ProductHeader.module.scss'
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 
 
 const ProductHeader = ({data}) => {

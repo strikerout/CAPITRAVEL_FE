@@ -2,11 +2,7 @@ import React, { useState } from "react";
 import DatePickerPicker from "react-datepicker";
 import { addDays, getDay } from "react-datepicker/dist/date_utils.d.ts";
 
-import "react-datepicker/dist/react-datepicker.css";
-
 const Calendar = () => {
-
-  
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(null);
     const onChange = (dates) => {
@@ -42,7 +38,6 @@ const Calendar = () => {
                   "react-datepicker__navigation-icon react-datepicker__navigation-icon--previous"
                 }
               >
-                {"<"}
               </span>
             </button>
             <span className="react-datepicker__current-month">
@@ -64,21 +59,11 @@ const Calendar = () => {
                   "react-datepicker__navigation-icon react-datepicker__navigation-icon--next"
                 }
               >
-                {">"}
               </span>
             </button>
           </div>
         )}
-        //selected={startDate}
-        //onChange={(date) => setStartDate(date)}
-       monthsShown={2}
-        //onChange={onChange}
-       // startDate={startDate}
-       // endDate={endDate}
-       // excludeDates={[addDays(new Date(), 1), addDays(new Date(), 5)]}
-       // selectsRange
-       // selectsDisabledDaysInRange
-       // inline
+        monthsShown={2}
         selected={startDate}
         onChange={onChange}
         startDate={startDate}
@@ -88,11 +73,8 @@ const Calendar = () => {
         selectsDisabledDaysInRange
         filterDate={isWeekday}
         placeholderText="Select a weekday"
-
-
       />
     );
   };
 
-  
 export default Calendar;

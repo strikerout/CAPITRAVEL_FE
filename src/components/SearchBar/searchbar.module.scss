@@ -45,7 +45,6 @@
   align-items: flex-start;
   flex-direction: column;
   gap: 18px;
-  margin-top: 18px;
   margin: 0 auto;
 
 
@@ -90,11 +89,11 @@ select {
 }
 
 input, select, .react-datepicker__input-container input {
-    width: 100%; /* Aseguramos que el input ocupe el 100% */
-    padding: 10px; /* Ajustamos el padding si es necesario */
+    width: 100%; 
+    padding: 10px; 
     border-radius: 8px;
     border: 1px solid #ccc;
-    box-sizing: border-box; /* Asegura que el padding no afecte el tamaño total */
+    box-sizing: border-box; 
   }
 
 .icon {

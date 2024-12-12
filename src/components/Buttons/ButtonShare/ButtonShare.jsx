@@ -24,7 +24,6 @@ const ButtonShare = ({ product }) => {
   const shareUrl = window.location.href;
   const title = product.title; 
   const description = product.description; 
-  // const imageUrl = product.images[0];
 
   const handleTwitterShare = () => {
     const text = `Check out this amazing experience I saw on Capitravel! \n\n${title} 😁 #Capitravel`;

@@ -3,8 +3,8 @@ import { FaWhatsapp } from "react-icons/fa";
 import style from "./contactButton.module.scss" 
 
 const ContactButton = () => {
-    const whatsappNumber = "573133776700"; // Reemplaza con tu número de WhatsApp
-    const defaultMessage = "Hi! I want more information"; // Tu mensaje por defecto en inglés
+    const whatsappNumber = "573133776700"; 
+    const defaultMessage = "Hi! I want more information"; 
     const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(defaultMessage)}`;
   
     return (

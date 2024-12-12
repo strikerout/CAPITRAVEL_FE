@@ -1,9 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { createUser, getUsers , resendEmailApi, updateUserRole} from '../api/users';
 
 
 const useUsers = () => {
-
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const [users, setUsers] = useState([]);
@@ -27,7 +26,6 @@ const useUsers = () => {
             const users = await getUsers();
             setUsers(users.data);
         } catch (err) {
-            console.log(err);
             const error = err.response || "Connection error";
             setError(error); 
             return error;
@@ -59,7 +57,6 @@ const useUsers = () => {
             return error.response;
         }
     };
-
 
     return{
         users,

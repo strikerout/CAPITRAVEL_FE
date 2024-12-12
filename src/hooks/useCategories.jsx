@@ -35,9 +35,6 @@ const useCategories = () => {
     fetchCategories();
   }, []);
 
-
-
-  // Agregar una nueva categoría
   const addCategory = async (category) => {
     try {
       const newCategory = await createCategory(category);
@@ -50,7 +47,6 @@ const useCategories = () => {
     }
   };
 
-  // Actualizar una categoría existente
   const editCategory = async (id, updatedCategory) => {
     try {
       const updated = await updateCategory(id, updatedCategory);
@@ -65,7 +61,6 @@ const useCategories = () => {
     }
   };
 
-  // Eliminar una categoría
   const removeCategory = async (id) => {
     try {
       await deleteCategory(id);

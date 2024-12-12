@@ -1,5 +1,3 @@
-// useProperties.js
-
 import { useState, useEffect } from 'react';
 import { getProperties, getPropertyByID, createProperty, updateProperty, deleteProperty} from '../api/properties';
 

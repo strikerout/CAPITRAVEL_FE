@@ -1,6 +1,5 @@
 @use '../../variables' as *;
 
-
 .productFooter {
     display: flex;
     flex-direction: column;
@@ -68,14 +67,12 @@
     }
 }
 
-
 .footerBar {
     display: flex;
     flex-direction: row;
     height: 62px;
     width: 100%;
     background-color: $brown;
-    justify-content: center;
     align-items: center;
     gap: 20px;
     justify-content: space-between;
@@ -85,5 +82,4 @@
         padding-left: 40px;
         padding-right: 30px;
     }
-
 }
