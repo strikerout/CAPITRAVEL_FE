@@ -1,8 +1,11 @@
 @use '../../variables' as *; 
 
 .productDescription{
-    margin: 0 20px;
-    width: 70%;
+    margin: 0 16px;
+    width: 90%;
+    @media(max-width:900px){
+        width: 90%;
+    }
     .productText{
         margin-top: 30px;
         display: flex;
@@ -22,7 +25,6 @@
             width: 20px;
         }
     }
-    
 }
 
 .productProperties{
@@ -31,11 +33,14 @@
     .propertyContainer{
         margin-top: 20px;
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
         gap: 20px;
+        @media(max-width:800px){
+            grid-template-columns: 1fr 1fr;
+        }
     }
     .property{
-        width: 50%;
+        // width: 50%;
         overflow-wrap: break-word;
         img{
             width: 20px;

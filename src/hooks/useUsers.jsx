@@ -24,10 +24,10 @@ const useUsers = () => {
     const fetchUsers = async () =>{
         try {
             setLoading(true);
-            const response = await getUsers();
-            const data = await response.json(); 
-            setUsers(data);
+            const users = await getUsers();
+            setUsers(users.data);
         } catch (err) {
+            console.log(err);
             const error = err.response || "Connection error";
             setError(error); 
             return error;

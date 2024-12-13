@@ -2,18 +2,23 @@
 import React from "react";
 import styles from "./ProductCard.module.scss";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import useExperiences from '../../hooks/useExperience'
+import useExperiences from '../../hooks/useExperience';
+import ButtonFavorite from "../Buttons/ButtonFavorite/ButtonFavorite";
+import SkeletonCard from "./SkeletonCard";
 
 const ProductCard = ({data}) => {
   const {loading, error, fetchExperienceByID} = useExperiences();
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <SkeletonCard/>;
   if (error) return <div>Error: {error.message}</div>;
 
   return (
     <>
     {data ? 
+    <>
+    <ButtonFavorite experienceId={data.id}/>
     <Link to={`/product/${data.id}`} className={styles.productCard}>
       <div className={styles.productImg + " productImg"}>
+        
         <img
           src={data.images[0]}
           alt=""
@@ -29,7 +34,7 @@ const ProductCard = ({data}) => {
                 d="m12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72l3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41l-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18l-1.1 4.72c-.2.86.73 1.54 1.49 1.08z"
               />
             </svg>
-            <p>{data.reputation}</p>
+            <p>{data.reputation > 0 ? data.reputation : "No reviews yet"}</p>
           </div>
           <div className="property">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -43,7 +48,7 @@ const ProductCard = ({data}) => {
         </div>
       </div>
       <div className={styles.cardArrow}>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <svg className="iconInteractive" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path
             fill="none"
             stroke="currentColor"
@@ -55,6 +60,7 @@ const ProductCard = ({data}) => {
         </svg>
       </div>
     </Link> 
+    </>
     :
     <p>Data not found</p>}
     </>

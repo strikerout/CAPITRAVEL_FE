@@ -10,6 +10,12 @@ const Categories = () => {
   const [newCategory, setNewCategory] = useState({ name: '', description: ''});
   const [idToEdit, setIdToEdit] = useState('');
   const [errors, setErrors] = useState({ name: '', description: ''});
+  const [isModified, setIsModified] = useState(false);
+
+  const handleFieldChange = (field, value) => {
+    setNewCategory((prev) => ({ ...prev, [field]: value }));
+    setIsModified(true);
+  };
 
   const validateFields = () => {
     const newErrors = { name: '', description: ''};
@@ -67,8 +73,8 @@ const Categories = () => {
           Swal.fire({
             imageUrl: '/errorCapi.svg',
             imageWidth: 200,
-            title: error.data.error,
-            text: "Error: " + error.status,
+            title: "This category can't be deleted, delete the experiences first.",
+            text: error.data.error,
             customClass: {
               confirmButton: 'swalConfirmButton',
               title: 'swalTitle',
@@ -94,6 +100,7 @@ const Categories = () => {
   };
 
   const enableEditMode = async (id) => {
+    setErrors({})
     const toEdit = await fetchCategoryByID(id);
     setNewCategory({name: toEdit.name, description: toEdit.description});
     setIdToEdit(id);
@@ -150,6 +157,7 @@ const Categories = () => {
   const cancelEdit = () => {
     setIdToEdit('');
     setNewCategory({ name: '', description: ''});
+    setErrors({})
   };
 
   const handleSubmit = (e) => {
@@ -174,9 +182,8 @@ const Categories = () => {
               placeholder="Enter a name"
               id="name"
               value={newCategory.name}
-              onChange={(e) =>
-                setNewCategory({ ...newCategory, name: e.target.value })
-              }
+              onChange={(e) => handleFieldChange('name', e.target.value)}
+              required
             />
             {errors.name && <p className="error">{errors.name}</p>}
           </div>
@@ -189,20 +196,19 @@ const Categories = () => {
               placeholder="Enter a description"
               id="description"
               value={newCategory.description}
-              onChange={(e) =>
-                setNewCategory({ ...newCategory, description: e.target.value })
-              }
+              onChange={(e) => handleFieldChange('description', e.target.value)}
+              required
             />
             {errors.description && <p className="error">{errors.description}</p>}
           </div>
 
           {idToEdit ? (
             <div className="buttonsContainer">
-              <PrimaryButton type="submit">Save category</PrimaryButton>
+              <PrimaryButton type="submit" disabled={!isModified}>Save category</PrimaryButton>
               <PrimaryButton func={cancelEdit}>Cancel</PrimaryButton>
             </div>
           ) : (
-            <PrimaryButton type="submit">Add Category</PrimaryButton>
+            <PrimaryButton type="submit" disabled={!isModified}>Add Category</PrimaryButton>
           )}
         </form>
 
@@ -221,6 +227,7 @@ const Categories = () => {
 
                 <div>
                   <svg
+                    className="iconInteractive"
                     onClick={() => enableEditMode(category.id)}
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -245,6 +252,7 @@ const Categories = () => {
                   </svg>
 
                   <svg
+                    className="iconInteractive"
                     onClick={() => handleRemoveCategory(category.id)}
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 12 12"

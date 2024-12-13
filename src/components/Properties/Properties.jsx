@@ -12,6 +12,12 @@ const Properties = () => {
   const [newProperty, setNewProperty] = useState({ name: '', description: '', image: '' });
   const [idToEdit, setIdToEdit] = useState('');
   const [errors, setErrors] = useState({ name: '', description: '', image: '' });
+  const [isModified, setIsModified] = useState(false);
+
+  const handleFieldChange = (field, value) => {
+    setNewProperty((prev) => ({ ...prev, [field]: value }));
+    setIsModified(true); 
+  };
 
   const handleAddProperty = async() => {
     const error = await addProperty(newProperty);
@@ -82,6 +88,8 @@ const Properties = () => {
     const toEdit = await fetchPropertyByID(id);
     setNewProperty({ name: toEdit.name, description: toEdit.description, image: toEdit.image });
     setIdToEdit(id);
+    setIsModified(false);
+    setErrors({});
   };
 
   const handleEditProperty = () => {
@@ -135,6 +143,8 @@ const Properties = () => {
   const cancelEdit = () => {
     setIdToEdit('');
     setNewProperty({ name: '', description: '', image: '' });
+    setIsModified(false);
+    setErrors({});
   };
 
   const handleSubmit = (e) => {
@@ -165,6 +175,7 @@ const Properties = () => {
       ...prevProperty,
       image: base64Images[0],
     }));
+    setIsModified(true);
   };
   
   const handleRemoveImg = () => {
@@ -172,6 +183,7 @@ const Properties = () => {
       ...newProperty,
       image: '',
     })
+    setIsModified(true);
   }
 
 
@@ -189,7 +201,7 @@ const Properties = () => {
             placeholder="Enter a name"
             id='name'
             value={newProperty.name}
-            onChange={(e) => setNewProperty({ ...newProperty, name: e.target.value })}
+            onChange={(e) => handleFieldChange('name', e.target.value)}
             required
           />
           {errors.name && <p className="error">{errors.name}</p>}
@@ -202,7 +214,7 @@ const Properties = () => {
             placeholder="Enter a description"
             id='description'
             value={newProperty.description}
-            onChange={(e) => setNewProperty({ ...newProperty, description: e.target.value })}
+            onChange={(e) => handleFieldChange('description', e.target.value)}
             required
           />
           {errors.description && <p className="error">{errors.description}</p>}
@@ -224,6 +236,7 @@ const Properties = () => {
                       style={{ width: "100px", height: "auto" }}
                     />
                     <svg
+                      className="iconInteractive"
                       onClick={()=>(handleRemoveImg())}
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
@@ -240,11 +253,11 @@ const Properties = () => {
 
         {idToEdit ? 
           <div className='buttonsContainer'>
-            <PrimaryButton type='submit'>Save Property</PrimaryButton>
+            <PrimaryButton type='submit' disabled={!isModified}>Save Property</PrimaryButton>
             <PrimaryButton func={cancelEdit}>Cancel</PrimaryButton>
           </div>
           : 
-          <PrimaryButton type='submit'>Add Property</PrimaryButton>}
+          <PrimaryButton type='submit' disabled={!isModified}>Add Property</PrimaryButton>}
       </form>
 
       <div className='adminList'>
@@ -263,9 +276,9 @@ const Properties = () => {
               <p>{property.description}</p>
 
               <div>
-                <svg onClick={() => enableEditMode(property.id)} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none"><path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m5 16l-1 4l4-1L19.586 7.414a2 2 0 0 0 0-2.828l-.172-.172a2 2 0 0 0-2.828 0z"/><path fill="currentColor" d="m5 16l-1 4l4-1L18 9l-3-3z"/><path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m15 6l3 3m-5 11h8"/></g></svg>
+                <svg className="iconInteractive" onClick={() => enableEditMode(property.id)} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none"><path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m5 16l-1 4l4-1L19.586 7.414a2 2 0 0 0 0-2.828l-.172-.172a2 2 0 0 0-2.828 0z"/><path fill="currentColor" d="m5 16l-1 4l4-1L18 9l-3-3z"/><path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m15 6l3 3m-5 11h8"/></g></svg>
 
-                <svg onClick={() => handleRemoveProperty(property.id)} xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 12 12"><path fill="#EB5436" d="M5 3h2a1 1 0 0 0-2 0M4 3a2 2 0 1 1 4 0h2.5a.5.5 0 0 1 0 1h-.441l-.443 5.17A2 2 0 0 1 7.623 11H4.377a2 2 0 0 1-1.993-1.83L1.941 4H1.5a.5.5 0 0 1 0-1zm3.5 3a.5.5 0 0 0-1 0v2a.5.5 0 0 0 1 0zM5 5.5a.5.5 0 0 0-.5.5v2a.5.5 0 0 0 1 0V6a.5.5 0 0 0-.5-.5"/></svg>
+                <svg className="iconInteractive" onClick={() => handleRemoveProperty(property.id)} xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 12 12"><path fill="#EB5436" d="M5 3h2a1 1 0 0 0-2 0M4 3a2 2 0 1 1 4 0h2.5a.5.5 0 0 1 0 1h-.441l-.443 5.17A2 2 0 0 1 7.623 11H4.377a2 2 0 0 1-1.993-1.83L1.941 4H1.5a.5.5 0 0 1 0-1zm3.5 3a.5.5 0 0 0-1 0v2a.5.5 0 0 0 1 0zM5 5.5a.5.5 0 0 0-.5.5v2a.5.5 0 0 0 1 0V6a.5.5 0 0 0-.5-.5"/></svg>
               </div>
             </li>
           ))}

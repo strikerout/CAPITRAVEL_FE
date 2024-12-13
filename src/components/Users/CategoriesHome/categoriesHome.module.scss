@@ -1,0 +1,118 @@
+@use '../../../variables' as *; 
+
+.categoriesHome {
+    margin: 20px auto;
+    margin-top: 60px;
+    position: relative; 
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    
+     @media (min-width: 700px) {
+       width: 90%;
+     }
+
+     @media (min-width: 1000px) {
+        width: 70%;
+      }
+  
+    &::before, &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 20px; 
+      z-index: 1; 
+      background: linear-gradient(to right, #FFF0CB, rgba(255, 255, 255, 0));
+    }
+  
+    &::before {
+      left: 0;
+      background: linear-gradient(to right, #FFF0CB, rgba(255, 255, 255, 0));
+    }
+  
+    &::after {
+      right: 0;
+      background: linear-gradient(to left, #FFF0CB, rgba(255, 255, 255, 0));
+    }
+  
+    .clear_filters_btn {
+    color: $brown;
+    text-decoration: underline;
+    width: 100px;
+    margin: 0 auto;
+    background-color: transparent;
+    border: none;
+      &:hover{
+        color: $primary-orange;
+        font-weight: bolder;
+        cursor: pointer;
+      }
+    }
+
+    .categories_list_wrapper {
+      overflow-x: auto;
+      white-space: nowrap;
+      padding-bottom: 18px;
+    
+    }
+  
+    ul {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: flex-start;
+      align-items: center;
+      list-style: none;
+      gap: 10px;
+      padding: 0;
+      margin: 0;
+  
+      li {
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow:0px 2px 0px 0px #562210 ;
+  
+        &:hover {
+          transform: scale(1.05);
+        }
+
+        &.selected {
+          border: 2.5px solid #562210;
+        }
+  
+        p {
+          border-radius: 10px;
+          color: $brown;
+          padding: 7px 15px;
+          background-color: rgba(255, 255, 255, 0.555);
+          text-align: center;
+          margin: 0;
+        }
+      }
+    }
+  
+    ::-webkit-scrollbar {
+      height: 6px;
+    }
+  
+    ::-webkit-scrollbar-track {
+      background: #bba79f21;
+      border-radius: 10px;
+    }
+  
+    ::-webkit-scrollbar-thumb {
+      width: 4px;
+      background: $lightBrown;
+      border-radius: 10px;
+    }
+  
+    ::-webkit-scrollbar-thumb:hover {
+      background: #bba79fc2;
+      cursor: pointer;
+    }
+  
+    ::-webkit-scrollbar-horizontal {
+      height: 4px;
+    }
+  }
